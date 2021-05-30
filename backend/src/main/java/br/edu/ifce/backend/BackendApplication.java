@@ -24,6 +24,8 @@ public class BackendApplication implements CommandLineRunner {
     @Autowired
     private ConfirmationTokenJpaRepository confirmationTokenJpaRepository;
     @Autowired
+    private MessageJpaRepository messageJpaRepository;
+    @Autowired
     private PostJpaRepository postJpaRepository;
 
     public static void main(String[] args) {
@@ -71,5 +73,9 @@ public class BackendApplication implements CommandLineRunner {
         var post3 = new Post(null, "Informações 3", "Descrição do post 3", "Conteúdo do post 3", LocalDateTime.now());
 
         postJpaRepository.saveAll(Arrays.asList(post1, post2, post3));
+      
+        var message1 = new Message(null, "Message 1", "conteúdo da mensagem 1", LocalDateTime.now());
+      
+        messageJpaRepository.save(message1);
     }
 }
