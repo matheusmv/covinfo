@@ -1,14 +1,19 @@
 package br.edu.ifce.backend.domain.entities;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class City {
 
@@ -24,4 +29,14 @@ public class City {
             foreignKey = @ForeignKey(name = "fk_city_state")
     )
     private State state;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "city")
+    private List<Address> addresses = new ArrayList<>();
+
+    public City(Long id, String name, State state) {
+        this.id = id;
+        this.name = name;
+        this.state = state;
+    }
 }

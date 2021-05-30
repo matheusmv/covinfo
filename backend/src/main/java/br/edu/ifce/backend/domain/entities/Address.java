@@ -2,10 +2,7 @@ package br.edu.ifce.backend.domain.entities;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -22,4 +19,11 @@ public class Address {
     private String zip;
     private String neighborhood;
     private String street;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "city_id",
+            foreignKey = @ForeignKey(name = "fk_address_city")
+    )
+    private City city;
 }
