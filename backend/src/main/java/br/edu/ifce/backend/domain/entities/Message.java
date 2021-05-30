@@ -2,7 +2,12 @@ package br.edu.ifce.backend.domain.entities;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -10,20 +15,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Address {
+public class Message {
 
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String zip;
-    private String neighborhood;
-    private String street;
+    private String title;
+    private String content;
+    private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "city_id",
-            foreignKey = @ForeignKey(name = "fk_address_city")
-    )
-    private City city;
 }

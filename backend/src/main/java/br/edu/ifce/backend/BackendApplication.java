@@ -1,15 +1,7 @@
 package br.edu.ifce.backend;
 
-import br.edu.ifce.backend.adpters.db.jpa.AddressJpaRepository;
-import br.edu.ifce.backend.adpters.db.jpa.CityJpaRepository;
-import br.edu.ifce.backend.adpters.db.jpa.ConfirmationTokenJpaRepository;
-import br.edu.ifce.backend.adpters.db.jpa.CountryJpaRepository;
-import br.edu.ifce.backend.adpters.db.jpa.StateJpaRepository;
-import br.edu.ifce.backend.domain.entities.City;
-import br.edu.ifce.backend.domain.entities.ConfirmationToken;
-import br.edu.ifce.backend.domain.entities.Address;
-import br.edu.ifce.backend.domain.entities.Country;
-import br.edu.ifce.backend.domain.entities.State;
+import br.edu.ifce.backend.adpters.db.jpa.*;
+import br.edu.ifce.backend.domain.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +24,8 @@ public class BackendApplication implements CommandLineRunner {
 	  private AddressJpaRepository addressJpaRepository;
     @Autowired
     private ConfirmationTokenJpaRepository confirmationTokenJpaRepository;
+    @Autowired
+    private MessageJpaRepository messageJpaRepository;
   
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
@@ -58,9 +52,9 @@ public class BackendApplication implements CommandLineRunner {
         var city2 = new City(null, "Fortaleza", state1);
         var city3 = new City(null, "Lapão", state2);
 
-        var address1 = new Address(null, "zip1", "neighborhood1", "street1");
-        var address2 = new Address(null, "zip2", "neighborhood2", "street2");
-        var address3 = new Address(null, "zip3", "neighborhood3", "street3");
+        var address1 = new Address(null, "62800000", "centro", "rua1", city1);
+        var address2 = new Address(null, "62800000", "centro", "rua2", city1);
+        var address3 = new Address(null, "62800000", "centro", "rua3", city1);
       
         countryJpaRepository.saveAll(Arrays.asList(country1, country2, country3));
         stateJpaRepository.saveAll(Arrays.asList(state1, state2, state3));
@@ -69,6 +63,10 @@ public class BackendApplication implements CommandLineRunner {
 
         var token1 = new ConfirmationToken(null, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), null);
 
+        var message1 = new Message(null, "Message1", "content1", LocalDateTime.now() );
+
+
         confirmationTokenJpaRepository.save(token1);
+        messageJpaRepository.save(message1);
     }
 }
