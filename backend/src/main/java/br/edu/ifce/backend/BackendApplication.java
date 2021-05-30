@@ -13,7 +13,6 @@ import java.util.Arrays;
 @SpringBootApplication
 public class BackendApplication implements CommandLineRunner {
 
-
     @Autowired
     private CountryJpaRepository countryJpaRepository;
     @Autowired
@@ -21,12 +20,14 @@ public class BackendApplication implements CommandLineRunner {
     @Autowired
     private CityJpaRepository cityJpaRepository;
     @Autowired
-	  private AddressJpaRepository addressJpaRepository;
+    private AddressJpaRepository addressJpaRepository;
     @Autowired
     private ConfirmationTokenJpaRepository confirmationTokenJpaRepository;
     @Autowired
     private MessageJpaRepository messageJpaRepository;
-  
+    @Autowired
+    private PostJpaRepository postJpaRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
     }
@@ -52,10 +53,12 @@ public class BackendApplication implements CommandLineRunner {
         var city2 = new City(null, "Fortaleza", state1);
         var city3 = new City(null, "Lapão", state2);
 
-        var address1 = new Address(null, "62800000", "centro", "rua1", city1);
-        var address2 = new Address(null, "62800000", "centro", "rua2", city1);
-        var address3 = new Address(null, "62800000", "centro", "rua3", city1);
-      
+        var address1 = new Address(null, "62800000", "centro", "Rua 1", city1);
+        var address2 = new Address(null, "62800000", "aeroporto", "Rua 2", city1);
+        var address3 = new Address(null, "62800000", "aeroporto", "Rua 3", city1);
+
+        city1.getAddresses().addAll(Arrays.asList(address1, address2, address3));
+
         countryJpaRepository.saveAll(Arrays.asList(country1, country2, country3));
         stateJpaRepository.saveAll(Arrays.asList(state1, state2, state3));
         cityJpaRepository.saveAll(Arrays.asList(city1, city2, city3));
@@ -63,10 +66,16 @@ public class BackendApplication implements CommandLineRunner {
 
         var token1 = new ConfirmationToken(null, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), null);
 
-        var message1 = new Message(null, "Message1", "content1", LocalDateTime.now() );
-
-
         confirmationTokenJpaRepository.save(token1);
+
+        var post1 = new Post(null, "Informações 1", "Descrição do post 1", "Conteúdo do post 1", LocalDateTime.now());
+        var post2 = new Post(null, "Informações 2", "Descrição do post 2", "Conteúdo do post 2", LocalDateTime.now());
+        var post3 = new Post(null, "Informações 3", "Descrição do post 3", "Conteúdo do post 3", LocalDateTime.now());
+
+        postJpaRepository.saveAll(Arrays.asList(post1, post2, post3));
+      
+        var message1 = new Message(null, "Message 1", "conteúdo da mensagem 1", LocalDateTime.now());
+      
         messageJpaRepository.save(message1);
     }
 }
