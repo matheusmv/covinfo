@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +27,12 @@ public class Address {
             foreignKey = @ForeignKey(name = "fk_address_city")
     )
     private City city;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(
+            name = "user_id",
+            foreignKey = @ForeignKey(name = "fk_address_user")
+    )
+    private User user;
 }
