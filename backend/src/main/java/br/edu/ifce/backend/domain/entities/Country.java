@@ -21,16 +21,16 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    private String name;
     private String initials;
 
     @JsonIgnore
     @OneToMany(mappedBy = "country")
     private List<State> states = new ArrayList<>();
 
-    public Country(Long id, String nome, String initials) {
+    public Country(Long id, String name, String initials) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.initials = initials;
     }
 }
