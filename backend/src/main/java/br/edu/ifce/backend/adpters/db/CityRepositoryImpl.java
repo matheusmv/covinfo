@@ -2,9 +2,9 @@ package br.edu.ifce.backend.adpters.db;
 
 import br.edu.ifce.backend.adpters.db.exceptions.DataIntegrityException;
 import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
-import br.edu.ifce.backend.adpters.db.jpa.StateJpaRepository;
-import br.edu.ifce.backend.domain.entities.State;
-import br.edu.ifce.backend.domain.ports.driven.StateRepository;
+import br.edu.ifce.backend.adpters.db.jpa.CityJpaRepository;
+import br.edu.ifce.backend.domain.entities.City;
+import br.edu.ifce.backend.domain.ports.driven.CityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -13,38 +13,38 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class StateRepositoryImpl implements StateRepository {
+public class CityRepositoryImpl implements CityRepository {
 
-    private final StateJpaRepository stateJpaRepository;
+    private final CityJpaRepository cityJpaRepository;
 
     @Override
-    public void create(State state) {
-        stateJpaRepository.save(state);
+    public void create(City city) {
+        cityJpaRepository.save(city);
     }
 
     @Override
-    public List<State> listAll() {
-        return stateJpaRepository.findAll();
+    public List<City> listAll() {
+        return cityJpaRepository.findAll();
     }
 
     @Override
-    public State findById(Long id) {
-        return stateJpaRepository.findById(id)
+    public City findById(Long id) {
+        return cityJpaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(
-                        String.format("%s with id %d not found.", State.class.getSimpleName(), id)));
+                        String.format("%s with id %d not found.", City.class.getSimpleName(), id)));
     }
 
     @Override
-    public void update(Long id, State state) {
+    public void update(Long id, City city) {
         findById(id);
-        stateJpaRepository.save(state);
+        cityJpaRepository.save(city);
     }
 
     @Override
     public void delete(Long id) {
         findById(id);
         try {
-            stateJpaRepository.deleteById(id);
+            cityJpaRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Cannot delete because there are associated entities.");
         }

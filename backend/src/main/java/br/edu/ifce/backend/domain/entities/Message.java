@@ -1,6 +1,5 @@
 package br.edu.ifce.backend.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +20,6 @@ public class Message {
     private Long id;
     private String title;
     private String content;
-
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime createdAt;
 
     @ManyToOne
