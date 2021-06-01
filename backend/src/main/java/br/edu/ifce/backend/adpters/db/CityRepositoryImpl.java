@@ -7,9 +7,9 @@ import br.edu.ifce.backend.domain.entities.City;
 import br.edu.ifce.backend.domain.ports.driven.CityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -23,8 +23,8 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public List<City> listAll() {
-        return cityJpaRepository.findAll();
+    public Page<City> listAll(PageRequest pageRequest) {
+        return cityJpaRepository.findAll(pageRequest);
     }
 
     @Override

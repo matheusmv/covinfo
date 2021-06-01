@@ -1,9 +1,8 @@
 package br.edu.ifce.backend.domain.ports.driver;
 
 import br.edu.ifce.backend.domain.entities.City;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface GetAllCities {
-    List<City> execute();
+    Page<City> execute(Integer page, Integer linesPerPage, String direction, String orderBy);
 }

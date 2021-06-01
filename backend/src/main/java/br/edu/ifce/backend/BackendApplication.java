@@ -55,7 +55,7 @@ public class BackendApplication implements CommandLineRunner {
 
         country1.getStates().addAll(Arrays.asList(state1, state2, state3));
 
-        var city1 = new City(null, "Arcati", state1);
+        var city1 = new City(null, "Aracati", state1);
         var city2 = new City(null, "Fortaleza", state1);
         var city3 = new City(null, "Lapão", state2);
 
@@ -85,7 +85,11 @@ public class BackendApplication implements CommandLineRunner {
 
         user1.setConfirmationToken(token1);
         user2.setConfirmationToken(token2);
-        user1.setConfirmationToken(token3);
+        user3.setConfirmationToken(token3);
+
+        user1.setCreatedAt(LocalDateTime.now());
+        user2.setCreatedAt(LocalDateTime.now());
+        user3.setCreatedAt(LocalDateTime.now());
 
         userJpaRepository.saveAll(Arrays.asList(user1, user2, user3));
         addressJpaRepository.saveAll(Arrays.asList(address1, address2, address3));

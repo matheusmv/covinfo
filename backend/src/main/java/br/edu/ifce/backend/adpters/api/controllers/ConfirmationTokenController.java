@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/confirmations")
 @AllArgsConstructor
-public class ConfirmationTokeController {
+public class ConfirmationTokenController {
 
     private final GetAllConfirmationTokens getAllConfirmationTokens;
     private final GetAConfirmationTokenById getAConfirmationTokenById;

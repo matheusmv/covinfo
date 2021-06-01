@@ -1,13 +1,13 @@
 package br.edu.ifce.backend.domain.ports.driven;
 
 import br.edu.ifce.backend.domain.entities.City;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface CityRepository {
     void create(City city);
 
-    List<City> listAll();
+    Page<City> listAll(PageRequest pageRequest);
 
     City findById(Long id);
 
