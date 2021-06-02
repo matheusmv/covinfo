@@ -3,6 +3,7 @@ package br.edu.ifce.backend.adpters.api.controllers;
 import br.edu.ifce.backend.adpters.dto.citydtos.CityDTO;
 import br.edu.ifce.backend.adpters.dto.citydtos.CityWithStateDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetACityById;
+import br.edu.ifce.backend.domain.ports.driver.GetACityByName;
 import br.edu.ifce.backend.domain.ports.driver.GetAllCities;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ public class CityController {
 
     private final GetAllCities getAllCities;
     private final GetACityById getACityById;
+    private final GetACityByName getACityByName;
 
     @GetMapping
     public ResponseEntity<Page<CityDTO>> getAllCities(
@@ -33,6 +35,13 @@ public class CityController {
     @GetMapping("/{id}")
     public ResponseEntity<CityWithStateDTO> getACityById(@PathVariable Long id) {
         var city = getACityById.execute(id);
+
+        return ResponseEntity.ok().body(new CityWithStateDTO(city));
+    }
+
+    @GetMapping("/name/{cityName}")
+    public ResponseEntity<CityWithStateDTO> getACityByName(@PathVariable String cityName) {
+        var city = getACityByName.execute(cityName);
 
         return ResponseEntity.ok().body(new CityWithStateDTO(city));
     }

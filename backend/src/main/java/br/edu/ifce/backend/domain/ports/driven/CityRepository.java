@@ -11,6 +11,8 @@ public interface CityRepository {
 
     City findById(Long id);
 
+    City findByName(String name);
+
     void update(Long id, City city);
 
     void delete(Long id);
