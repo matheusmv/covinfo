@@ -35,6 +35,13 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
+    public City findByName(String name) {
+        return cityJpaRepository.findByName(name)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        String.format("%s with name %s not found.", City.class.getSimpleName(), name)));
+    }
+
+    @Override
     public void update(Long id, City city) {
         findById(id);
         cityJpaRepository.save(city);
