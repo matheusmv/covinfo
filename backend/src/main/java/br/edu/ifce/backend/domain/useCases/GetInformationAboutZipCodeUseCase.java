@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.domain.useCases;
 
+import br.edu.ifce.backend.domain.exceptions.InvalidZipException;
 import br.edu.ifce.backend.domain.ports.driven.CityRepository;
 import br.edu.ifce.backend.domain.ports.driven.PostmonConsumer;
 import br.edu.ifce.backend.domain.ports.driver.GetInformationAboutZipCode;
@@ -16,6 +17,10 @@ public class GetInformationAboutZipCodeUseCase implements GetInformationAboutZip
 
     @Override
     public CompleteZipCodeInformation execute(String zip) {
+        if (!zipIsValid(zip)) {
+            throw new InvalidZipException(String.format("The zip code %s does not have a valid format.", zip));
+        }
+
         var zipInformation = postmonConsumer.getZipInformation(zip);
 
         var cityName = zipInformation.getCidade();
@@ -26,5 +31,9 @@ public class GetInformationAboutZipCodeUseCase implements GetInformationAboutZip
                 zipInformation.getCep(),
                 cityInformation
         );
+    }
+
+    private boolean zipIsValid(String zip) {
+        return zip.matches("^[0-9]{5}[-]?[0-9]{3}$");
     }
 }
