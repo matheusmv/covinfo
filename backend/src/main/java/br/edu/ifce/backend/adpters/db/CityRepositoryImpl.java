@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CityRepositoryImpl implements CityRepository {
@@ -39,6 +41,17 @@ public class CityRepositoryImpl implements CityRepository {
         return cityJpaRepository.findByName(name)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("%s with name %s not found.", City.class.getSimpleName(), name)));
+    }
+
+    @Override
+    public List<City> searchByName(String name) {
+        var listOfMatchingCities = cityJpaRepository.findByNameContaining(name);
+
+        if (listOfMatchingCities.isEmpty()) {
+            throw new ObjectNotFoundException(String.format("%s with name %s not found.", City.class.getSimpleName(), name));
+        }
+
+        return listOfMatchingCities;
     }
 
     @Override

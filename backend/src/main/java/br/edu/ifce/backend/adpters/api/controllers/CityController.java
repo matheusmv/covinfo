@@ -3,12 +3,15 @@ package br.edu.ifce.backend.adpters.api.controllers;
 import br.edu.ifce.backend.adpters.dto.citydtos.CityDTO;
 import br.edu.ifce.backend.adpters.dto.citydtos.CityWithStateDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetACityById;
-import br.edu.ifce.backend.domain.ports.driver.GetACityByName;
 import br.edu.ifce.backend.domain.ports.driver.GetAllCities;
+import br.edu.ifce.backend.domain.ports.driver.SearchACityByName;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/cities")
@@ -17,7 +20,7 @@ public class CityController {
 
     private final GetAllCities getAllCities;
     private final GetACityById getACityById;
-    private final GetACityByName getACityByName;
+    private final SearchACityByName searchACityByName;
 
     @GetMapping
     public ResponseEntity<Page<CityDTO>> getAllCities(
@@ -40,9 +43,12 @@ public class CityController {
     }
 
     @GetMapping("/name/{cityName}")
-    public ResponseEntity<CityWithStateDTO> getACityByName(@PathVariable String cityName) {
-        var city = getACityByName.execute(cityName);
+    public ResponseEntity<List<CityDTO>> searchACityByName(@PathVariable String cityName) {
+        var listOfCities = searchACityByName.execute(cityName)
+                .stream()
+                .map(CityDTO::new)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(new CityWithStateDTO(city));
+        return ResponseEntity.ok().body(listOfCities);
     }
 }
