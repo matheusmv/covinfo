@@ -1,3 +1,6 @@
 spring:
   profiles:
     active: test
+
+default:
+  sender: noreply@covinfo.com

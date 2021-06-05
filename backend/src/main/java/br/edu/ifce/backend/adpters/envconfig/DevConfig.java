@@ -1,6 +1,8 @@
 package br.edu.ifce.backend.adpters.envconfig;
 
+import br.edu.ifce.backend.adpters.email.SmtpEmailService;
 import br.edu.ifce.backend.adpters.utils.TestService;
+import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,5 +28,10 @@ public class DevConfig {
 
         testService.InstantiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 }

@@ -12,3 +12,9 @@ spring:
     url: jdbc:mysql://localhost:3306/covinfo?useTimezone=true&serverTimezone=UTC
     username: root
     password: admin
+
+  mail:
+    host: localhost
+    port: 25
+    username: anything
+    password: anything
