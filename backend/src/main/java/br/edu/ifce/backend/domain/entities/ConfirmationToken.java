@@ -1,6 +1,9 @@
 package br.edu.ifce.backend.domain.entities;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ConfirmationToken {
 
@@ -27,4 +29,10 @@ public class ConfirmationToken {
     )
     @MapsId
     private User user;
+
+    public ConfirmationToken(LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
+        this.createdAt = createdAt;
+        this.expiresAt = expiresAt;
+        this.user = user;
+    }
 }

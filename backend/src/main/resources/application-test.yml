@@ -14,3 +14,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  mail:
+    host: localhost
+    port: 25
+    username: anything
+    password: anything
