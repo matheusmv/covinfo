@@ -60,6 +60,7 @@ ALTER TABLE `address` ADD CONSTRAINT `fk_address_city` FOREIGN KEY (`city_id`) R
 
 CREATE TABLE IF NOT EXISTS `confirmation_token` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
+	`token` CHAR(50) NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     `expires_at` TIMESTAMP NOT NULL,
     `confirmed_at` TIMESTAMP,

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -50,15 +51,30 @@ public class TestService {
 
         var user1 = new User(null, "José Almeida", "jose@email.com", "password");
         var address1 = new Address(null, "62800000", "centro", "Rua 1", city1, user1);
-        var token1 = new ConfirmationToken(LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user1);
+        var token1 = new ConfirmationToken(
+                UUID.randomUUID().toString(),
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user1
+        );
 
         var user2 = new User(null, "Maria Alves", "maria@email.com", "password");
         var address2 = new Address(null, "62800000", "aeroporto", "Rua 2", city1, user2);
-        var token2 = new ConfirmationToken(LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user2);
+        var token2 = new ConfirmationToken(
+                UUID.randomUUID().toString(),
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user2
+        );
 
         var user3 = new User(null, "Pedro Paulo", "pedro@email.com", "password");
         var address3 = new Address(null, "62800000", "aeroporto", "Rua 3", city1, user3);
-        var token3 = new ConfirmationToken(LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user3);
+        var token3 = new ConfirmationToken(
+                UUID.randomUUID().toString(),
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user3
+        );
 
         user1.setAddress(address1);
         user2.setAddress(address2);
