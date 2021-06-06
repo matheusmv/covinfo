@@ -1,5 +1,7 @@
 package br.edu.ifce.backend.adpters.dto.userdtos;
 
+import br.edu.ifce.backend.domain.entities.Address;
+import br.edu.ifce.backend.domain.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +13,18 @@ public class UserRegistrationDTO {
     private String fullName;
     private String email;
     private String password;
+    private Address address;
 
-    private String zip;
-    private String neighborhood;
-    private String street;
+    public User toUserWithAddress() {
+        var user = new User();
 
-    private Long stateId;
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        address.setUser(user);
+        user.setAddress(address);
+
+        return user;
+    }
 }

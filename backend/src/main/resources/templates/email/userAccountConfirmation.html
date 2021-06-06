@@ -103,7 +103,7 @@
 
         <article class="msg-content">
             <p>Please confirm your account by clicking the button below:</p>
-            <a class="crfm-btn" th:href="@{http://localhost:8080/api/v1/users/confirmation?token=(${confirmationToken})}">Confirm Email</a>
+            <a class="crfm-btn" th:href="@{http://localhost:8080/api/v1/users/confirmation(token=${confirmationToken})}">Confirm Email</a>
             <p>Once confirmed, you'll be able to log in to COVINFO with your new account.</p>
         </article>
     </div>

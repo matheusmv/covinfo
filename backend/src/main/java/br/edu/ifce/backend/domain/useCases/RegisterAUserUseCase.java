@@ -23,16 +23,12 @@ public class RegisterAUserUseCase implements RegisterAUser {
     @Transactional
     @Override
     public String execute(User user) {
-        var userAddress = user.getAddress();
-        userAddress.setUser(user);
-
         user.setRole(UserRole.USER);
-
-        user.setCreatedAt(LocalDateTime.now());
 
         var token = UUID.randomUUID().toString();
 
         user.setConfirmationToken(createConfirmationToken(token, user));
+        user.setCreatedAt(LocalDateTime.now());
 
         userRepository.create(user);
         emailService.sendUserAccountConfirmationEmail(user, token);
