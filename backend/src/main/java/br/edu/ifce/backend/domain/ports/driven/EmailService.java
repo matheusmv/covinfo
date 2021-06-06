@@ -1,10 +1,11 @@
 package br.edu.ifce.backend.domain.ports.driven;
 
 import br.edu.ifce.backend.domain.entities.User;
-import org.springframework.mail.SimpleMailMessage;
+
+import javax.mail.internet.MimeMessage;
 
 public interface EmailService {
-    void sendUserAccountConfirmationEmail(User user);
+    void sendUserAccountConfirmationEmail(User user, String confirmationToken);
 
-    void sendEmail(SimpleMailMessage message);
+    void sendHtmlEmail(MimeMessage message);
 }
