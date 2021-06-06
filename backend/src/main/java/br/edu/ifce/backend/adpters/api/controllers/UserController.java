@@ -1,10 +1,9 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
-import br.edu.ifce.backend.adpters.db.jpa.UserJpaRepository;
-import br.edu.ifce.backend.domain.entities.User;
+import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
+import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,29 +15,19 @@ public class UserController {
 
     private final RegisterAUser registerAUser;
 
-    @GetMapping
-    public ResponseEntity<?> listAll() {
+    @PostMapping("/registration")
+    public ResponseEntity<String> registerAUser(@RequestBody UserRegistrationDTO request) {
+        var message = registerAUser.execute(request.toUserWithAddress());
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/confirmation")
+    public ResponseEntity<String> confirmANewUser(@RequestParam("token") String token) {
         return null;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> find(@PathVariable Long id) {
-        return null;
-    }
-
-    @PostMapping
-    public ResponseEntity<String> create(@RequestBody User user) {
-        var newUser = registerAUser.execute(user);
-        return new ResponseEntity<String>(newUser, HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody User user, @PathVariable Long id) {
-        return null;
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @PostMapping("/resend-confirmation")
+    public ResponseEntity<?> resendEmailConfirmation(@RequestBody UserDTO request) {
         return null;
     }
 }
