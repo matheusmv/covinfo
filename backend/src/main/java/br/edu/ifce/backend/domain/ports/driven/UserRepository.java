@@ -13,6 +13,8 @@ public interface UserRepository {
 
     User findByEmail(String email);
 
+    Boolean emailIsAlreadyInUse(String email);
+
     void update(Long id, User user);
 
     void delete(Long id);

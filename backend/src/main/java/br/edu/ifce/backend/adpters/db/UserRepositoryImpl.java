@@ -36,7 +36,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findByEmail(String email) {
-        return userJpaRepository.findByEmail(email);
+        return userJpaRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        String.format("%s with email %s not found.", User.class.getSimpleName(), email)));
+    }
+
+    @Override
+    public Boolean emailIsAlreadyInUse(String email) {
+        return userJpaRepository.findByEmail(email).isPresent();
     }
 
     @Override
