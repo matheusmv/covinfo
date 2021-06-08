@@ -3,6 +3,7 @@ package br.edu.ifce.backend.domain.useCases;
 import br.edu.ifce.backend.domain.entities.ConfirmationToken;
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.entities.enums.UserRole;
+import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
@@ -23,17 +24,26 @@ public class RegisterAUserUseCase implements RegisterAUser {
     @Transactional
     @Override
     public String execute(User user) {
-        user.setRole(UserRole.USER);
+        checkIfTheEmailIsAlreadyInUse(user.getEmail());
 
         var token = UUID.randomUUID().toString();
 
         user.setConfirmationToken(createConfirmationToken(token, user));
+        user.setRole(UserRole.USER);
         user.setCreatedAt(LocalDateTime.now());
 
         userRepository.create(user);
         emailService.sendUserAccountConfirmationEmail(user, token);
 
         return "Confirm your email";
+    }
+
+    private void checkIfTheEmailIsAlreadyInUse(String email) {
+        var user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            throw new InvalidEmailException("The email is already in use.");
+        }
     }
 
     private ConfirmationToken createConfirmationToken(String token, User user) {
