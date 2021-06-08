@@ -18,7 +18,7 @@ public class ConfirmationTokeRepositoryImpl implements ConfirmationTokenReposito
     private final ConfirmationTokenJpaRepository confirmationTokenJpaRepository;
 
     @Override
-    public void create(ConfirmationToken confirmationToken) {
+    public void save(ConfirmationToken confirmationToken) {
         confirmationTokenJpaRepository.save(confirmationToken);
     }
 
@@ -32,6 +32,13 @@ public class ConfirmationTokeRepositoryImpl implements ConfirmationTokenReposito
         return confirmationTokenJpaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("%s with id %d not found.", ConfirmationToken.class.getSimpleName(), id)));
+    }
+
+    @Override
+    public ConfirmationToken findByToken(String token) {
+        return confirmationTokenJpaRepository.findByToken(token)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        String.format("%s with value %s not found.", ConfirmationToken.class.getSimpleName(), token)));
     }
 
     @Override

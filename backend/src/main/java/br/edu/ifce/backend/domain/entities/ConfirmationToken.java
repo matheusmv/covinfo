@@ -37,4 +37,8 @@ public class ConfirmationToken {
         this.expiresAt = expiresAt;
         this.user = user;
     }
+
+    public boolean hasExpired() {
+        return expiresAt.isBefore(LocalDateTime.now());
+    }
 }

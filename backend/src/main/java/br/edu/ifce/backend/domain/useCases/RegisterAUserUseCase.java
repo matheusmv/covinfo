@@ -32,7 +32,7 @@ public class RegisterAUserUseCase implements RegisterAUser {
         user.setRole(UserRole.USER);
         user.setCreatedAt(LocalDateTime.now());
 
-        userRepository.create(user);
+        userRepository.save(user);
         emailService.sendUserAccountConfirmationEmail(user, token);
 
         return "Confirm your email";
