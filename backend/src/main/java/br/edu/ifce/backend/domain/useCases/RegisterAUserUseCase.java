@@ -39,9 +39,9 @@ public class RegisterAUserUseCase implements RegisterAUser {
     }
 
     private void checkIfTheEmailIsAlreadyInUse(String email) {
-        var user = userRepository.findByEmail(email);
+        boolean user = userRepository.emailIsAlreadyInUse(email);
 
-        if (user != null) {
+        if (user) {
             throw new InvalidEmailException("The email is already in use.");
         }
     }
