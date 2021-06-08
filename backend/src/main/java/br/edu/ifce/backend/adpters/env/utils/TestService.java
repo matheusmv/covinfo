@@ -1,9 +1,10 @@
-package br.edu.ifce.backend.adpters.utils;
+package br.edu.ifce.backend.adpters.env.utils;
 
 import br.edu.ifce.backend.adpters.db.jpa.*;
 import br.edu.ifce.backend.domain.entities.*;
 import br.edu.ifce.backend.domain.entities.enums.UserRole;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class TestService {
     private final MessageJpaRepository messageJpaRepository;
     private final PostJpaRepository postJpaRepository;
     private final UserJpaRepository userJpaRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public void InstantiateTestDataBase() {
@@ -49,7 +51,7 @@ public class TestService {
         stateJpaRepository.saveAll(Arrays.asList(state1, state2, state3));
         cityJpaRepository.saveAll(Arrays.asList(city1, city2, city3));
 
-        var user1 = new User(null, "José Almeida", "jose@email.com", "password");
+        var user1 = new User(null, "José Almeida", "jose@email.com", passwordEncoder.encode("password"));
         var address1 = new Address(null, "62800000", "centro", "Rua 1", city1, user1);
         var token1 = new ConfirmationToken(
                 UUID.randomUUID().toString(),
@@ -58,7 +60,7 @@ public class TestService {
                 user1
         );
 
-        var user2 = new User(null, "Maria Alves", "maria@email.com", "password");
+        var user2 = new User(null, "Maria Alves", "maria@email.com", passwordEncoder.encode("password"));
         var address2 = new Address(null, "62800000", "aeroporto", "Rua 2", city1, user2);
         var token2 = new ConfirmationToken(
                 UUID.randomUUID().toString(),
@@ -67,7 +69,7 @@ public class TestService {
                 user2
         );
 
-        var user3 = new User(null, "Pedro Paulo", "pedro@email.com", "password");
+        var user3 = new User(null, "Pedro Paulo", "pedro@email.com", passwordEncoder.encode("password"));
         var address3 = new Address(null, "62800000", "aeroporto", "Rua 3", city1, user3);
         var token3 = new ConfirmationToken(
                 UUID.randomUUID().toString(),
@@ -80,9 +82,8 @@ public class TestService {
         user2.setAddress(address2);
         user3.setAddress(address3);
 
-        user1.setRole(UserRole.USER);
-        user2.setRole(UserRole.CONTENT_MANAGER);
-        user3.setRole(UserRole.ADMIN);
+        user2.addRole(UserRole.CONTENT_MANAGER);
+        user3.addRole(UserRole.ADMIN);
 
         user1.setConfirmationToken(token1);
         user2.setConfirmationToken(token2);

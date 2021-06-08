@@ -1,7 +1,7 @@
-package br.edu.ifce.backend.adpters.envconfig;
+package br.edu.ifce.backend.adpters.env.config;
 
 import br.edu.ifce.backend.adpters.email.SmtpEmailService;
-import br.edu.ifce.backend.adpters.utils.TestService;
+import br.edu.ifce.backend.adpters.env.utils.TestService;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
