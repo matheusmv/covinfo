@@ -5,11 +5,13 @@ import br.edu.ifce.backend.domain.entities.ConfirmationToken;
 import java.util.List;
 
 public interface ConfirmationTokenRepository {
-    void create(ConfirmationToken confirmationToken);
+    void save(ConfirmationToken confirmationToken);
 
     List<ConfirmationToken> listAll();
 
     ConfirmationToken findById(Long id);
+
+    ConfirmationToken findByToken(String token);
 
     void update(Long id, ConfirmationToken confirmationToken);
 

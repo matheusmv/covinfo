@@ -5,7 +5,7 @@ import br.edu.ifce.backend.domain.entities.User;
 import java.util.List;
 
 public interface UserRepository {
-    void create(User user);
+    void save(User user);
 
     List<User> listAll();
 

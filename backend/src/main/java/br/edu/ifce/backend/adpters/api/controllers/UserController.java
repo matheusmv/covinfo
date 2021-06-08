@@ -2,9 +2,9 @@ package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
+import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final RegisterAUser registerAUser;
+    private final ConfirmNewUserAccount confirmNewUserAccount;
 
     @PostMapping("/registration")
     public ResponseEntity<String> registerAUser(@RequestBody UserRegistrationDTO request) {
         var message = registerAUser.execute(request.toUserWithAddress());
-        return new ResponseEntity<>(message, HttpStatus.OK);
+
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("/confirmation")
-    public ResponseEntity<String> confirmANewUser(@RequestParam("token") String token) {
-        return null;
+    public ResponseEntity<String> confirmNewUserAccount(@RequestParam("token") String token) {
+        var message = confirmNewUserAccount.execute(token);
+
+        return ResponseEntity.ok().body(message);
     }
 
     @PostMapping("/resend-confirmation")

@@ -27,7 +27,7 @@ public class User {
     private String email;
     private String password;
     private UserRole role;
-    private Boolean locked = false;
+    private Boolean locked = true;
     private Boolean enabled = false;
     private LocalDateTime createdAt;
 
