@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS covinfo;
 CREATE DATABASE IF NOT EXISTS covinfo;
---USE covinfo;
+USE covinfo;
 
 CREATE TABLE IF NOT EXISTS `country` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -36,13 +36,19 @@ CREATE TABLE IF NOT EXISTS `user` (
     `full_name` VARCHAR(50) NOT NULL,
     `email` VARCHAR(100) UNIQUE NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    `role` INTEGER NOT NULL,
     `locked` BOOLEAN NOT NULL,
     `enabled` BOOLEAN NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `user_role` (
+	`role` INTEGER NOT NULL,
+    `user_id` BIGINT NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `user_role` ADD CONSTRAINT `fk_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 CREATE TABLE IF NOT EXISTS `address` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -60,7 +66,7 @@ ALTER TABLE `address` ADD CONSTRAINT `fk_address_city` FOREIGN KEY (`city_id`) R
 
 CREATE TABLE IF NOT EXISTS `confirmation_token` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
-	`token` CHAR(50) NOT NULL,
+    `token` CHAR(50) NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     `expires_at` TIMESTAMP NOT NULL,
     `confirmed_at` TIMESTAMP,
