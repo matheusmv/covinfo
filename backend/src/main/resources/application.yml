@@ -7,4 +7,4 @@ default:
 
 jwt:
   secret: this needs to be changed urgently
-  expiration: 60000
+  expiration: 604800000
