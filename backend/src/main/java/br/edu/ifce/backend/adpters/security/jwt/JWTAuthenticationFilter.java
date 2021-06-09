@@ -50,6 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         var username = ((UserSecurityService) authResult.getPrincipal()).getUsername();
         var token = jwtUtil.generateToken(username);
         response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("access-control-expose-headers", "Authorization");
     }
 
     @Override
