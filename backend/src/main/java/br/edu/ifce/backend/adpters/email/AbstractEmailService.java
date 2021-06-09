@@ -32,7 +32,7 @@ public abstract class AbstractEmailService implements EmailService {
     @Override
     public void sendUserAccountConfirmationEmail(User user, String confirmationToken) {
         try {
-            MimeMessage message = prepareMimeMessageFromUser(user, confirmationToken);
+            MimeMessage message = prepareAccountConfirmationMimeMessageFromUser(user, confirmationToken);
             sendHtmlEmail(message);
         } catch (MessagingException e) {
             LOGGER.error("failed to send email", e);
@@ -40,7 +40,7 @@ public abstract class AbstractEmailService implements EmailService {
         }
     }
 
-    protected MimeMessage prepareMimeMessageFromUser(User user, String confirmationToken) throws MessagingException {
+    protected MimeMessage prepareAccountConfirmationMimeMessageFromUser(User user, String confirmationToken) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
 
@@ -59,5 +59,37 @@ public abstract class AbstractEmailService implements EmailService {
         context.setVariable("confirmationToken", confirmationToken);
 
         return templateEngine.process("email/userAccountConfirmation", context);
+    }
+
+    @Override
+    public void sendNewPasswordEmail(User user, String newPassword) {
+        try {
+            MimeMessage message = preparePasswordResetMimeMessageFromUser(user, newPassword);
+            sendHtmlEmail(message);
+        } catch (MessagingException e) {
+            LOGGER.error("failed to send email", e);
+            throw new EmailServiceException("Failed to send email.");
+        }
+    }
+
+    protected MimeMessage preparePasswordResetMimeMessageFromUser(User user, String newPassword) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
+
+        message.setTo(user.getEmail());
+        message.setFrom(sender);
+        message.setSubject("Password Change Request");
+        message.setSentDate(new Date(System.currentTimeMillis()));
+        message.setText(htmlFromTemplateUserNewPassword(user, newPassword), true);
+
+        return mimeMessage;
+    }
+
+    protected String htmlFromTemplateUserNewPassword(User user, String newPassword) {
+        Context context = new Context();
+        context.setVariable("user", user);
+        context.setVariable("password", newPassword);
+
+        return templateEngine.process("email/userNewPassword", context);
     }
 }
