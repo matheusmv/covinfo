@@ -4,3 +4,7 @@ spring:
 
 default:
   sender: noreply@covinfo.com
+
+jwt:
+  secret: this needs to be changed urgently
+  expiration: 60000
