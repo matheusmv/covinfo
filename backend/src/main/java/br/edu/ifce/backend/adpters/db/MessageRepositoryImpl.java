@@ -4,9 +4,12 @@ import br.edu.ifce.backend.adpters.db.exceptions.DataIntegrityException;
 import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.backend.adpters.db.jpa.MessageJpaRepository;
 import br.edu.ifce.backend.domain.entities.Message;
+import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.ports.driven.MessageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +35,11 @@ public class MessageRepositoryImpl implements MessageRepository {
         return messageJpaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("%s with id %d not found.", Message.class.getSimpleName(), id)));
+    }
+
+    @Override
+    public Page<Message> findByUser(User user, Pageable pageRequest) {
+        return messageJpaRepository.findByUser(user, pageRequest);
     }
 
     @Override
