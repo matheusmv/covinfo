@@ -46,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/states/**",
             "/api/v1/countries/**",
             "/api/v1/posts/**",
-            "/api/v1/users/confirmation",
+            "/api/v1/users/confirmation"
     };
 
     public static final String[] PUBLIC_MATCHERS_POST = {
-            "/api/v1/users/**"
+            "/api/v1/users/**",
+            "/api/v1/auth/forgot/**"
     };
 
     @Override
