@@ -73,4 +73,8 @@ public class UserSecurityService implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public boolean hasRole(UserRole admin) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(admin.getRole()));
+    }
 }
