@@ -18,13 +18,13 @@ public class GetAUserByIdUseCase implements GetAUserById {
 
     @Override
     public User execute(Long id) {
-        var user = userAuthenticationService.getAuthenticatedUser();
+        var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (user == null) {
+        if (authUser == null) {
             throw new AuthorizationException("Access denied.");
         }
 
-        if (!user.hasRole(UserRole.ADMIN) && !id.equals(user.getId())) {
+        if (!authUser.hasRole(UserRole.ADMIN) && !id.equals(authUser.getId())) {
             throw new AuthorizationException("Access denied.");
         }
 
