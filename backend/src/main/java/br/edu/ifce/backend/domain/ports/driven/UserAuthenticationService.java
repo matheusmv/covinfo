@@ -4,4 +4,6 @@ import br.edu.ifce.backend.adpters.security.user.UserSecurityService;
 
 public interface UserAuthenticationService {
     UserSecurityService getAuthenticatedUser();
+
+    String refreshAuthToken(String email);
 }
