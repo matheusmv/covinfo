@@ -24,6 +24,7 @@ public class AuthController {
     public ResponseEntity<Void> refreshUserAuthToken(HttpServletResponse response) {
         var token = refreshUserAuthToken.execute();
         response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("access-control-expose-headers", "Authorization");
         return ResponseEntity.noContent().build();
     }
 
