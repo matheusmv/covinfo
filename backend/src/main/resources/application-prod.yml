@@ -26,3 +26,15 @@ spring:
             enable: true
           ssl:
             enable: true
+
+default:
+  sender: ${MAIL_USERNAME}
+
+jwt:
+  secret: ${SECRET_KEY}
+  expiration: ${EXPIRATION_TIME}
+
+credentials:
+  admin:
+    email: ${ADMIN_EMAIL}
+    password: ${ADMIN_PASSWORD}
