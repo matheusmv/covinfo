@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 
 public class UserSecurityService implements UserDetails {
@@ -17,22 +16,20 @@ public class UserSecurityService implements UserDetails {
     private final String password;
     private final Boolean locked;
     private final Boolean enabled;
-    private final Collection<? extends GrantedAuthority> authorities;
+    private final Set<? extends GrantedAuthority> authorities;
 
     public UserSecurityService(Long id,
                                String email,
                                String password,
                                Boolean locked,
                                Boolean enabled,
-                               Set<UserRole> authorities) {
+                               Set<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.locked = locked;
         this.enabled = enabled;
-        this.authorities = authorities.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole()))
-                .collect(Collectors.toList());
+        this.authorities = authorities;
     }
 
     public Long getId() {

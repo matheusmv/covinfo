@@ -39,16 +39,10 @@ CREATE TABLE IF NOT EXISTS `user` (
     `locked` BOOLEAN NOT NULL,
     `enabled` BOOLEAN NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
+    `role` INTEGER NOT NULL,
     
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS `user_role` (
-	`role` INTEGER NOT NULL,
-    `user_id` BIGINT NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `user_role` ADD CONSTRAINT `fk_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 CREATE TABLE IF NOT EXISTS `address` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,

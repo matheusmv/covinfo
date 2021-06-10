@@ -82,8 +82,8 @@ public class TestService {
         user2.setAddress(address2);
         user3.setAddress(address3);
 
-        user2.addRole(UserRole.CONTENT_MANAGER);
-        user3.addRole(UserRole.ADMIN);
+        user2.setRole(UserRole.CONTENT_MANAGER.getCode());
+        user3.setRole(UserRole.ADMIN.getCode());
 
         user1.setConfirmationToken(token1);
         user2.setConfirmationToken(token2);
