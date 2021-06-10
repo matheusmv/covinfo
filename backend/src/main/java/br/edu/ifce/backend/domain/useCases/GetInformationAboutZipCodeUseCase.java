@@ -24,8 +24,9 @@ public class GetInformationAboutZipCodeUseCase implements GetInformationAboutZip
         var zipInformation = postmonConsumer.getZipInformation(zip);
 
         var cityName = zipInformation.getCidade();
+        var stateInitials = zipInformation.getEstado();
 
-        var cityInformation = cityRepository.findByName(cityName);
+        var cityInformation = cityRepository.findByNameAndStateInitials(cityName, stateInitials);
 
         return new CompleteZipCodeInformation(
                 zipInformation.getCep(),

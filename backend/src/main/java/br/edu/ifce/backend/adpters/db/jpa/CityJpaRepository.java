@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface CityJpaRepository extends JpaRepository<City, Long> {
     @Transactional(readOnly = true)
-    Optional<City> findByName(String name);
+    Optional<City> findByNameAndStateInitials(String name, String stateInitials);
 
     @Transactional(readOnly = true)
     List<City> findByNameContaining(String name);

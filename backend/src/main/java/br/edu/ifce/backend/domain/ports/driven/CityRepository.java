@@ -13,7 +13,7 @@ public interface CityRepository {
 
     City findById(Long id);
 
-    City findByName(String name);
+    City findByNameAndStateInitials(String name, String stateInitials);
 
     List<City> searchByName(String name);
 

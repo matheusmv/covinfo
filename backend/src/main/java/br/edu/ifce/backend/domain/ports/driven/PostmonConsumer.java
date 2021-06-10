@@ -12,5 +12,6 @@ public interface PostmonConsumer {
     class ZipInformation {
         private String cep;
         private String cidade;
+        private String estado;
     }
 }
