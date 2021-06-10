@@ -3,7 +3,6 @@ package br.edu.ifce.backend.adpters.security.config;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthenticationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthorizationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTUtil;
-import br.edu.ifce.backend.domain.entities.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +21,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+
+import static br.edu.ifce.backend.domain.entities.enums.UserRole.*;
 
 @Configuration
 @EnableWebSecurity
@@ -51,8 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     public static final String[] PUBLIC_MATCHERS_POST = {
-            "/api/v1/users/**",
-            "/api/v1/auth/forgot/**"
+            "/api/v1/users/**"
     };
 
     @Override
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
                 .authorizeRequests()
-                .antMatchers("/management/**").hasAnyRole(UserRole.ADMIN.getRole(), UserRole.CONTENT_MANAGER.getRole())
+                .antMatchers("/management/**").hasAnyRole(ADMIN.getRole(), CONTENT_MANAGER.getRole())
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()

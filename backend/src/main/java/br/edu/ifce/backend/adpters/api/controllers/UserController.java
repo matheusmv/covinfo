@@ -5,6 +5,7 @@ import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
 import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
 import br.edu.ifce.backend.domain.ports.driver.ResendAccountConfirmationEmail;
+import br.edu.ifce.backend.domain.ports.driver.ResetUserPassword;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class UserController {
     private final RegisterAUser registerAUser;
     private final ConfirmNewUserAccount confirmNewUserAccount;
     private final ResendAccountConfirmationEmail resendAccountConfirmationEmail;
+    private final ResetUserPassword resetUserPassword;
 
     @PostMapping("/registration")
     public ResponseEntity<String> registerAUser(@RequestBody UserRegistrationDTO request) {
@@ -37,5 +39,12 @@ public class UserController {
         var message = resendAccountConfirmationEmail.execute(request.getEmail());
 
         return ResponseEntity.ok().body(message);
+    }
+
+    @PostMapping("/forgot")
+    public ResponseEntity<Void> resetUserPassword(@RequestBody EmailDTO request) {
+        resetUserPassword.execute(request.getEmail());
+
+        return ResponseEntity.noContent().build();
     }
 }
