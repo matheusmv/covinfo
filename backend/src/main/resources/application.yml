@@ -2,6 +2,9 @@ spring:
   profiles:
     active: test
 
+  jpa:
+    open-in-view: false
+
 default:
   sender: noreply@covinfo.com
 
