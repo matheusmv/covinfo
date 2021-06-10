@@ -11,3 +11,8 @@ default:
 jwt:
   secret: this needs to be changed urgently
   expiration: 604800000
+
+credentials:
+  admin:
+    email: admin@email.com
+    password: super strong and secret password
