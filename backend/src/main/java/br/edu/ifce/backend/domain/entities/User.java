@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -32,14 +31,7 @@ public class User {
     private Boolean locked = true;
     private Boolean enabled = false;
     private LocalDateTime createdAt;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "user_role",
-            foreignKey = @ForeignKey(name = "fk_role_user")
-    )
-    @Column(name = "role")
-    private Set<Integer> roles = new HashSet<>();
+    private Integer role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Address address;
@@ -57,7 +49,7 @@ public class User {
     private List<Post> posts = new ArrayList<>();
 
     public User() {
-        addRole(UserRole.USER);
+        this.role = UserRole.USER.getCode();
     }
 
     public User(Long id, String fullName, String email, String password) {
@@ -65,16 +57,15 @@ public class User {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        addRole(UserRole.USER);
+        this.role = UserRole.USER.getCode();
     }
 
-    public Set<UserRole> getRoles() {
-        return roles.stream()
-                .map(UserRole::toEnum)
-                .collect(Collectors.toSet());
+    public UserRole getRole() {
+        return UserRole.toEnum(role);
     }
 
-    public void addRole(UserRole userRole) {
-        roles.add(userRole.getCode());
+    @JsonIgnore
+    public Set<SimpleGrantedAuthority> getSimpleGrantedAuthorities() {
+        return UserRole.getGrantedAuthorities(role);
     }
 }

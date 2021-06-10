@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getPassword(),
                 user.getLocked(),
                 user.getEnabled(),
-                user.getRoles()
+                user.getSimpleGrantedAuthorities()
         );
     }
 }
