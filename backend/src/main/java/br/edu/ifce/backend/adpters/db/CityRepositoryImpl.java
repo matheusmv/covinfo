@@ -37,8 +37,8 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public City findByName(String name) {
-        return cityJpaRepository.findByName(name)
+    public City findByNameAndStateInitials(String name, String stateInitials) {
+        return cityJpaRepository.findByNameAndStateInitials(name, stateInitials)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("%s with name %s not found.", City.class.getSimpleName(), name)));
     }
