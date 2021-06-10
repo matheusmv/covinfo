@@ -33,10 +33,6 @@ public class JWTUtil {
             var expirationDate = claims.getExpiration();
             var currentDate = new Date(System.currentTimeMillis());
 
-            System.out.println(username);
-            System.out.println(expirationDate);
-            System.out.println(currentDate);
-
             return username != null && expirationDate != null && currentDate.before(expirationDate);
         }
 
