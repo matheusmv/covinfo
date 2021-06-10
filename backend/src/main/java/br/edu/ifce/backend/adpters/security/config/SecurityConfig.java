@@ -3,6 +3,7 @@ package br.edu.ifce.backend.adpters.security.config;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthenticationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthorizationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTUtil;
+import br.edu.ifce.backend.domain.entities.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,11 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String[] PUBLIC_MATCHERS_GET = {
             "/api/v1/zip/**",
+            "/api/v1/users/confirmation",
             "/api/v1/cities/**",
             "/api/v1/states/**",
             "/api/v1/countries/**",
-            "/api/v1/posts/**",
-            "/api/v1/users/confirmation"
+            "/api/v1/posts/**"
     };
 
     public static final String[] PUBLIC_MATCHERS_POST = {
@@ -63,18 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors()
                 .and()
-                .csrf().disable();
-
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
-
-        http
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
                 .authorizeRequests()
+                .antMatchers("/management/**").hasAnyRole(UserRole.ADMIN.getRole(), UserRole.CONTENT_MANAGER.getRole())
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
@@ -92,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
