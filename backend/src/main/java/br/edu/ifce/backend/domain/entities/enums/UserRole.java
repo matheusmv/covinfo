@@ -1,5 +1,7 @@
 package br.edu.ifce.backend.domain.entities.enums;
 
+import java.util.Arrays;
+
 public enum UserRole {
     ADMIN(1, "ROLE_ADMIN"),
     USER(2, "ROLE_USER"),
@@ -22,16 +24,9 @@ public enum UserRole {
     }
 
     public static UserRole toEnum(Integer code) {
-        if (code == null) {
-            return null;
-        }
-
-        for (UserRole role : UserRole.values()) {
-            if (code.equals(role.getCode())) {
-                return role;
-            }
-        }
-
-        throw new IllegalArgumentException("Invalid code: " + code);
+        return Arrays.stream(UserRole.values())
+                .filter(userRole -> code.equals(userRole.getCode()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid code: " + code));
     }
 }
