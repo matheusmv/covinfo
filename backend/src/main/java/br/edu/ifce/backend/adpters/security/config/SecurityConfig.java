@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,7 +23,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-import static br.edu.ifce.backend.domain.entities.enums.UserRole.*;
+import static br.edu.ifce.backend.domain.entities.enums.UserRole.ADMIN;
+import static br.edu.ifce.backend.domain.entities.enums.UserRole.CONTENT_MANAGER;
 
 @Configuration
 @EnableWebSecurity
@@ -54,6 +56,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String[] PUBLIC_MATCHERS_POST = {
             "/api/v1/users/**"
     };
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/swagger-ui.html",
+                        "/webjars/**"
+                );
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
