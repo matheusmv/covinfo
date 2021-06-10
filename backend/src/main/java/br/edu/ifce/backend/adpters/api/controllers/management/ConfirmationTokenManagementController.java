@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.adpters.api.controllers;
+package br.edu.ifce.backend.adpters.api.controllers.management;
 
 import br.edu.ifce.backend.adpters.dto.confirmationtokendtos.ConfirmationTokenDTO;
 import br.edu.ifce.backend.adpters.dto.confirmationtokendtos.ConfirmationTokenWithUserDTO;
@@ -6,7 +6,6 @@ import br.edu.ifce.backend.domain.ports.driver.GetAConfirmationTokenById;
 import br.edu.ifce.backend.domain.ports.driver.GetAllConfirmationTokens;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +15,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/confirmations")
+@RequestMapping("/management/api/v1/confirmations")
 @AllArgsConstructor
-public class ConfirmationTokenController {
+public class ConfirmationTokenManagementController {
 
     private final GetAllConfirmationTokens getAllConfirmationTokens;
     private final GetAConfirmationTokenById getAConfirmationTokenById;
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<ConfirmationTokenDTO>> getAllConfirmationTokens() {
         var listOfTokens = getAllConfirmationTokens.execute()
@@ -34,7 +32,6 @@ public class ConfirmationTokenController {
         return ResponseEntity.ok().body(listOfTokens);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getAConfirmationTokenById(@PathVariable Long id) {
         var token = getAConfirmationTokenById.execute(id);
