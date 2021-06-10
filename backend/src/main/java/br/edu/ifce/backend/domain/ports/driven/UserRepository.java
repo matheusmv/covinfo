@@ -3,6 +3,7 @@ package br.edu.ifce.backend.domain.ports.driven;
 import br.edu.ifce.backend.domain.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository {
     void save(User user);
@@ -11,7 +12,7 @@ public interface UserRepository {
 
     User findById(Long id);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     Boolean emailIsAlreadyInUse(String email);
 

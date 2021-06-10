@@ -1,5 +1,7 @@
 package br.edu.ifce.backend.domain.useCases;
 
+import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
@@ -20,7 +22,9 @@ public class ResendAccountConfirmationEmailUseCase implements ResendAccountConfi
     @Transactional
     @Override
     public String execute(String email) {
-        var user = userRepository.findByEmail(email);
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        String.format("%s with email %s not found.", User.class.getSimpleName(), email)));
 
         if (user.getEnabled()) {
             throw new InvalidEmailException("email already confirmed");

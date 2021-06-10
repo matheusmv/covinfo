@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,10 +36,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userJpaRepository.findByEmail(email)
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        String.format("%s with email %s not found.", User.class.getSimpleName(), email)));
+    public Optional<User> findByEmail(String email) {
+        return userJpaRepository.findByEmail(email);
     }
 
     @Override
