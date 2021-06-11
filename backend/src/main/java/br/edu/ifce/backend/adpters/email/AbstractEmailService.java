@@ -23,6 +23,9 @@ public abstract class AbstractEmailService implements EmailService {
     @Value("${default.sender}")
     private String sender;
 
+    @Value("${default.confirmation-endpoint}")
+    private String confirmationEndpoint;
+
     @Autowired
     private TemplateEngine templateEngine;
 
@@ -57,6 +60,7 @@ public abstract class AbstractEmailService implements EmailService {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("confirmationToken", confirmationToken);
+        context.setVariable("confirmationURL", confirmationEndpoint);
 
         return templateEngine.process("email/userAccountConfirmation", context);
     }

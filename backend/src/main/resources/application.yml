@@ -7,6 +7,7 @@ spring:
 
 default:
   sender: noreply@covinfo.com
+  confirmation-endpoint: http://localhost:8080/api/v1/users/confirmation
 
 jwt:
   secret: this needs to be changed urgently

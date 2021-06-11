@@ -30,6 +30,7 @@ spring:
 
 default:
   sender: ${MAIL_USERNAME}
+  confirmation-endpoint: ${CONFIRMATION_ENDPOINT}
 
 jwt:
   secret: ${SECRET_KEY}
