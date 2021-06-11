@@ -2,11 +2,9 @@ package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageWithContentDTO;
+import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
-import br.edu.ifce.backend.domain.ports.driver.GetAMessageById;
-import br.edu.ifce.backend.domain.ports.driver.GetAllMessagesFromAuthenticatedUser;
-import br.edu.ifce.backend.domain.ports.driver.GetTheAuthenticatedUser;
-import br.edu.ifce.backend.domain.ports.driver.RefreshUserAuthToken;
+import br.edu.ifce.backend.domain.ports.driver.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +21,7 @@ public class AuthenticatedUserController {
     private final RefreshUserAuthToken refreshUserAuthToken;
     private final GetAllMessagesFromAuthenticatedUser getAllMessagesFromAuthenticatedUser;
     private final GetAMessageById getAMessageById;
+    private final CreateAMessage createAMessage;
 
     @GetMapping
     public ResponseEntity<UserDTO> getTheAuthenticatedUser() {
@@ -59,5 +58,12 @@ public class AuthenticatedUserController {
         var message = getAMessageById.execute(id);
 
         return ResponseEntity.ok().body(new MessageWithContentDTO(message));
+    }
+
+    @PostMapping("/messages")
+    public ResponseEntity<Void> createAMessage(@RequestBody NewMessageDTO request) {
+        createAMessage.execute(request.toMessage());
+
+        return ResponseEntity.noContent().build();
     }
 }
