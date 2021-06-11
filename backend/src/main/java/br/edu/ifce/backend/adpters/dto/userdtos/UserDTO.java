@@ -20,6 +20,6 @@ public class UserDTO {
         this.fullName = user.getFullName();
         this.email = user.getEmail();
         this.role = user.getRole().name();
-        this.address = new FullAddressDTO(user.getAddress());
+        this.address = user.getAddress() == null ? null : new FullAddressDTO(user.getAddress());
     }
 }
