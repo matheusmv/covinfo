@@ -3,7 +3,6 @@ package br.edu.ifce.backend.adpters.security.config;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthenticationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTAuthorizationFilter;
 import br.edu.ifce.backend.adpters.security.jwt.JWTUtil;
-import br.edu.ifce.backend.domain.entities.enums.UserPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/management/**").hasAnyRole(ADMIN.name(), CONTENT_MANAGER.name())
+                .antMatchers("/management/**").hasAnyRole(ADMIN.name(), CONTENT_MANAGER.name())
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
