@@ -1,12 +1,10 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.dto.addressdtos.UpdateAddressDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
-import br.edu.ifce.backend.domain.ports.driver.CreateAMessage;
-import br.edu.ifce.backend.domain.ports.driver.GetTheAuthenticatedUser;
-import br.edu.ifce.backend.domain.ports.driver.RefreshUserAuthToken;
-import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserProfile;
+import br.edu.ifce.backend.domain.ports.driver.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +20,7 @@ public class AuthenticatedUserController {
     private final RefreshUserAuthToken refreshUserAuthToken;
     private final CreateAMessage createAMessage;
     private final UpdateAuthenticatedUserProfile updateAuthenticatedUserProfile;
+    private final UpdateAuthenticatedUserAddress updateAuthenticatedUserAddress;
 
     @GetMapping
     public ResponseEntity<UserDTO> getTheAuthenticatedUser() {
@@ -50,6 +49,13 @@ public class AuthenticatedUserController {
     @PutMapping
     public ResponseEntity<Void> updateAuthenticatedUserProfile(@RequestBody UpdateUserDTO request) {
         updateAuthenticatedUserProfile.execute(request.toUser());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/address")
+    public ResponseEntity<Void> updateAuthenticatedUserAddress(@RequestBody UpdateAddressDTO request) {
+        updateAuthenticatedUserAddress.execute(request.toAddress());
 
         return ResponseEntity.noContent().build();
     }
