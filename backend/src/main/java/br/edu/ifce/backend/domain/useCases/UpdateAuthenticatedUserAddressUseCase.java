@@ -12,7 +12,7 @@ import br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class UpdateAuthenticatedUserAddressUseCase implements UpdateAuthenticate
     public void execute(Address newAddress) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (authUser == null) {
+        if (Objects.isNull(authUser)) {
             throw new AuthorizationException("Access denied.");
         }
 
@@ -42,9 +42,9 @@ public class UpdateAuthenticatedUserAddressUseCase implements UpdateAuthenticate
     }
 
     private void updateAddress(Address address, Address newAddress) {
-        boolean newZip = Optional.ofNullable(newAddress.getZip()).isPresent();
-        boolean newNeighborhood = Optional.ofNullable(newAddress.getNeighborhood()).isPresent();
-        boolean newStreet = Optional.ofNullable(newAddress.getStreet()).isPresent();
+        boolean newZip = Objects.nonNull(newAddress.getZip());
+        boolean newNeighborhood = Objects.nonNull(newAddress.getNeighborhood());
+        boolean newStreet = Objects.nonNull(newAddress.getStreet());
 
         if (newZip) {
             var completeZipCodeInformation = getInformationAboutZipCode.execute(newAddress.getZip());

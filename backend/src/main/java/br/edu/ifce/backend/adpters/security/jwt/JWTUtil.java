@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Component
 public class JWTUtil {
@@ -28,12 +29,12 @@ public class JWTUtil {
     public boolean tokenIsValid(String token) {
         var claims = getClaimsToken(token);
 
-        if (claims != null) {
+        if (Objects.nonNull(claims)) {
             var username = claims.getSubject();
             var expirationDate = claims.getExpiration();
             var currentDate = new Date(System.currentTimeMillis());
 
-            return username != null && expirationDate != null && currentDate.before(expirationDate);
+            return Objects.nonNull(username) && Objects.nonNull(expirationDate) && currentDate.before(expirationDate);
         }
 
         return false;
@@ -42,7 +43,7 @@ public class JWTUtil {
     public String getUsername(String token) {
         var claims = getClaimsToken(token);
 
-        if (claims != null) {
+        if (Objects.nonNull(claims)) {
             return claims.getSubject();
         }
 
