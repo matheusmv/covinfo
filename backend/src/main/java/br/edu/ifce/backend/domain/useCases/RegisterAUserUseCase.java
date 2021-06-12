@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.domain.useCases;
 
+import br.edu.ifce.backend.domain.entities.Address;
 import br.edu.ifce.backend.domain.entities.ConfirmationToken;
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
@@ -7,6 +8,8 @@ import br.edu.ifce.backend.domain.exceptions.ValidationException;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
+import br.edu.ifce.backend.domain.useCases.utils.AddressValidation;
+import br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
@@ -30,6 +33,8 @@ public class RegisterAUserUseCase implements RegisterAUser {
     public void execute(User user) {
         validateUserData(user);
 
+        validateUserAddressData(user.getAddress());
+
         checkIfTheEmailIsAlreadyInUse(user.getEmail());
 
         var token = UUID.randomUUID().toString();
@@ -50,6 +55,18 @@ public class RegisterAUserUseCase implements RegisterAUser {
         UserValidationResult result = validation.apply(user);
 
         if (result != UserValidationResult.SUCCESS) {
+            throw new ValidationException(result.getResult());
+        }
+    }
+
+    private void validateUserAddressData(Address address) {
+        AddressValidation validation = AddressValidation.zipIsValid()
+                .and(AddressValidation.neighborhoodIsValid())
+                .and(AddressValidation.streetIsValid());
+
+        AddressValidationResult result = validation.apply(address);
+
+        if (result != AddressValidationResult.SUCCESS) {
             throw new ValidationException(result.getResult());
         }
     }
