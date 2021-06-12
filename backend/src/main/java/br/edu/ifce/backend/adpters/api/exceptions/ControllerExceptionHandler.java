@@ -3,10 +3,7 @@ package br.edu.ifce.backend.adpters.api.exceptions;
 import br.edu.ifce.backend.adpters.db.exceptions.DataIntegrityException;
 import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.backend.adpters.email.exceptions.EmailServiceException;
-import br.edu.ifce.backend.domain.exceptions.AuthorizationException;
-import br.edu.ifce.backend.domain.exceptions.InvalidConfirmationTokenException;
-import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
-import br.edu.ifce.backend.domain.exceptions.InvalidZipException;
+import br.edu.ifce.backend.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -94,6 +91,18 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> forbidden(AuthorizationException exception,
                                                    HttpServletRequest request) {
         var status = HttpStatus.FORBIDDEN;
+        var error = new StandardError(
+                status.value(),
+                exception.getMessage(),
+                Instant.now()
+        );
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<StandardError> validationException(ValidationException exception,
+                                                             HttpServletRequest request) {
+        var status = HttpStatus.UNPROCESSABLE_ENTITY;
         var error = new StandardError(
                 status.value(),
                 exception.getMessage(),

@@ -3,9 +3,12 @@ package br.edu.ifce.backend.domain.useCases;
 import br.edu.ifce.backend.domain.entities.ConfirmationToken;
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
+import br.edu.ifce.backend.domain.exceptions.ValidationException;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
+import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
+import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,9 @@ public class RegisterAUserUseCase implements RegisterAUser {
 
     @Transactional
     @Override
-    public String execute(User user) {
+    public void execute(User user) {
+        validateUserData(user);
+
         checkIfTheEmailIsAlreadyInUse(user.getEmail());
 
         var token = UUID.randomUUID().toString();
@@ -35,8 +40,18 @@ public class RegisterAUserUseCase implements RegisterAUser {
 
         userRepository.save(user);
         emailService.sendUserAccountConfirmationEmail(user, token);
+    }
 
-        return "Confirm your email";
+    private void validateUserData(User user) {
+        UserValidation validation = UserValidation.nameIsValid()
+                .and(UserValidation.emailIsValid())
+                .and(UserValidation.passwordIsValid());
+
+        UserValidationResult result = validation.apply(user);
+
+        if (result != UserValidationResult.SUCCESS) {
+            throw new ValidationException(result.getResult());
+        }
     }
 
     private void checkIfTheEmailIsAlreadyInUse(String email) {
