@@ -21,10 +21,10 @@ public class UserController {
     private final ResetUserPassword resetUserPassword;
 
     @PostMapping("/registration")
-    public ResponseEntity<String> registerAUser(@RequestBody UserRegistrationDTO request) {
-        var message = registerAUser.execute(request.toUserWithAddress());
+    public ResponseEntity<Void> registerAUser(@RequestBody UserRegistrationDTO request) {
+        registerAUser.execute(request.toUserWithAddress());
 
-        return ResponseEntity.ok().body(message);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/confirmation")
