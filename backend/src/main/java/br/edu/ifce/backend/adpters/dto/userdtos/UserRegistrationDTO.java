@@ -13,7 +13,9 @@ public class UserRegistrationDTO {
     private String fullName;
     private String email;
     private String password;
-    private Address address;
+    private String neighborhood;
+    private String street;
+    private String zip;
 
     public User toUserWithAddress() {
         var user = new User();
@@ -21,10 +23,12 @@ public class UserRegistrationDTO {
         user.setFullName(fullName);
         user.setEmail(email);
         user.setPassword(password);
-
-        address.setUser(user);
-        user.setAddress(address);
+        user.setAddress(createAddress(zip, neighborhood, street, user));
 
         return user;
+    }
+
+    private Address createAddress(String zip, String neighborhood, String street, User user) {
+        return new Address(null, zip, neighborhood, street, null, user);
     }
 }

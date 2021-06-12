@@ -1,12 +1,14 @@
 package br.edu.ifce.backend.domain.useCases;
 
 import br.edu.ifce.backend.domain.entities.Address;
+import br.edu.ifce.backend.domain.entities.City;
 import br.edu.ifce.backend.domain.entities.ConfirmationToken;
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.exceptions.InvalidEmailException;
 import br.edu.ifce.backend.domain.exceptions.ValidationException;
 import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
+import br.edu.ifce.backend.domain.ports.driver.GetInformationAboutZipCode;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
 import br.edu.ifce.backend.domain.useCases.utils.AddressValidation;
 import br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult;
@@ -25,6 +27,7 @@ import java.util.UUID;
 public class RegisterAUserUseCase implements RegisterAUser {
 
     private final UserRepository userRepository;
+    private final GetInformationAboutZipCode getInformationAboutZipCode;
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
@@ -69,6 +72,12 @@ public class RegisterAUserUseCase implements RegisterAUser {
         if (result != AddressValidationResult.SUCCESS) {
             throw new ValidationException(result.getResult());
         }
+
+        address.setCity(getCityByZipCode(address.getZip()));
+    }
+
+    private City getCityByZipCode(String zip) {
+        return getInformationAboutZipCode.execute(zip).getCity();
     }
 
     private void checkIfTheEmailIsAlreadyInUse(String email) {
