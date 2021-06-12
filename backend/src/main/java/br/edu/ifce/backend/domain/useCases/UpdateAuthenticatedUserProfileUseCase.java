@@ -9,6 +9,7 @@ import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserProfile;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
 
     private final UserAuthenticationService userAuthenticationService;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
@@ -53,7 +55,8 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
         }
 
         if (newPassword) {
-            user.setPassword(newUser.getPassword());
+            validateNewPassword(newUser.getPassword());
+            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
     }
 
@@ -66,6 +69,14 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
 
         if (result != UserValidationResult.SUCCESS) {
             throw new ValidationException(result.getResult());
+        }
+    }
+
+    private void validateNewPassword(String password) {
+        boolean passwordIsValid = !password.isBlank() && password.length() > 8;
+
+        if (!passwordIsValid) {
+            throw new ValidationException(UserValidationResult.PASSWORD_NOT_VALID.getResult());
         }
     }
 }
