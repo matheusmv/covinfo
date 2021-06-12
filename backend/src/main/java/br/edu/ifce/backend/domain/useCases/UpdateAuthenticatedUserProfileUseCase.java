@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
     public void execute(User newUser) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (authUser == null) {
+        if (Objects.isNull(authUser)) {
             throw new AuthorizationException("Access denied.");
         }
 
@@ -42,9 +42,9 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
     }
 
     private void updateUser(User user, User newUser) {
-        boolean newName = Optional.ofNullable(newUser.getFullName()).isPresent();
-        boolean newEmail = Optional.ofNullable(newUser.getEmail()).isPresent();
-        boolean newPassword = Optional.ofNullable(newUser.getPassword()).isPresent();
+        boolean newName = Objects.nonNull(newUser.getFullName());
+        boolean newEmail = Objects.nonNull(newUser.getEmail());
+        boolean newPassword = Objects.nonNull(newUser.getPassword());
 
         if (newName) {
             user.setFullName(newUser.getFullName());

@@ -8,6 +8,8 @@ import br.edu.ifce.backend.domain.ports.driver.GetTheAuthenticatedUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @AllArgsConstructor
 public class GetTheAuthenticatedUserUseCase implements GetTheAuthenticatedUser {
@@ -19,7 +21,7 @@ public class GetTheAuthenticatedUserUseCase implements GetTheAuthenticatedUser {
     public User execute() {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (authUser == null) {
+        if (Objects.isNull(authUser)) {
             throw new AuthorizationException("Access denied.");
         }
 

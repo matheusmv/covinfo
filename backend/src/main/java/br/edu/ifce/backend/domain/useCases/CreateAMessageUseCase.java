@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class CreateAMessageUseCase implements CreateAMessage {
     public void execute(Message message) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (authUser == null) {
+        if (Objects.isNull(authUser)) {
             throw new AuthorizationException("Access denied.");
         }
 

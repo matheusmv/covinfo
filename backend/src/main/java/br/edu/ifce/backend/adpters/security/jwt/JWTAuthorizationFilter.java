@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -31,9 +32,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         var authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        if (Objects.nonNull(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
             var authToken = getAuthentication(authorizationHeader.substring(7));
-            if (authToken != null) {
+
+            if (Objects.nonNull(authToken)) {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
