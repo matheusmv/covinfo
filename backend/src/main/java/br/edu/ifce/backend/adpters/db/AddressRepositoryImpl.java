@@ -36,6 +36,11 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
+    public Address findByUserId(Long id) {
+        return addressJpaRepository.findByUserId(id);
+    }
+
+    @Override
     public void update(Long id, Address address) {
         findById(id);
         addressJpaRepository.save(address);

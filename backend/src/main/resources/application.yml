@@ -17,3 +17,8 @@ credentials:
   admin:
     email: admin@email.com
     password: super strong and secret password
+
+  opendatasus:
+    api-vacina:
+      username: imunizacao_public
+      password: qlto5t&7r_@+#Tlstigi
