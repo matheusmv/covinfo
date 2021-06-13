@@ -11,6 +11,8 @@ public interface AddressRepository {
 
     Address findById(Long id);
 
+    Address findByUserId(Long id);
+
     void update(Long id, Address address);
 
     void delete(Long id);

@@ -5,6 +5,7 @@ import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
 import br.edu.ifce.backend.domain.ports.driver.*;
+import br.edu.ifce.backend.domain.valueObjects.VaccinationData;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class AuthenticatedUserController {
     private final CreateAMessage createAMessage;
     private final UpdateAuthenticatedUserProfile updateAuthenticatedUserProfile;
     private final UpdateAuthenticatedUserAddress updateAuthenticatedUserAddress;
+    private final GetDataFromTheVaccinationCampaign getDataFromTheVaccinationCampaign;
 
     @GetMapping
     public ResponseEntity<UserDTO> getTheAuthenticatedUser() {
@@ -58,5 +60,12 @@ public class AuthenticatedUserController {
         updateAuthenticatedUserAddress.execute(request.toAddress());
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/vaccination-data")
+    public ResponseEntity<VaccinationData> getDataFromTheVaccinationCampaign() {
+        var data = getDataFromTheVaccinationCampaign.execute();
+
+        return ResponseEntity.ok().body(data);
     }
 }
