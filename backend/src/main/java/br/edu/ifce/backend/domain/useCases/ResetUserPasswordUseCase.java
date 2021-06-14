@@ -1,12 +1,14 @@
 package br.edu.ifce.backend.domain.useCases;
 
-import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.backend.domain.entities.User;
-import br.edu.ifce.backend.domain.ports.driven.EmailService;
+import br.edu.ifce.backend.domain.exceptions.InvalidConfirmationTokenException;
+import br.edu.ifce.backend.domain.exceptions.ValidationException;
+import br.edu.ifce.backend.domain.ports.driven.PasswordTokenRepository;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.ResetUserPassword;
+import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
+import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,27 +17,38 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class ResetUserPasswordUseCase implements ResetUserPassword {
 
+    private final PasswordTokenRepository passwordTokenRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EmailService emailService;
 
     @Transactional
     @Override
-    public void execute(String email) {
-        var user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        String.format("%s with email %s not found.", User.class.getSimpleName(), email)));
+    public void execute(String token, String newPassword) {
+        var passwordToken = passwordTokenRepository.findByToken(token);
 
-        var password = newRandomPassword();
+        if (passwordToken.hasExpired()) {
+            throw new InvalidConfirmationTokenException("token expired");
+        }
 
-        user.setPassword(bCryptPasswordEncoder.encode(password));
+        var user = passwordToken.getUser();
+
+        user.setPassword(newPassword);
+
+        validateUserPassword(user);
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         userRepository.save(user);
-
-        emailService.sendNewPasswordEmail(user, password);
+        passwordTokenRepository.delete(passwordToken.getId());
     }
 
-    private String newRandomPassword() {
-        return RandomStringUtils.random(10, true, true);
+    private void validateUserPassword(User user) {
+        UserValidation validation = UserValidation.passwordIsValid();
+
+        UserValidationResult result = validation.apply(user);
+
+        if (result != UserValidationResult.SUCCESS) {
+            throw new ValidationException(result.getResult());
+        }
     }
 }

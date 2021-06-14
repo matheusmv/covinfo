@@ -1,11 +1,9 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.dto.userdtos.EmailDTO;
+import br.edu.ifce.backend.adpters.dto.userdtos.PasswordDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
-import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
-import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
-import br.edu.ifce.backend.domain.ports.driver.ResendAccountConfirmationEmail;
-import br.edu.ifce.backend.domain.ports.driver.ResetUserPassword;
+import br.edu.ifce.backend.domain.ports.driver.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +16,7 @@ public class UserController {
     private final RegisterAUser registerAUser;
     private final ConfirmNewUserAccount confirmNewUserAccount;
     private final ResendAccountConfirmationEmail resendAccountConfirmationEmail;
+    private final SendLinkToChangePassword sendLinkToChangePassword;
     private final ResetUserPassword resetUserPassword;
 
     @PostMapping("/registration")
@@ -42,8 +41,15 @@ public class UserController {
     }
 
     @PostMapping("/forgot")
-    public ResponseEntity<Void> resetUserPassword(@RequestBody EmailDTO request) {
-        resetUserPassword.execute(request.getEmail());
+    public ResponseEntity<Void> sendLinkToChangePassword(@RequestBody EmailDTO request) {
+        sendLinkToChangePassword.execute(request.getEmail());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/reset")
+    public ResponseEntity<Void> resetUserPassword(@RequestParam("token") String token, @RequestBody PasswordDTO request) {
+        resetUserPassword.execute(token, request.getPassword());
 
         return ResponseEntity.noContent().build();
     }
