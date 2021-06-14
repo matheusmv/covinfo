@@ -67,6 +67,18 @@ CREATE TABLE IF NOT EXISTS `confirmation_token` (
 
 ALTER TABLE `confirmation_token` ADD CONSTRAINT `fk_confirmation_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
+CREATE TABLE IF NOT EXISTS `password_token` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
+    `token` CHAR(50) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    `expires_at` TIMESTAMP NOT NULL,
+    `user_id` BIGINT NOT NULL,
+
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+ALTER TABLE `password_token` ADD CONSTRAINT `fk_password_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
 CREATE TABLE IF NOT EXISTS `message` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
     `title` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,

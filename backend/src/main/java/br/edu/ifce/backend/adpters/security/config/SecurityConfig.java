@@ -57,6 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/users/**"
     };
 
+    public static final String[] PUBLIC_MATCHERS_PUT = {
+            "/api/v1/users/reset"
+    };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
@@ -89,6 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/management/**").hasAnyRole(ADMIN.name(), CONTENT_MANAGER.name())
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+                .antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest()
                 .authenticated();
