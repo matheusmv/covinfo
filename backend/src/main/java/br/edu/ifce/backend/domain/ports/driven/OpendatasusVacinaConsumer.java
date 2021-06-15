@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-public interface OpendatasusConsumer {
+public interface OpendatasusVacinaConsumer {
 
     VaccinationRates obtainVaccinationRates(String stateAcronym, String cityName);
 

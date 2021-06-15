@@ -18,7 +18,16 @@ credentials:
     email: admin@email.com
     password: super strong and secret password
 
+  postmon-cep:
+    url: https://api.postmon.com.br
+
   opendatasus:
     api-vacina:
+      url: https://imunizacao-es.saude.gov.br
       username: imunizacao_public
       password: qlto5t&7r_@+#Tlstigi
+
+    api-leitos:
+      url: https://elastic-leitos.saude.gov.br/leito_ocupacao
+      username: user-api-leitos
+      password: aQbLL3ZStaTr38tj
