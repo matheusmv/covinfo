@@ -1,6 +1,6 @@
 package br.edu.ifce.backend.adpters.consumers.opendatasus;
 
-import br.edu.ifce.backend.domain.ports.driven.OpendatasusConsumer;
+import br.edu.ifce.backend.domain.ports.driven.OpendatasusVacinaConsumer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @AllArgsConstructor
-public class OpendatasusConsumerImpl implements OpendatasusConsumer {
+public class OpendatasusVacinaConsumerImpl implements OpendatasusVacinaConsumer {
 
     private final WebClient webClientOpendatasusVacina;
 

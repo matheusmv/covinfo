@@ -5,12 +5,14 @@ import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
 import br.edu.ifce.backend.domain.ports.driver.*;
+import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
 import br.edu.ifce.backend.domain.valueObjects.VaccinationData;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -23,6 +25,7 @@ public class AuthenticatedUserController {
     private final UpdateAuthenticatedUserProfile updateAuthenticatedUserProfile;
     private final UpdateAuthenticatedUserAddress updateAuthenticatedUserAddress;
     private final GetDataFromTheVaccinationCampaign getDataFromTheVaccinationCampaign;
+    private final ListTheMedicalCareUnitsInTheCity listTheMedicalCareUnitsInTheCity;
 
     @GetMapping
     public ResponseEntity<UserDTO> getTheAuthenticatedUser() {
@@ -65,6 +68,13 @@ public class AuthenticatedUserController {
     @GetMapping("/vaccination-data")
     public ResponseEntity<VaccinationData> getDataFromTheVaccinationCampaign() {
         var data = getDataFromTheVaccinationCampaign.execute();
+
+        return ResponseEntity.ok().body(data);
+    }
+
+    @GetMapping("/service-units")
+    public ResponseEntity<List<MedicalCareUnityInfo>> listTheMedicalCareUnitsInTheCity() {
+        var data = listTheMedicalCareUnitsInTheCity.execute();
 
         return ResponseEntity.ok().body(data);
     }

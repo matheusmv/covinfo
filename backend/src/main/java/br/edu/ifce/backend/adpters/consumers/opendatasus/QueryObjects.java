@@ -42,4 +42,13 @@ public class QueryObjects {
 
         return jsonParser.toJson(query);
     }
+
+    protected String medicalCareUnitsQuery(String stateName, String cityName) {
+        queryParameters.add(Map.of("match", Map.of("estado", stateName)));
+        queryParameters.add(Map.of("match", Map.of("municipio", cityName)));
+
+        query.put("query", Map.of("bool", Map.of("must", queryParameters)));
+
+        return jsonParser.toJson(query);
+    }
 }
