@@ -7,6 +7,8 @@ import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> listAll() {
-        return userJpaRepository.findAll();
+    public Page<User> listAll(Pageable pageable) {
+        return userJpaRepository.findAll(pageable);
     }
 
     @Override
