@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -32,6 +33,7 @@ public abstract class AbstractEmailService implements EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Async
     @Override
     public void sendUserAccountConfirmationEmail(User user, String confirmationToken) {
         try {
@@ -65,6 +67,7 @@ public abstract class AbstractEmailService implements EmailService {
         return templateEngine.process("email/userAccountConfirmation", context);
     }
 
+    @Async
     @Override
     public void sendNewPasswordEmail(User user, String newPassword) {
         try {

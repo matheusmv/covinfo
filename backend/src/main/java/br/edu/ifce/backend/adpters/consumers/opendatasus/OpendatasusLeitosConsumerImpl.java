@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,13 +24,8 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
 
         return findMedicalCareUnits(medicalCareUnitsQuery)
                 .map(Hits::getHitsArray)
-                .map(HitsArray::getSources)
-                .map(sources -> sources.stream()
-                        .map(Source::getMedicalCareUnity)
-                        .collect(Collectors.toList()))
-                .map(medicalCareUnities -> medicalCareUnities.stream()
-                        .map(this::medicalCareUnits)
-                        .collect(Collectors.toList()))
+                .map(HitsArray::extractMedicalCareUnityList)
+                .map(this::toMedicalCareUnits)
                 .block();
     }
 
@@ -41,8 +37,15 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
                 .bodyToMono(Hits.class);
     }
 
-    private MedicalCareUnits medicalCareUnits(MedicalCareUnity medicalCareUnity) {
-        return new MedicalCareUnits(medicalCareUnity.getCnes(), medicalCareUnity.getNomeCnes());
+    private List<MedicalCareUnits> toMedicalCareUnits(List<MedicalCareUnity> medicalCareUnities) {
+        return medicalCareUnities.stream()
+                .map(medicalCareUnity -> {
+                    var cnes = medicalCareUnity.getCnes();
+                    var name = Objects.isNull(medicalCareUnity.getNomeCnes()) ? "NAME NOT INFORMED" : medicalCareUnity.getNomeCnes();
+
+                    return new MedicalCareUnits(cnes, name);
+                })
+                .collect(Collectors.toList());
     }
 
     @Getter
@@ -55,6 +58,12 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
     private static class HitsArray {
         @JsonProperty("hits")
         private List<Source> sources;
+
+        public List<MedicalCareUnity> extractMedicalCareUnityList() {
+            return sources.stream()
+                    .map(Source::getMedicalCareUnity)
+                    .collect(Collectors.toList());
+        }
     }
 
     @Getter
