@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -37,7 +36,9 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public Address findByUserId(Long id) {
-        return addressJpaRepository.findByUserId(id);
+        return addressJpaRepository.findByUserId(id)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        String.format("%s with owner id %d not found.", Address.class.getSimpleName(), id)));
     }
 
     @Override
