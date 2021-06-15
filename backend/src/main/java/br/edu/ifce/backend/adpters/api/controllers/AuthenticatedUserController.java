@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -73,7 +72,7 @@ public class AuthenticatedUserController {
     }
 
     @GetMapping("/service-units")
-    public ResponseEntity<List<MedicalCareUnityInfo>> listTheMedicalCareUnitsInTheCity() {
+    public ResponseEntity<MedicalCareUnityInfo> listTheMedicalCareUnitsInTheCity() {
         var data = listTheMedicalCareUnitsInTheCity.execute();
 
         return ResponseEntity.ok().body(data);

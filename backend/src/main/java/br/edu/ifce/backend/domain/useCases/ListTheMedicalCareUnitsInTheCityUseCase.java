@@ -9,9 +9,7 @@ import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +20,7 @@ public class ListTheMedicalCareUnitsInTheCityUseCase implements ListTheMedicalCa
     private final OpendatasusLeitosConsumer opendatasusLeitosConsumer;
 
     @Override
-    public List<MedicalCareUnityInfo> execute() {
+    public MedicalCareUnityInfo execute() {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
         if (Objects.isNull(authUser)) {
@@ -37,13 +35,11 @@ public class ListTheMedicalCareUnitsInTheCityUseCase implements ListTheMedicalCa
 
         var listOfMedialCareUnits = opendatasusLeitosConsumer.listMedicalCareUnits(stateName, cityName);
 
-        return listOfMedialCareUnits.stream()
-                .map(units -> {
-                    var cnes = units.getNationalHealthEstablishmentRegistry();
-                    var name = Objects.isNull(units.getNameOfHealthCareUnit()) ? "NAME NOT INFORMED" : units.getNameOfHealthCareUnit();
-
-                    return new MedicalCareUnityInfo(countryName, stateName, cityName, cnes, name);
-                })
-                .collect(Collectors.toList());
+        return new MedicalCareUnityInfo(
+                countryName,
+                stateName,
+                cityName,
+                listOfMedialCareUnits
+        );
     }
 }

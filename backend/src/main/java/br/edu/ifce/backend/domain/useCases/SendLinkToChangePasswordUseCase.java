@@ -8,12 +8,12 @@ import br.edu.ifce.backend.domain.ports.driven.PasswordTokenRepository;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.SendLinkToChangePassword;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -38,7 +38,7 @@ public class SendLinkToChangePasswordUseCase implements SendLinkToChangePassword
         }
 
         if (Objects.isNull(passwordToken)) {
-            var token = UUID.randomUUID().toString();
+            var token = RandomStringUtils.random(10, true, true);
             passwordToken = newPasswordToken(token, user);
             passwordTokenRepository.save(passwordToken);
         }

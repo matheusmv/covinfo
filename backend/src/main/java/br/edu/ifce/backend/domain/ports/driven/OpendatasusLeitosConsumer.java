@@ -14,7 +14,7 @@ public interface OpendatasusLeitosConsumer {
     @Setter
     @AllArgsConstructor
     class MedicalCareUnits {
-        private String nationalHealthEstablishmentRegistry;
+        private String cnes;
         private String nameOfHealthCareUnit;
     }
 }
