@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.dto.addressdtos.FullAddressDTO;
 import br.edu.ifce.backend.adpters.dto.addressdtos.UpdateAddressDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
@@ -25,6 +26,7 @@ public class AuthenticatedUserController {
     private final UpdateAuthenticatedUserAddress updateAuthenticatedUserAddress;
     private final GetDataFromTheVaccinationCampaign getDataFromTheVaccinationCampaign;
     private final ListTheMedicalCareUnitsInTheCity listTheMedicalCareUnitsInTheCity;
+    private final GetFullAddressOfAuthenticatedUser getFullAddressOfAuthenticatedUser;
 
     @GetMapping
     public ResponseEntity<UserDTO> getTheAuthenticatedUser() {
@@ -76,5 +78,12 @@ public class AuthenticatedUserController {
         var data = listTheMedicalCareUnitsInTheCity.execute();
 
         return ResponseEntity.ok().body(data);
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity<FullAddressDTO> getFullAddressOfAuthenticatedUser() {
+        var address = getFullAddressOfAuthenticatedUser.execute();
+
+        return ResponseEntity.ok().body(new FullAddressDTO(address));
     }
 }
