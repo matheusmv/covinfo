@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.adpters.consumers.postmoncep;
 
+import br.edu.ifce.backend.adpters.consumers.exceptions.ZipNotFoundException;
 import br.edu.ifce.backend.domain.ports.driven.PostmonConsumer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,14 @@ public class PostmonConsumerImpl implements PostmonConsumer {
 
     @Override
     public ZipInformation getZipInformation(String zip) {
-        return webClientPostmon.get()
-                .uri("/cep/{zip}", zip)
-                .retrieve()
-                .bodyToMono(PostmonConsumer.ZipInformation.class)
-                .block();
+        try {
+            return webClientPostmon.get()
+                    .uri("/cep/{zip}", zip)
+                    .retrieve()
+                    .bodyToMono(PostmonConsumer.ZipInformation.class)
+                    .block();
+        } catch (Exception e) {
+            throw new ZipNotFoundException("We did not find data related to this zip code: " + zip);
+        }
     }
 }
