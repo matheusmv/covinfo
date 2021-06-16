@@ -20,7 +20,9 @@ public class JWTUtil {
 
     public String generateToken(String email) {
         return Jwts.builder()
+                .setHeaderParam("typ", "JWT")
                 .setSubject(email)
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
                 .compact();
