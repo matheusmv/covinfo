@@ -1,5 +1,6 @@
 package br.edu.ifce.backend.adpters.api.exceptions;
 
+import br.edu.ifce.backend.adpters.consumers.exceptions.ZipNotFoundException;
 import br.edu.ifce.backend.adpters.db.exceptions.DataIntegrityException;
 import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.backend.adpters.email.exceptions.EmailServiceException;
@@ -23,9 +24,11 @@ public class ControllerExceptionHandler {
                                                         HttpServletRequest request) {
         var status = HttpStatus.NOT_FOUND;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                ObjectNotFoundException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -35,9 +38,11 @@ public class ControllerExceptionHandler {
                                                        HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                DataIntegrityException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -47,9 +52,11 @@ public class ControllerExceptionHandler {
                                                                HttpServletRequest request) {
         var status = HttpStatus.SERVICE_UNAVAILABLE;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                EmailServiceException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -59,9 +66,11 @@ public class ControllerExceptionHandler {
                                                       HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                InvalidEmailException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -71,9 +80,11 @@ public class ControllerExceptionHandler {
                                                       HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                InvalidConfirmationTokenException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -83,9 +94,11 @@ public class ControllerExceptionHandler {
                                                    HttpServletRequest request) {
         var status = HttpStatus.FORBIDDEN;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                AuthorizationException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
@@ -95,9 +108,25 @@ public class ControllerExceptionHandler {
                                                              HttpServletRequest request) {
         var status = HttpStatus.UNPROCESSABLE_ENTITY;
         var error = new StandardError(
+                Instant.now(),
                 status.value(),
+                ValidationException.class.getSimpleName(),
                 exception.getMessage(),
-                Instant.now()
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(ZipNotFoundException.class)
+    public ResponseEntity<StandardError> zipNotFound(ZipNotFoundException exception,
+                                                     HttpServletRequest request) {
+        var status = HttpStatus.NOT_FOUND;
+        var error = new StandardError(
+                Instant.now(),
+                status.value(),
+                ZipNotFoundException.class.getSimpleName(),
+                exception.getMessage(),
+                request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
     }
