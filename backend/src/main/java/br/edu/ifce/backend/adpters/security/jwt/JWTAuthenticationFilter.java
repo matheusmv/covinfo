@@ -3,6 +3,8 @@ package br.edu.ifce.backend.adpters.security.jwt;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserCredentialsDTO;
 import br.edu.ifce.backend.adpters.security.user.UserSecurityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import java.time.Instant;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -60,16 +62,27 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().append(jsonMessage());
+        response.getWriter().append(jsonMessage(request.getRequestURI()));
     }
 
-    private String jsonMessage() {
-        long date = new Date().getTime();
-        return "{\"timestamp\": " + date + ", "
-                + "\"status\": 401, "
-                + "\"error\": \"Unauthorized\", "
-                + "\"message\": \"Invalid email or password\", "
-                + "\"path\": \"/login\"}";
+    private String jsonMessage(String path) {
+        ErrorMessage message = new ErrorMessage(
+                Instant.now().toString(),
+                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                "Invalid credentials",
+                path
+        );
 
+        return new Gson().toJson(message);
+    }
+
+    @AllArgsConstructor
+    private static class ErrorMessage {
+        private final String timestamp;
+        private final Integer status;
+        private final String error;
+        private final String message;
+        private final String path;
     }
 }
