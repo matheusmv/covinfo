@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +23,10 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
         var medicalCareUnitsQuery = new QueryObjects().medicalCareUnitsQuery(stateName, cityName);
 
         return findMedicalCareUnits(medicalCareUnitsQuery)
-                .map(Hits::getHitsArray)
-                .map(HitsArray::extractMedicalCareUnityList)
-                .map(this::toMedicalCareUnits)
+                .map(hits -> hits.getHitsArray().getSources().stream()
+                        .map(Source::getMedicalCareUnity)
+                        .map(this::toMedicalCareUnits)
+                        .collect(Collectors.toList()))
                 .block();
     }
 
@@ -37,15 +38,11 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
                 .bodyToMono(Hits.class);
     }
 
-    private List<MedicalCareUnits> toMedicalCareUnits(List<MedicalCareUnity> medicalCareUnities) {
-        return medicalCareUnities.stream()
-                .map(medicalCareUnity -> {
-                    var cnes = medicalCareUnity.getCnes();
-                    var name = Objects.isNull(medicalCareUnity.getNomeCnes()) ? "NAME NOT INFORMED" : medicalCareUnity.getNomeCnes();
+    private MedicalCareUnits toMedicalCareUnits(MedicalCareUnity medicalCareUnity) {
+        var cnes = Optional.ofNullable(medicalCareUnity.getCnes()).orElse("CNES NOT INFORMED");
+        var name = Optional.ofNullable(medicalCareUnity.getNomeCnes()).orElse("NAME NOT INFORMED");
 
-                    return new MedicalCareUnits(cnes, name);
-                })
-                .collect(Collectors.toList());
+        return new MedicalCareUnits(cnes, name);
     }
 
     @Getter
@@ -58,12 +55,6 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
     private static class HitsArray {
         @JsonProperty("hits")
         private List<Source> sources;
-
-        public List<MedicalCareUnity> extractMedicalCareUnityList() {
-            return sources.stream()
-                    .map(Source::getMedicalCareUnity)
-                    .collect(Collectors.toList());
-        }
     }
 
     @Getter

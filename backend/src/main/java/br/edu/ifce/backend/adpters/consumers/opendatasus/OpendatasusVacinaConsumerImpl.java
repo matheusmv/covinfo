@@ -7,6 +7,9 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple3;
+
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -16,24 +19,28 @@ public class OpendatasusVacinaConsumerImpl implements OpendatasusVacinaConsumer 
 
     @Override
     public VaccinationRates obtainVaccinationRates(String stateAcronym, String cityName) {
-        var countryQuery = new QueryObjects().countryQuery();
-        var stateQuery = new QueryObjects().stateQuery(stateAcronym);
-        var cityQuery = new QueryObjects().cityQuery(stateAcronym, cityName);
+        var query = new QueryObjects();
 
-        var numbersInTheCountry = retrieve(countryQuery).bodyToMono(CountryTotal.class);
-        var numbersInTheState = retrieve(stateQuery).bodyToMono(StateTotal.class);
-        var numbersInTheCity = retrieve(cityQuery).bodyToMono(CityTotal.class);
+        var countryTotal = consultResults(query.countryQuery()).bodyToMono(CountryTotal.class);
+        var stateTotal = consultResults(query.stateQuery(stateAcronym)).bodyToMono(StateTotal.class);
+        var cityTotal = consultResults(query.cityQuery(stateAcronym, cityName)).bodyToMono(CityTotal.class);
 
-        return Mono.zip(numbersInTheCountry, numbersInTheState, numbersInTheCity)
-                .map(tuple -> new VaccinationRates(tuple.getT1().countryTotal, tuple.getT2().stateTotal, tuple.getT3().cityTotal))
-                .block();
+        return Mono.zip(countryTotal, stateTotal, cityTotal).map(getVaccinationRates()).block();
     }
 
-    private WebClient.ResponseSpec retrieve(String query) {
+    private WebClient.ResponseSpec consultResults(String query) {
         return webClientOpendatasusVacina.post()
                 .uri("/_count")
                 .bodyValue(query)
                 .retrieve();
+    }
+
+    private Function<Tuple3<CountryTotal, StateTotal, CityTotal>, VaccinationRates> getVaccinationRates() {
+        return results -> new VaccinationRates(
+                results.getT1().countryTotal,
+                results.getT2().stateTotal,
+                results.getT3().cityTotal
+        );
     }
 
     @Getter

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QueryObjects {
+public final class QueryObjects {
 
     private static final String BRASIL = "BRASIL";
 
