@@ -26,7 +26,7 @@ public final class QueryObjects {
 
     protected String stateQuery(String stateAcronym) {
         queryParameters.add(Map.of("match", Map.of("paciente_endereco_nmPais", BRASIL)));
-        queryParameters.add(Map.of("match", Map.of("paciente_endereco_uf", stateAcronym)));
+        queryParameters.add(Map.of("match", Map.of("estabelecimento_uf", stateAcronym)));
 
         query.put("query", Map.of("bool", Map.of("must", queryParameters)));
 
@@ -35,7 +35,7 @@ public final class QueryObjects {
 
     protected String cityQuery(String stateAcronym, String cityName) {
         queryParameters.add(Map.of("match", Map.of("paciente_endereco_nmPais", BRASIL)));
-        queryParameters.add(Map.of("match", Map.of("paciente_endereco_uf", stateAcronym)));
+        queryParameters.add(Map.of("match", Map.of("estabelecimento_uf", stateAcronym)));
         queryParameters.add(Map.of("match", Map.of("estabelecimento_municipio_nome", cityName)));
 
         query.put("query", Map.of("bool", Map.of("must", queryParameters)));
