@@ -26,7 +26,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                ObjectNotFoundException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -40,7 +40,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                DataIntegrityException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -54,7 +54,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                EmailServiceException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -68,7 +68,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                InvalidEmailException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -82,7 +82,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                InvalidConfirmationTokenException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -96,7 +96,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                AuthorizationException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -110,7 +110,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                ValidationException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
@@ -124,7 +124,7 @@ public class ControllerExceptionHandler {
         var error = new StandardError(
                 Instant.now(),
                 status.value(),
-                ZipNotFoundException.class.getSimpleName(),
+                exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
