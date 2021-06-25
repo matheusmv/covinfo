@@ -19,17 +19,23 @@ import java.time.Instant;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
+    private StandardError getStandardError(RuntimeException exception,
+                                           HttpServletRequest request,
+                                           HttpStatus status) {
+        return StandardError.builder()
+                .timestamp(Instant.now())
+                .status(status.value())
+                .error(exception.getClass().getSimpleName())
+                .message(exception.getMessage())
+                .path(request.getRequestURI())
+                .build();
+    }
+
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException exception,
                                                         HttpServletRequest request) {
         var status = HttpStatus.NOT_FOUND;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -37,13 +43,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException exception,
                                                        HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -51,13 +51,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> emailServiceException(EmailServiceException exception,
                                                                HttpServletRequest request) {
         var status = HttpStatus.SERVICE_UNAVAILABLE;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -65,13 +59,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> invalidEmail(InvalidEmailException exception,
                                                       HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -79,13 +67,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> invalidToken(InvalidConfirmationTokenException exception,
                                                       HttpServletRequest request) {
         var status = HttpStatus.BAD_REQUEST;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -93,13 +75,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> forbidden(AuthorizationException exception,
                                                    HttpServletRequest request) {
         var status = HttpStatus.FORBIDDEN;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -107,13 +83,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> validationException(ValidationException exception,
                                                              HttpServletRequest request) {
         var status = HttpStatus.UNPROCESSABLE_ENTITY;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 
@@ -121,13 +91,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> zipNotFound(ZipNotFoundException exception,
                                                      HttpServletRequest request) {
         var status = HttpStatus.NOT_FOUND;
-        var error = new StandardError(
-                Instant.now(),
-                status.value(),
-                exception.getClass().getSimpleName(),
-                exception.getMessage(),
-                request.getRequestURI()
-        );
+        var error = getStandardError(exception, request, status);
         return ResponseEntity.status(status).body(error);
     }
 }
