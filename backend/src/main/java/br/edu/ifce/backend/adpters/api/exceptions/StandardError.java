@@ -1,18 +1,16 @@
 package br.edu.ifce.backend.adpters.api.exceptions;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
 
 @Getter
-@Setter
-@AllArgsConstructor
+@Builder
 public class StandardError {
-    private Instant timestamp;
-    private Integer status;
-    private String error;
-    private String message;
-    private String path;
+    private final Instant timestamp;
+    private final Integer status;
+    private final String error;
+    private final String message;
+    private final String path;
 }

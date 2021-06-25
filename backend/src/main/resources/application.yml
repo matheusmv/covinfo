@@ -19,15 +19,22 @@ credentials:
     password: super strong and secret password
 
   postmon-cep:
+    source: https://github.com/PostmonAPI/postmon
     url: https://api.postmon.com.br
 
   opendatasus:
     api-vacina:
+      source: https://opendatasus.saude.gov.br/dataset/covid-19-vacinacao
       url: https://imunizacao-es.saude.gov.br
       username: imunizacao_public
       password: qlto5t&7r_@+#Tlstigi
 
     api-leitos:
+      source: https://opendatasus.saude.gov.br/dataset/registro-de-ocupacao-hospitalar
       url: https://elastic-leitos.saude.gov.br/leito_ocupacao
       username: user-api-leitos
       password: aQbLL3ZStaTr38tj
+
+  covid-brazil:
+    source: https://github.com/devarthurribeiro/covid19-brazil-api
+    url: https://covid19-brazil-api.now.sh/api
