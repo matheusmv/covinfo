@@ -78,7 +78,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @AllArgsConstructor
-    private static class ErrorMessage {
+    private static final class ErrorMessage {
         private final String timestamp;
         private final Integer status;
         private final String error;

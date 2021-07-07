@@ -8,12 +8,10 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class MedicalCareUnityInfo {
-
-    private String countryName;
-    private String stateName;
-    private String cityName;
-    private List<OpendatasusLeitosConsumer.MedicalCareUnits> units;
+    private final String countryName;
+    private final String stateName;
+    private final String cityName;
+    private final List<OpendatasusLeitosConsumer.MedicalCareUnits> units;
 }

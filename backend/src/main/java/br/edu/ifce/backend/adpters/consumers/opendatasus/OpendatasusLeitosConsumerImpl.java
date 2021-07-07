@@ -46,25 +46,25 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
     }
 
     @Getter
-    private static class Hits {
+    private static final class Hits {
         @JsonProperty("hits")
         private HitsArray hitsArray;
     }
 
     @Getter
-    private static class HitsArray {
+    private static final class HitsArray {
         @JsonProperty("hits")
         private List<Source> sources;
     }
 
     @Getter
-    private static class Source {
+    private static final class Source {
         @JsonProperty("_source")
         private MedicalCareUnity medicalCareUnity;
     }
 
     @Getter
-    private static class MedicalCareUnity {
+    private static final class MedicalCareUnity {
         @JsonProperty("cnes")
         private String cnes;
         @JsonProperty("nomeCnes")
