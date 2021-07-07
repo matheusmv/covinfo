@@ -44,19 +44,19 @@ public class OpendatasusVacinaConsumerImpl implements OpendatasusVacinaConsumer 
     }
 
     @Getter
-    private static class CountryTotal {
+    private static final class CountryTotal {
         @JsonProperty("count")
         private Long countryTotal;
     }
 
     @Getter
-    private static class StateTotal {
+    private static final class StateTotal {
         @JsonProperty("count")
         private Long stateTotal;
     }
 
     @Getter
-    private static class CityTotal {
+    private static final class CityTotal {
         @JsonProperty("count")
         private Long cityTotal;
     }

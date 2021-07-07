@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class VaccinationData {
-
-    private String countryName;
-    private String stateName;
-    private String cityName;
-    private Long numberOfPeopleVaccinatedInTheCountry;
-    private Long numberOfPeopleVaccinatedInTheState;
-    private Long numberOfPeopleVaccinatedInTheCity;
+    private final String countryName;
+    private final String stateName;
+    private final String cityName;
+    private final Long numberOfPeopleVaccinatedInTheCountry;
+    private final Long numberOfPeopleVaccinatedInTheState;
+    private final Long numberOfPeopleVaccinatedInTheCity;
 }

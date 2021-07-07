@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class CompleteZipCodeInformation {
-
-    private String zip;
-    private City city;
+    private final String zip;
+    private final City city;
 }

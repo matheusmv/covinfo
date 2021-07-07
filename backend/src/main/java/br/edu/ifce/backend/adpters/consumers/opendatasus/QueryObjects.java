@@ -9,7 +9,7 @@ import java.util.Map;
 
 public final class QueryObjects {
 
-    private static final String BRASIL = "BRASIL";
+    private final String BRASIL = "BRASIL";
 
     private final Map<String, Map<String, Map<String, List<Map<String, Map<String, String>>>>>> query = new HashMap<>();
     private final List<Map<String, Map<String, String>>> queryParameters = new ArrayList<>();
