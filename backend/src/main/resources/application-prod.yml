@@ -6,7 +6,7 @@ spring:
       hibernate:
         format_sql: false
     show-sql: false
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   datasource:
     url: ${DATABASE_URL}

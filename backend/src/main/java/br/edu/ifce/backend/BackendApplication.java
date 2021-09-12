@@ -8,8 +8,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 public class BackendApplication {
 
-    // TODO: corrigir documentação swagger
-    // TODO: corrigir banco de dados de teste -> criar import sql
     // TODO: mover value objects para dto
     // TODO: organizar use cases
     // TODO: criar testes
