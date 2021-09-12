@@ -1,10 +1,12 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.api.docs.MessageManagementControllerDocs;
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageWithContentDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetAMessageById;
 import br.edu.ifce.backend.domain.ports.driver.GetAllMessages;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/management/api/v1/messages")
-@AllArgsConstructor
-public class MessageManagementController {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class MessageManagementController implements MessageManagementControllerDocs {
 
     private final GetAllMessages getAllMessages;
     private final GetAMessageById getAMessageById;
