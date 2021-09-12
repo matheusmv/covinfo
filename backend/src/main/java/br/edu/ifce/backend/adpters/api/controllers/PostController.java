@@ -1,10 +1,12 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.api.docs.PostControllerDocs;
 import br.edu.ifce.backend.adpters.dto.postdtos.PostDTO;
 import br.edu.ifce.backend.adpters.dto.postdtos.PostWithContentDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetAPostById;
 import br.edu.ifce.backend.domain.ports.driver.GetAllPosts;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/posts")
-@AllArgsConstructor
-public class PostController {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class PostController implements PostControllerDocs {
 
     private final GetAllPosts getAllPosts;
     private final GetAPostById getAPostById;
