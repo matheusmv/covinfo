@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.adpters.api.controllers.management;
+package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.MessageWithContentDTO;

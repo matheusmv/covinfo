@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(basePackage(BASE_PACKAGE))
-                .paths(regex("/api/.*"))
+                .paths(regex("/(?:management|api)/.*"))
                 .build()
                 .apiInfo(buildApiInfo());
     }

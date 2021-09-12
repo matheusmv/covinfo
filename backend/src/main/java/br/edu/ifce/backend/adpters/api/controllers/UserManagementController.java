@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.adpters.api.controllers.management;
+package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.dto.userdtos.SimpleUserDTO;
 import br.edu.ifce.backend.domain.entities.User;
