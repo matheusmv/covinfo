@@ -1,23 +1,37 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.api.docs.AuthenticatedUserControllerDocs;
 import br.edu.ifce.backend.adpters.dto.addressdtos.FullAddressDTO;
 import br.edu.ifce.backend.adpters.dto.addressdtos.UpdateAddressDTO;
 import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
-import br.edu.ifce.backend.domain.ports.driver.*;
+import br.edu.ifce.backend.domain.ports.driver.CreateAMessage;
+import br.edu.ifce.backend.domain.ports.driver.GetDataFromTheVaccinationCampaign;
+import br.edu.ifce.backend.domain.ports.driver.GetFullAddressOfAuthenticatedUser;
+import br.edu.ifce.backend.domain.ports.driver.GetTheAuthenticatedUser;
+import br.edu.ifce.backend.domain.ports.driver.ListTheMedicalCareUnitsInTheCity;
+import br.edu.ifce.backend.domain.ports.driver.RefreshUserAuthToken;
+import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserAddress;
+import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserProfile;
 import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
 import br.edu.ifce.backend.domain.valueObjects.VaccinationData;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/user")
-@AllArgsConstructor
-public class AuthenticatedUserController {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class AuthenticatedUserController implements AuthenticatedUserControllerDocs {
 
     private final GetTheAuthenticatedUser getTheAuthenticatedUser;
     private final RefreshUserAuthToken refreshUserAuthToken;

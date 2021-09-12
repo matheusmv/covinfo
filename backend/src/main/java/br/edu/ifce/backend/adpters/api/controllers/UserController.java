@@ -1,17 +1,29 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
+import br.edu.ifce.backend.adpters.api.docs.UserControllerDocs;
 import br.edu.ifce.backend.adpters.dto.userdtos.EmailDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.PasswordDTO;
 import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
-import br.edu.ifce.backend.domain.ports.driver.*;
+import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
+import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
+import br.edu.ifce.backend.domain.ports.driver.ResendAccountConfirmationEmail;
+import br.edu.ifce.backend.domain.ports.driver.ResetUserPassword;
+import br.edu.ifce.backend.domain.ports.driver.SendLinkToChangePassword;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@AllArgsConstructor
-public class UserController {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class UserController implements UserControllerDocs {
 
     private final RegisterAUser registerAUser;
     private final ConfirmNewUserAccount confirmNewUserAccount;
@@ -48,7 +60,8 @@ public class UserController {
     }
 
     @PutMapping("/reset")
-    public ResponseEntity<Void> resetUserPassword(@RequestParam("token") String token, @RequestBody PasswordDTO request) {
+    public ResponseEntity<Void> resetUserPassword(@RequestParam("token") String token,
+                                                  @RequestBody PasswordDTO request) {
         resetUserPassword.execute(token, request.getPassword());
 
         return ResponseEntity.noContent().build();
