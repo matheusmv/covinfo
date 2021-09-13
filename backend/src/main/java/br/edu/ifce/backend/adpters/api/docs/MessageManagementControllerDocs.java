@@ -1,7 +1,7 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.adpters.dto.messagedtos.MessageDTO;
-import br.edu.ifce.backend.adpters.dto.messagedtos.MessageWithContentDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.MessageDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.MessageWithContentDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

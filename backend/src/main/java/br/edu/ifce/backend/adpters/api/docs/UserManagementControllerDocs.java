@@ -1,6 +1,6 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.adpters.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.SimpleUserDTO;
 import br.edu.ifce.backend.domain.entities.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

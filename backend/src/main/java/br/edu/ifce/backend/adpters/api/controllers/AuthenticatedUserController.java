@@ -1,11 +1,11 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.api.docs.AuthenticatedUserControllerDocs;
-import br.edu.ifce.backend.adpters.dto.addressdtos.FullAddressDTO;
-import br.edu.ifce.backend.adpters.dto.addressdtos.UpdateAddressDTO;
-import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
+import br.edu.ifce.backend.domain.ports.dto.addressdtos.FullAddressDTO;
+import br.edu.ifce.backend.domain.ports.dto.addressdtos.UpdateAddressDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.NewMessageDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UpdateUserDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UserDTO;
 import br.edu.ifce.backend.domain.ports.driver.CreateAMessage;
 import br.edu.ifce.backend.domain.ports.driver.GetDataFromTheVaccinationCampaign;
 import br.edu.ifce.backend.domain.ports.driver.GetFullAddressOfAuthenticatedUser;
@@ -14,8 +14,8 @@ import br.edu.ifce.backend.domain.ports.driver.ListTheMedicalCareUnitsInTheCity;
 import br.edu.ifce.backend.domain.ports.driver.RefreshUserAuthToken;
 import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserAddress;
 import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserProfile;
-import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
-import br.edu.ifce.backend.domain.valueObjects.VaccinationData;
+import br.edu.ifce.backend.domain.ports.dto.MedicalCareUnityInfo;
+import br.edu.ifce.backend.domain.ports.dto.VaccinationData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

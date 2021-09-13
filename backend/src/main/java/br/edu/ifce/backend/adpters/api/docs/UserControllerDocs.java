@@ -1,8 +1,8 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.adpters.dto.userdtos.EmailDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.PasswordDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.EmailDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.PasswordDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UserRegistrationDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

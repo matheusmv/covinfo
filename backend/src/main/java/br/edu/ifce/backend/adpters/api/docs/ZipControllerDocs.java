@@ -1,6 +1,6 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.domain.valueObjects.CompleteZipCodeInformation;
+import br.edu.ifce.backend.domain.ports.dto.CompleteZipCodeInformation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

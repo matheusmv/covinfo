@@ -1,12 +1,12 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.adpters.dto.addressdtos.FullAddressDTO;
-import br.edu.ifce.backend.adpters.dto.addressdtos.UpdateAddressDTO;
-import br.edu.ifce.backend.adpters.dto.messagedtos.NewMessageDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UpdateUserDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UserDTO;
-import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
-import br.edu.ifce.backend.domain.valueObjects.VaccinationData;
+import br.edu.ifce.backend.domain.ports.dto.addressdtos.FullAddressDTO;
+import br.edu.ifce.backend.domain.ports.dto.addressdtos.UpdateAddressDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.NewMessageDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UpdateUserDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UserDTO;
+import br.edu.ifce.backend.domain.ports.dto.MedicalCareUnityInfo;
+import br.edu.ifce.backend.domain.ports.dto.VaccinationData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
