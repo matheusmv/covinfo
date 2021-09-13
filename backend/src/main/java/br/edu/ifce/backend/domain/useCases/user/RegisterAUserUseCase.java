@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.domain.useCases;
+package br.edu.ifce.backend.domain.useCases.user;
 
 import br.edu.ifce.backend.domain.entities.Address;
 import br.edu.ifce.backend.domain.entities.City;
@@ -15,6 +15,7 @@ import br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class RegisterAUserUseCase implements RegisterAUser {
 
     private final UserRepository userRepository;

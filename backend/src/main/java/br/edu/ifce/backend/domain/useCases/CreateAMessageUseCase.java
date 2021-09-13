@@ -10,13 +10,14 @@ import br.edu.ifce.backend.domain.ports.driver.CreateAMessage;
 import br.edu.ifce.backend.domain.useCases.utils.MessageValidation;
 import br.edu.ifce.backend.domain.useCases.utils.MessageValidationResult;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreateAMessageUseCase implements CreateAMessage {
 
     private final UserAuthenticationService userAuthenticationService;

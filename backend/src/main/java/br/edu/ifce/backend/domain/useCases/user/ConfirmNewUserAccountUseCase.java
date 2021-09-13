@@ -1,16 +1,17 @@
-package br.edu.ifce.backend.domain.useCases;
+package br.edu.ifce.backend.domain.useCases.user;
 
 import br.edu.ifce.backend.domain.exceptions.InvalidConfirmationTokenException;
 import br.edu.ifce.backend.domain.ports.driven.ConfirmationTokenRepository;
 import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ConfirmNewUserAccountUseCase implements ConfirmNewUserAccount {
 
     private final ConfirmationTokenRepository confirmationTokenRepository;

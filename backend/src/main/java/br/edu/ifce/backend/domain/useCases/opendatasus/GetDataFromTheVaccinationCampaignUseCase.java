@@ -1,26 +1,27 @@
-package br.edu.ifce.backend.domain.useCases;
+package br.edu.ifce.backend.domain.useCases.opendatasus;
 
 import br.edu.ifce.backend.domain.exceptions.AuthorizationException;
 import br.edu.ifce.backend.domain.ports.driven.AddressRepository;
-import br.edu.ifce.backend.domain.ports.driven.OpendatasusLeitosConsumer;
+import br.edu.ifce.backend.domain.ports.driven.OpendatasusVacinaConsumer;
 import br.edu.ifce.backend.domain.ports.driven.UserAuthenticationService;
-import br.edu.ifce.backend.domain.ports.driver.ListTheMedicalCareUnitsInTheCity;
-import br.edu.ifce.backend.domain.ports.dto.MedicalCareUnityInfo;
+import br.edu.ifce.backend.domain.ports.driver.GetDataFromTheVaccinationCampaign;
+import br.edu.ifce.backend.domain.ports.dto.VaccinationData;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
-@AllArgsConstructor
-public class ListTheMedicalCareUnitsInTheCityUseCase implements ListTheMedicalCareUnitsInTheCity {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class GetDataFromTheVaccinationCampaignUseCase implements GetDataFromTheVaccinationCampaign {
 
     private final UserAuthenticationService userAuthenticationService;
     private final AddressRepository addressRepository;
-    private final OpendatasusLeitosConsumer opendatasusLeitosConsumer;
+    private final OpendatasusVacinaConsumer opendatasusVacinaConsumer;
 
     @Override
-    public MedicalCareUnityInfo execute() {
+    public VaccinationData execute() {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
         if (Objects.isNull(authUser)) {
@@ -31,15 +32,18 @@ public class ListTheMedicalCareUnitsInTheCityUseCase implements ListTheMedicalCa
 
         var countryName = userAddress.getCity().getState().getCountry().getName();
         var stateName = userAddress.getCity().getState().getName();
+        var stateAcronym = userAddress.getCity().getState().getInitials();
         var cityName = userAddress.getCity().getName();
 
-        var listOfMedialCareUnits = opendatasusLeitosConsumer.listMedicalCareUnits(stateName, cityName);
+        var vaccinationRates = opendatasusVacinaConsumer.obtainVaccinationRates(stateAcronym, cityName);
 
-        return new MedicalCareUnityInfo(
+        return new VaccinationData(
                 countryName,
                 stateName,
                 cityName,
-                listOfMedialCareUnits
+                vaccinationRates.getTotalInTheCountry(),
+                vaccinationRates.getTotalInTheState(),
+                vaccinationRates.getTotalInTheCity()
         );
     }
 }

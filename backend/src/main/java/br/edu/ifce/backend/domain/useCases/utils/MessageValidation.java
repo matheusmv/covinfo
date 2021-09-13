@@ -5,7 +5,9 @@ import br.edu.ifce.backend.domain.entities.Message;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static br.edu.ifce.backend.domain.useCases.utils.MessageValidationResult.*;
+import static br.edu.ifce.backend.domain.useCases.utils.MessageValidationResult.CONTENT_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.MessageValidationResult.SUCCESS;
+import static br.edu.ifce.backend.domain.useCases.utils.MessageValidationResult.TITLE_NOT_VALID;
 
 public interface MessageValidation extends Function<Message, MessageValidationResult> {
     static MessageValidation titleIsValid() {

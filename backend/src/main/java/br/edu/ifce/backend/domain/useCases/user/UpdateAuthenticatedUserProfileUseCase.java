@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.domain.useCases;
+package br.edu.ifce.backend.domain.useCases.user;
 
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.exceptions.AuthorizationException;
@@ -9,6 +9,7 @@ import br.edu.ifce.backend.domain.ports.driver.UpdateAuthenticatedUserProfile;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidation;
 import br.edu.ifce.backend.domain.useCases.utils.UserValidationResult;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticatedUserProfile {
 
     private final UserAuthenticationService userAuthenticationService;
