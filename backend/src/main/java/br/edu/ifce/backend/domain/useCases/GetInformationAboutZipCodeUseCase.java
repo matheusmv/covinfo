@@ -4,7 +4,7 @@ import br.edu.ifce.backend.domain.exceptions.ValidationException;
 import br.edu.ifce.backend.domain.ports.driven.CityRepository;
 import br.edu.ifce.backend.domain.ports.driven.PostmonConsumer;
 import br.edu.ifce.backend.domain.ports.driver.GetInformationAboutZipCode;
-import br.edu.ifce.backend.domain.valueObjects.CompleteZipCodeInformation;
+import br.edu.ifce.backend.domain.ports.dto.CompleteZipCodeInformation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

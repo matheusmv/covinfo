@@ -1,9 +1,9 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.api.docs.UserControllerDocs;
-import br.edu.ifce.backend.adpters.dto.userdtos.EmailDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.PasswordDTO;
-import br.edu.ifce.backend.adpters.dto.userdtos.UserRegistrationDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.EmailDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.PasswordDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.UserRegistrationDTO;
 import br.edu.ifce.backend.domain.ports.driver.ConfirmNewUserAccount;
 import br.edu.ifce.backend.domain.ports.driver.RegisterAUser;
 import br.edu.ifce.backend.domain.ports.driver.ResendAccountConfirmationEmail;

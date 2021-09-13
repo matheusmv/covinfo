@@ -5,7 +5,7 @@ import br.edu.ifce.backend.domain.ports.driven.AddressRepository;
 import br.edu.ifce.backend.domain.ports.driven.OpendatasusLeitosConsumer;
 import br.edu.ifce.backend.domain.ports.driven.UserAuthenticationService;
 import br.edu.ifce.backend.domain.ports.driver.ListTheMedicalCareUnitsInTheCity;
-import br.edu.ifce.backend.domain.valueObjects.MedicalCareUnityInfo;
+import br.edu.ifce.backend.domain.ports.dto.MedicalCareUnityInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

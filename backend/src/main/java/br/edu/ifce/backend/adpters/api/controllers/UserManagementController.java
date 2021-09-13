@@ -1,7 +1,7 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.api.docs.UserManagementControllerDocs;
-import br.edu.ifce.backend.adpters.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.backend.domain.ports.dto.userdtos.SimpleUserDTO;
 import br.edu.ifce.backend.domain.entities.User;
 import br.edu.ifce.backend.domain.ports.driver.DeleteAUserById;
 import br.edu.ifce.backend.domain.ports.driver.GetAUserById;

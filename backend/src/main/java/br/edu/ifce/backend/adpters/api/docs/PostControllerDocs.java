@@ -1,7 +1,7 @@
 package br.edu.ifce.backend.adpters.api.docs;
 
-import br.edu.ifce.backend.adpters.dto.postdtos.PostDTO;
-import br.edu.ifce.backend.adpters.dto.postdtos.PostWithContentDTO;
+import br.edu.ifce.backend.domain.ports.dto.postdtos.PostDTO;
+import br.edu.ifce.backend.domain.ports.dto.postdtos.PostWithContentDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

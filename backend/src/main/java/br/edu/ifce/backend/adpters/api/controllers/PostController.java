@@ -1,8 +1,8 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.api.docs.PostControllerDocs;
-import br.edu.ifce.backend.adpters.dto.postdtos.PostDTO;
-import br.edu.ifce.backend.adpters.dto.postdtos.PostWithContentDTO;
+import br.edu.ifce.backend.domain.ports.dto.postdtos.PostDTO;
+import br.edu.ifce.backend.domain.ports.dto.postdtos.PostWithContentDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetAPostById;
 import br.edu.ifce.backend.domain.ports.driver.GetAllPosts;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package br.edu.ifce.backend.adpters.api.controllers;
 
 import br.edu.ifce.backend.adpters.api.docs.MessageManagementControllerDocs;
-import br.edu.ifce.backend.adpters.dto.messagedtos.MessageDTO;
-import br.edu.ifce.backend.adpters.dto.messagedtos.MessageWithContentDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.MessageDTO;
+import br.edu.ifce.backend.domain.ports.dto.messagedtos.MessageWithContentDTO;
 import br.edu.ifce.backend.domain.ports.driver.GetAMessageById;
 import br.edu.ifce.backend.domain.ports.driver.GetAllMessages;
 import lombok.AllArgsConstructor;
