@@ -5,7 +5,10 @@ import br.edu.ifce.backend.domain.entities.Address;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult.*;
+import static br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult.NEIGHBORHOOD_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult.STREET_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult.SUCCESS;
+import static br.edu.ifce.backend.domain.useCases.utils.AddressValidationResult.ZIP_NOT_VALID;
 
 public interface AddressValidation extends Function<Address, AddressValidationResult> {
     static AddressValidation zipIsValid() {

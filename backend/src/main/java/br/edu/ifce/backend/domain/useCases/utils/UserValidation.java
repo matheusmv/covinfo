@@ -5,7 +5,10 @@ import br.edu.ifce.backend.domain.entities.User;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static br.edu.ifce.backend.domain.useCases.utils.UserValidationResult.*;
+import static br.edu.ifce.backend.domain.useCases.utils.UserValidationResult.EMAIL_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.UserValidationResult.NAME_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.UserValidationResult.PASSWORD_NOT_VALID;
+import static br.edu.ifce.backend.domain.useCases.utils.UserValidationResult.SUCCESS;
 
 public interface UserValidation extends Function<User, UserValidationResult> {
     static UserValidation nameIsValid() {

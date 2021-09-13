@@ -1,4 +1,4 @@
-package br.edu.ifce.backend.domain.useCases;
+package br.edu.ifce.backend.domain.useCases.user;
 
 import br.edu.ifce.backend.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.backend.domain.entities.User;
@@ -7,13 +7,14 @@ import br.edu.ifce.backend.domain.ports.driven.EmailService;
 import br.edu.ifce.backend.domain.ports.driven.UserRepository;
 import br.edu.ifce.backend.domain.ports.driver.ResendAccountConfirmationEmail;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ResendAccountConfirmationEmailUseCase implements ResendAccountConfirmationEmail {
 
     private final UserRepository userRepository;
