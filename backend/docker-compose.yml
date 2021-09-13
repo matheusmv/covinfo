@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+
+  covinfodb:
+    build:
+      dockerfile: ./docker/covinfodb.dockerfile
+      context: .
+    image: matheusmv/covinfodb:0.0.1
+    container_name: covinfodb
+    cap_add:
+      - SYS_NICE
+    ports:
+      - "3306"
+    networks:
+      - covinfo-app-net
+    restart: always
+    volumes:
+      - covinfodata:/var/lib/mysql
+
+  covinfoapp:
+    build: 
+      dockerfile: ./docker/covinfoapp.dockerfile
+      context: .
+    image: matheusmv/covinfoapp:0.0.1
+    container_name: covinfoapp
+    ports: 
+      - "8080:8080"
+    environment: 
+      - SPRING_PROFILES_ACTIVE=dev
+      - spring.datasource.url=jdbc:mysql://covinfodb:3306/covinfo?serverTimezone=UTC
+      - spring.datasource.username=root
+      - spring.datasource.password=admin
+      - spring.mail.host=mail-dev
+    networks: 
+      - covinfo-app-net
+    restart: always
+    depends_on:
+      - covinfodb
+
+  mail-dev:
+    build:
+      dockerfile: ./docker/maildev.dockerfile
+      context: .
+    image: matheusmv/mail-dev:0.0.1
+    container_name: mail-dev
+    ports:
+      - "80:80"
+      - "25"
+    networks: 
+      - covinfo-app-net
+    restart: always
+
+networks: 
+  covinfo-app-net:
+    driver: bridge
+
+volumes: 
+  covinfodata:
