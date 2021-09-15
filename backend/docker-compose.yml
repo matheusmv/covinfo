@@ -53,7 +53,9 @@ services:
 
 networks: 
   covinfo-app-net:
+    name: covinfo-app-net
     driver: bridge
 
 volumes: 
   covinfodata:
+    name: covinfodata
