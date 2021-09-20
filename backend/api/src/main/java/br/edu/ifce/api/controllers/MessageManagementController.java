@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.MessageManagementControllerDocs;
+import br.edu.ifce.api.docs.MessageManagementControllerDocs;
 import br.edu.ifce.domain.ports.driver.GetAMessageById;
 import br.edu.ifce.domain.ports.driver.GetAllMessages;
 import br.edu.ifce.domain.ports.dto.messagedtos.MessageDTO;

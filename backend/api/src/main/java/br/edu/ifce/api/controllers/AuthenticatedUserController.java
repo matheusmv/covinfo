@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.AuthenticatedUserControllerDocs;
+import br.edu.ifce.api.docs.AuthenticatedUserControllerDocs;
 import br.edu.ifce.domain.ports.driver.CreateAMessage;
 import br.edu.ifce.domain.ports.driver.GetDataFromTheVaccinationCampaign;
 import br.edu.ifce.domain.ports.driver.GetFullAddressOfAuthenticatedUser;

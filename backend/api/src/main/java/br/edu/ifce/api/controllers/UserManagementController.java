@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.UserManagementControllerDocs;
+import br.edu.ifce.api.docs.UserManagementControllerDocs;
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.ports.driver.DeleteAUserById;
 import br.edu.ifce.domain.ports.driver.GetAUserById;

@@ -1,4 +1,4 @@
-package br.edu.ifce.db.exceptions;
+package br.edu.ifce.domain.exceptions;
 
 public class DataIntegrityException extends RuntimeException {
     public DataIntegrityException(String message) {

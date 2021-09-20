@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.UserControllerDocs;
+import br.edu.ifce.api.docs.UserControllerDocs;
 import br.edu.ifce.domain.ports.driver.ConfirmNewUserAccount;
 import br.edu.ifce.domain.ports.driver.RegisterAUser;
 import br.edu.ifce.domain.ports.driver.ResendAccountConfirmationEmail;

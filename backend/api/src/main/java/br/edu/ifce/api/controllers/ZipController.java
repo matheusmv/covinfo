@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.ZipControllerDocs;
+import br.edu.ifce.api.docs.ZipControllerDocs;
 import br.edu.ifce.domain.ports.driver.GetInformationAboutZipCode;
 import br.edu.ifce.domain.ports.dto.CompleteZipCodeInformation;
 import lombok.AllArgsConstructor;

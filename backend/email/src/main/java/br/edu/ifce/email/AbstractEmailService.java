@@ -2,7 +2,7 @@ package br.edu.ifce.email;
 
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.ports.driven.EmailService;
-import br.edu.ifce.email.exceptions.EmailServiceException;
+import br.edu.ifce.domain.exceptions.EmailServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

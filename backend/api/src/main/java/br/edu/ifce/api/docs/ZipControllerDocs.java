@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.api.docs;
+package br.edu.ifce.api.docs;
 
 import br.edu.ifce.domain.ports.dto.CompleteZipCodeInformation;
 import io.swagger.annotations.Api;

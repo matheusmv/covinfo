@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.config;
+package br.edu.ifce.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

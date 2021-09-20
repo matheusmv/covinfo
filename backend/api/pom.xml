@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>app</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>api</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -20,32 +19,14 @@
     <dependencies>
         <dependency>
             <groupId>br.edu.ifce</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>usecase</artifactId>
             <version>0.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>br.edu.ifce</groupId>
-            <artifactId>db</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.edu.ifce</groupId>
-            <artifactId>email</artifactId>
+            <artifactId>consumer</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>br.edu.ifce.app.Application</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

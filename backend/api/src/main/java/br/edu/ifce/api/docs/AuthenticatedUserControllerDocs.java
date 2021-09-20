@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.api.docs;
+package br.edu.ifce.api.docs;
 
 import br.edu.ifce.domain.ports.dto.MedicalCareUnityInfo;
 import br.edu.ifce.domain.ports.dto.VaccinationData;

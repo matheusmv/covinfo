@@ -1,6 +1,6 @@
 package br.edu.ifce.db;
 
-import br.edu.ifce.db.exceptions.DataIntegrityException;
+import br.edu.ifce.domain.exceptions.DataIntegrityException;
 import br.edu.ifce.domain.exceptions.ObjectNotFoundException;
 import br.edu.ifce.db.jpa.CountryJpaRepository;
 import br.edu.ifce.domain.entities.Country;

@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.api.exceptions;
+package br.edu.ifce.api.exceptions;
 
 import lombok.Builder;
 import lombok.Getter;

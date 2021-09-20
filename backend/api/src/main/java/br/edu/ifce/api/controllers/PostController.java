@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.api.controllers;
+package br.edu.ifce.api.controllers;
 
-import br.edu.ifce.app.adpters.api.docs.PostControllerDocs;
+import br.edu.ifce.api.docs.PostControllerDocs;
 import br.edu.ifce.domain.ports.driver.GetAPostById;
 import br.edu.ifce.domain.ports.driver.GetAllPosts;
 import br.edu.ifce.domain.ports.dto.postdtos.PostDTO;
