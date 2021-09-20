@@ -15,6 +15,19 @@
     <name>backend</name>
     <description>COVINFO Project Backend</description>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>app</module>
+        <module>domain</module>
+        <module>db</module>
+        <module>usecase</module>
+        <module>email</module>
+        <module>consumer</module>
+        <module>api</module>
+        <module>security</module>
+    </modules>
+
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -111,20 +124,21 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-
 </project>
