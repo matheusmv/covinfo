@@ -1,27 +1,30 @@
 package br.edu.ifce.backend.domain.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "city")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class City {
 
-    @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     @ManyToOne
     @JoinColumn(
             name = "state_id",
-            foreignKey = @ForeignKey(name = "fk_city_state")
-    )
+            foreignKey = @ForeignKey(name = "fk_city_state"))
     private State state;
 }

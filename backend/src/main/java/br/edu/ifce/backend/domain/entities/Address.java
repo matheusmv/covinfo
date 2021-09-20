@@ -1,21 +1,27 @@
 package br.edu.ifce.backend.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "address")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Address {
 
-    @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String zip;
     private String neighborhood;
@@ -24,15 +30,14 @@ public class Address {
     @ManyToOne
     @JoinColumn(
             name = "city_id",
-            foreignKey = @ForeignKey(name = "fk_address_city")
-    )
+            foreignKey = @ForeignKey(name = "fk_address_city"))
     private City city;
 
     @JsonIgnore
+    @MapsId
     @OneToOne
     @JoinColumn(
             name = "user_id",
-            foreignKey = @ForeignKey(name = "fk_address_user")
-    )
+            foreignKey = @ForeignKey(name = "fk_address_user"))
     private User user;
 }

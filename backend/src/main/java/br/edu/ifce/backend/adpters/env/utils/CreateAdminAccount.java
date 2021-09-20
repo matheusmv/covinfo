@@ -24,7 +24,7 @@ public class CreateAdminAccount {
         if (!adminExists) {
             User admin = new User(null, "Admin", email, passwordEncoder.encode(password));
 
-            admin.setRole(UserRole.ADMIN.getCode());
+            admin.setRole(UserRole.ADMIN);
             admin.setEnabled(true);
             admin.setLocked(false);
             admin.setCreatedAt(LocalDateTime.now());

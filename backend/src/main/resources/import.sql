@@ -57,15 +57,12 @@ INSERT INTO `city` (`id`, `name`, `state_id`) VALUES (26, 'São Paulo', 26);
 INSERT INTO `city` (`id`, `name`, `state_id`) VALUES (27, 'Palmas', 27);
 
 -- password = password
--- role = admin
-INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (1, 'Pedro Alcantara', 'pedro@email.com', '$2a$10$6SBtKRzkY3lLUzfIVy8HgOOaMo3CQ4d2bj1prPRfD2J6GKF9M1QcG', false, true, NOW(), 1);
+INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (1, 'Pedro Alcantara', 'pedro@email.com', '$2a$10$6SBtKRzkY3lLUzfIVy8HgOOaMo3CQ4d2bj1prPRfD2J6GKF9M1QcG', false, true, NOW(), 'ADMIN');
 -- password = password
--- role = content_manager
-INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (2, 'José Almeida', 'jose@email.com', '$2a$10$fkC188l3Ueac1TeDwyrCYeVT47Q2OCX317eRcqQYYfjeb4C49z98u', false, true, NOW(), 2);
+INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (2, 'José Almeida', 'jose@email.com', '$2a$10$fkC188l3Ueac1TeDwyrCYeVT47Q2OCX317eRcqQYYfjeb4C49z98u', false, true, NOW(), 'USER');
 -- password = password
--- role = user
-INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (3, 'Maria Alves', 'maria@email.com', '$2a$10$gCIDrDOhhW3DPj6Zt1JBCeJ8Ty2Sws3NtSI.C5bDVUHeJg6bFAKri', false, true, NOW(), 3);
+INSERT INTO `user` (`id`, `full_name`, `email`, `password`, `locked`, `enabled`, `created_at`, `role`) VALUES (3, 'Maria Alves', 'maria@email.com', '$2a$10$gCIDrDOhhW3DPj6Zt1JBCeJ8Ty2Sws3NtSI.C5bDVUHeJg6bFAKri', false, true, NOW(), 'CONTENT_MANAGER');
 
-INSERT INTO `address` (`id`, `user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (1, 1, 26, '04852-410', 'Jardim Jaú (Zona Sul)', 'Rua 3');
-INSERT INTO `address` (`id`, `user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (2, 2, 26, '08344-010', 'Jardim da Conquista (Zona Leste)', 'Travessa A Banda');
-INSERT INTO `address` (`id`, `user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (3, 3, 15, '58042-959', 'Tambauzinho', 'Rua Abdias Gomes de Almeida');
+INSERT INTO `address` (`user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (1, 26, '04852-410', 'Jardim Jaú (Zona Sul)', 'Rua 3');
+INSERT INTO `address` (`user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (2, 26, '08344-010', 'Jardim da Conquista (Zona Leste)', 'Travessa A Banda');
+INSERT INTO `address` (`user_id`, `city_id`, `zip`, `neighborhood`, `street`) VALUES (3, 15, '58042-959', 'Tambauzinho', 'Rua Abdias Gomes de Almeida');
