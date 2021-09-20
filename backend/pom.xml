@@ -15,6 +15,13 @@
     <name>backend</name>
     <description>COVINFO Project Backend</description>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>app</module>
+        <module>domain</module>
+    </modules>
+
     <properties>
         <java.version>11</java.version>
     </properties>
