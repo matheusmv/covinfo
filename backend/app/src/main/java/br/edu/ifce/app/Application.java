@@ -11,7 +11,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @ComponentScan(basePackages = {
         "br.edu.ifce.db",
-        "br.edu.ifce.app"
+        "br.edu.ifce.app",
+        "br.edu.ifce.usecase"
 })
 @EntityScan("br.edu.ifce.domain")
 @EnableJpaRepositories("br.edu.ifce.db")

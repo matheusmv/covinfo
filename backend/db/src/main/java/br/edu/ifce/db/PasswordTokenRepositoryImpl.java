@@ -1,7 +1,7 @@
 package br.edu.ifce.db;
 
 import br.edu.ifce.db.exceptions.DataIntegrityException;
-import br.edu.ifce.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.domain.exceptions.ObjectNotFoundException;
 import br.edu.ifce.db.jpa.PasswordTokenJpaRepository;
 import br.edu.ifce.domain.entities.PasswordToken;
 import br.edu.ifce.domain.ports.driven.PasswordTokenRepository;

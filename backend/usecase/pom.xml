@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>app</artifactId>
+    <artifactId>usecase</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -21,18 +21,6 @@
         <dependency>
             <groupId>br.edu.ifce</groupId>
             <artifactId>domain</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.edu.ifce</groupId>
-            <artifactId>db</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.edu.ifce</groupId>
-            <artifactId>usecase</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
