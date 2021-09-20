@@ -1,13 +1,13 @@
 package br.edu.ifce.app.adpters.api.exceptions;
 
 import br.edu.ifce.app.adpters.consumers.exceptions.ZipNotFoundException;
-import br.edu.ifce.app.adpters.email.exceptions.EmailServiceException;
 import br.edu.ifce.db.exceptions.DataIntegrityException;
-import br.edu.ifce.domain.exceptions.ObjectNotFoundException;
 import br.edu.ifce.domain.exceptions.AuthorizationException;
 import br.edu.ifce.domain.exceptions.InvalidConfirmationTokenException;
 import br.edu.ifce.domain.exceptions.InvalidEmailException;
+import br.edu.ifce.domain.exceptions.ObjectNotFoundException;
 import br.edu.ifce.domain.exceptions.ValidationException;
+import br.edu.ifce.email.exceptions.EmailServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

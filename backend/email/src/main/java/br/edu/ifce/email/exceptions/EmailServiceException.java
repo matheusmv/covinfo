@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.email.exceptions;
+package br.edu.ifce.email.exceptions;
 
 public class EmailServiceException extends RuntimeException {
     public EmailServiceException(String message) {

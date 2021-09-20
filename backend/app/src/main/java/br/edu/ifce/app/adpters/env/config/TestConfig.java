@@ -1,7 +1,7 @@
 package br.edu.ifce.app.adpters.env.config;
 
-import br.edu.ifce.app.adpters.email.SmtpEmailService;
 import br.edu.ifce.domain.ports.driven.EmailService;
+import br.edu.ifce.email.SmtpEmailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

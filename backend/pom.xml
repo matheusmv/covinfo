@@ -22,6 +22,7 @@
         <module>domain</module>
         <module>db</module>
         <module>usecase</module>
+        <module>email</module>
     </modules>
 
     <properties>

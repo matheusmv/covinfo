@@ -9,19 +9,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-@ComponentScan(basePackages = {
-        "br.edu.ifce.db",
-        "br.edu.ifce.app",
-        "br.edu.ifce.usecase"
-})
+@ComponentScan(basePackages = "br.edu.ifce.**")
 @EntityScan("br.edu.ifce.domain")
 @EnableJpaRepositories("br.edu.ifce.db")
 public class Application {
 
-    // TODO: novo modulo usecases
     // TODO: novo modulo consumers
     // TODO: novo modulo api
-    // TODO: novo modulo email
     // TODO: novo modulo security
     // TODO: criar testes
 
