@@ -22,11 +22,5 @@
             <artifactId>usecase</artifactId>
             <version>0.0.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>br.edu.ifce</groupId>
-            <artifactId>consumer</artifactId>
-            <version>0.0.1</version>
-        </dependency>
     </dependencies>
 </project>
