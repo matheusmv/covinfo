@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.db.exceptions;
+package br.edu.ifce.db.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
     public ObjectNotFoundException(String message) {

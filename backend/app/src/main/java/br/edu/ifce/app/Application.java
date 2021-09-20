@@ -3,13 +3,25 @@ package br.edu.ifce.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-@EntityScan(basePackages = "br.edu.ifce.domain")
+@ComponentScan(basePackages = {
+        "br.edu.ifce.db",
+        "br.edu.ifce.app"
+})
+@EntityScan("br.edu.ifce.domain")
+@EnableJpaRepositories("br.edu.ifce.db")
 public class Application {
 
+    // TODO: novo modulo usecases
+    // TODO: novo modulo consumers
+    // TODO: novo modulo api
+    // TODO: novo modulo email
+    // TODO: novo modulo security
     // TODO: criar testes
 
     public static void main(String[] args) {

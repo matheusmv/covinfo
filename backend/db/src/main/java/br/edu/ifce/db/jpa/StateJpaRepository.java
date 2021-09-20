@@ -1,10 +1,8 @@
-package br.edu.ifce.app.adpters.db.jpa;
+package br.edu.ifce.db.jpa;
 
 import br.edu.ifce.domain.entities.State;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface StateJpaRepository extends JpaRepository<State, Long> {
 
 }

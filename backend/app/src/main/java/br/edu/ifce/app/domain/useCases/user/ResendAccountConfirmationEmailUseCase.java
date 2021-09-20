@@ -1,6 +1,6 @@
 package br.edu.ifce.app.domain.useCases.user;
 
-import br.edu.ifce.app.adpters.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.exceptions.InvalidEmailException;
 import br.edu.ifce.domain.ports.driven.EmailService;

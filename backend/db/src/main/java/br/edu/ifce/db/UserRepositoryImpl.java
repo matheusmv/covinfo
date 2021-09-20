@@ -1,10 +1,11 @@
-package br.edu.ifce.app.adpters.db;
+package br.edu.ifce.db;
 
-import br.edu.ifce.app.adpters.db.exceptions.DataIntegrityException;
-import br.edu.ifce.app.adpters.db.exceptions.ObjectNotFoundException;
-import br.edu.ifce.app.adpters.db.jpa.UserJpaRepository;
+import br.edu.ifce.db.exceptions.DataIntegrityException;
+import br.edu.ifce.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.db.jpa.UserJpaRepository;
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.ports.driven.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,13 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
-
-    public UserRepositoryImpl(UserJpaRepository userJpaRepository) {
-        this.userJpaRepository = userJpaRepository;
-    }
 
     @Override
     public void save(User user) {

@@ -1,8 +1,8 @@
-package br.edu.ifce.app.adpters.db;
+package br.edu.ifce.db;
 
-import br.edu.ifce.app.adpters.db.exceptions.DataIntegrityException;
-import br.edu.ifce.app.adpters.db.exceptions.ObjectNotFoundException;
-import br.edu.ifce.app.adpters.db.jpa.PostJpaRepository;
+import br.edu.ifce.db.exceptions.DataIntegrityException;
+import br.edu.ifce.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.db.jpa.PostJpaRepository;
 import br.edu.ifce.domain.entities.Post;
 import br.edu.ifce.domain.ports.driven.PostRepository;
 import lombok.AllArgsConstructor;

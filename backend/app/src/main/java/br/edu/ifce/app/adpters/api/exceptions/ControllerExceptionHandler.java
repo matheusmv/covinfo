@@ -1,9 +1,9 @@
 package br.edu.ifce.app.adpters.api.exceptions;
 
 import br.edu.ifce.app.adpters.consumers.exceptions.ZipNotFoundException;
-import br.edu.ifce.app.adpters.db.exceptions.DataIntegrityException;
-import br.edu.ifce.app.adpters.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.app.adpters.email.exceptions.EmailServiceException;
+import br.edu.ifce.db.exceptions.DataIntegrityException;
+import br.edu.ifce.db.exceptions.ObjectNotFoundException;
 import br.edu.ifce.domain.exceptions.AuthorizationException;
 import br.edu.ifce.domain.exceptions.InvalidConfirmationTokenException;
 import br.edu.ifce.domain.exceptions.InvalidEmailException;

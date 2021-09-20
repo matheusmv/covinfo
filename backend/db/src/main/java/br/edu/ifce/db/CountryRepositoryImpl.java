@@ -1,21 +1,22 @@
-package br.edu.ifce.app.adpters.db;
+package br.edu.ifce.db;
 
-import br.edu.ifce.app.adpters.db.exceptions.DataIntegrityException;
-import br.edu.ifce.app.adpters.db.exceptions.ObjectNotFoundException;
-import br.edu.ifce.app.adpters.db.jpa.CountryJpaRepository;
+import br.edu.ifce.db.exceptions.DataIntegrityException;
+import br.edu.ifce.db.exceptions.ObjectNotFoundException;
+import br.edu.ifce.db.jpa.CountryJpaRepository;
 import br.edu.ifce.domain.entities.Country;
 import br.edu.ifce.domain.ports.driven.CountryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class CountryRepositoryImpl implements CountryRepository {
 
-    private final CountryJpaRepository countryJpaRepository;
+    @Autowired
+    private CountryJpaRepository countryJpaRepository;
 
     @Override
     public void create(Country country) {

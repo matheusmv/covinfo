@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.db.jpa;
+package br.edu.ifce.db.jpa;
 
 import br.edu.ifce.domain.entities.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
