@@ -1,6 +1,6 @@
 package br.edu.ifce.app.adpters.api.exceptions;
 
-import br.edu.ifce.app.adpters.consumers.exceptions.ZipNotFoundException;
+import br.edu.ifce.consumer.exceptions.ZipNotFoundException;
 import br.edu.ifce.db.exceptions.DataIntegrityException;
 import br.edu.ifce.domain.exceptions.AuthorizationException;
 import br.edu.ifce.domain.exceptions.InvalidConfirmationTokenException;

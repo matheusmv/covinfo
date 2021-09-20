@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.consumers.opendatasus;
+package br.edu.ifce.consumer.opendatasus;
 
 import br.edu.ifce.domain.ports.driven.OpendatasusLeitosConsumer;
 import com.fasterxml.jackson.annotation.JsonProperty;

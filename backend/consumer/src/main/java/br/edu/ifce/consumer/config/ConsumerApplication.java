@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.consumers.config;
+package br.edu.ifce.consumer.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

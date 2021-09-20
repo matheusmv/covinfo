@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.consumers.exceptions;
+package br.edu.ifce.consumer.exceptions;
 
 public class ZipNotFoundException extends RuntimeException {
     public ZipNotFoundException(String message) {

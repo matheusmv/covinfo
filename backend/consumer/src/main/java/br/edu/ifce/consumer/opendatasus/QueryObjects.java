@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.consumers.opendatasus;
+package br.edu.ifce.consumer.opendatasus;
 
 import com.google.gson.Gson;
 
