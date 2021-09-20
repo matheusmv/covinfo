@@ -1,6 +1,6 @@
-package br.edu.ifce.app.adpters.env.config;
+package br.edu.ifce.app.env.config;
 
-import br.edu.ifce.app.adpters.env.utils.CreateAdminAccount;
+import br.edu.ifce.app.env.utils.CreateAdminAccount;
 import br.edu.ifce.domain.ports.driven.EmailService;
 import br.edu.ifce.email.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("prod")
-public class ProdConfig {
+@Profile("dev")
+public class DevConfig {
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String ddlAutoValue;
 
     @Value("${credentials.admin.email}")
     private String email;
@@ -24,6 +27,7 @@ public class ProdConfig {
 
     @Bean
     public boolean instantiateDataBase() {
+
         createAdminAccount.createAdminAccount(email, password);
 
         return true;

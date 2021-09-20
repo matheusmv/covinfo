@@ -1,8 +1,8 @@
-package br.edu.ifce.app.adpters.security.config;
+package br.edu.ifce.security.config;
 
-import br.edu.ifce.app.adpters.security.jwt.JWTAuthenticationFilter;
-import br.edu.ifce.app.adpters.security.jwt.JWTAuthorizationFilter;
-import br.edu.ifce.app.adpters.security.jwt.JWTUtil;
+import br.edu.ifce.security.jwt.JWTAuthenticationFilter;
+import br.edu.ifce.security.jwt.JWTAuthorizationFilter;
+import br.edu.ifce.security.jwt.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

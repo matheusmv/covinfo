@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.security.user;
+package br.edu.ifce.security.user;
 
 import br.edu.ifce.domain.ports.driven.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

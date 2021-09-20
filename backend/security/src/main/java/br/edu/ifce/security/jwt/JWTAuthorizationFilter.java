@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.security.jwt;
+package br.edu.ifce.security.jwt;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

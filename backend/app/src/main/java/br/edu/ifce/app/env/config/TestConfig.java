@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.env.config;
+package br.edu.ifce.app.env.config;
 
 import br.edu.ifce.domain.ports.driven.EmailService;
 import br.edu.ifce.email.SmtpEmailService;

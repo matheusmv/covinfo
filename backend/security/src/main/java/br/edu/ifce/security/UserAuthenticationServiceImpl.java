@@ -1,10 +1,10 @@
-package br.edu.ifce.app.adpters.security;
+package br.edu.ifce.security;
 
-import br.edu.ifce.app.adpters.security.jwt.JWTUtil;
-import br.edu.ifce.app.adpters.security.user.UserSecurityService;
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.ports.driven.UserAuthenticationService;
 import br.edu.ifce.domain.ports.driven.UserRepository;
+import br.edu.ifce.security.jwt.JWTUtil;
+import br.edu.ifce.security.user.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableJpaRepositories("br.edu.ifce.db")
 public class Application {
 
-    // TODO: novo modulo security
     // TODO: criar testes
 
     public static void main(String[] args) {

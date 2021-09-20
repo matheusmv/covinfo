@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.security.jwt;
+package br.edu.ifce.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

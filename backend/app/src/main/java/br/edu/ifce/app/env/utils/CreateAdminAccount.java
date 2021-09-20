@@ -1,4 +1,4 @@
-package br.edu.ifce.app.adpters.env.utils;
+package br.edu.ifce.app.env.utils;
 
 import br.edu.ifce.domain.entities.User;
 import br.edu.ifce.domain.entities.enums.UserRole;

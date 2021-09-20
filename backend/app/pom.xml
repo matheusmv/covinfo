@@ -26,6 +26,12 @@
 
         <dependency>
             <groupId>br.edu.ifce</groupId>
+            <artifactId>security</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.edu.ifce</groupId>
             <artifactId>db</artifactId>
             <version>0.0.1</version>
         </dependency>
