@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,13 +21,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static br.edu.ifce.domain.enums.UserRole.ADMIN;
 import static br.edu.ifce.domain.enums.UserRole.CONTENT_MANAGER;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -82,13 +81,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
         http
-                .cors()
-                .and()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .cors().configurationSource(corsConfigurationSource());
+
+        http
+                .csrf().disable();
+
+        http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+
+        http
                 .authorizeRequests()
                 .antMatchers("/management/**").hasAnyRole(ADMIN.name(), CONTENT_MANAGER.name())
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
@@ -108,10 +113,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        var configuration = new CorsConfiguration().applyPermitDefaultValues();
+
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        var source = new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 

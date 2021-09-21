@@ -2,10 +2,13 @@ package br.edu.ifce.security.user;
 
 import br.edu.ifce.usecase.ports.driven.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getPassword(),
                 user.getLocked(),
                 user.getEnabled(),
-                user.getSimpleGrantedAuthorities()
+                Set.of(new SimpleGrantedAuthority(user.getRole().getRole()))
         );
     }
 }

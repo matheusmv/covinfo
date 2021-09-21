@@ -3,7 +3,6 @@ package br.edu.ifce.domain;
 import br.edu.ifce.domain.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,7 +17,6 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -65,14 +63,5 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = UserRole.USER;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    @JsonIgnore
-    public Set<SimpleGrantedAuthority> getSimpleGrantedAuthorities() {
-        return UserRole.getGrantedAuthorities(role.getCode());
     }
 }
