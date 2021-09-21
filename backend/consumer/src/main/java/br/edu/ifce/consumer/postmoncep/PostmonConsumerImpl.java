@@ -1,7 +1,7 @@
 package br.edu.ifce.consumer.postmoncep;
 
-import br.edu.ifce.domain.exceptions.ZipNotFoundException;
-import br.edu.ifce.domain.ports.driven.PostmonConsumer;
+import br.edu.ifce.usecase.exceptions.ZipNotFoundException;
+import br.edu.ifce.usecase.ports.driven.PostmonConsumer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

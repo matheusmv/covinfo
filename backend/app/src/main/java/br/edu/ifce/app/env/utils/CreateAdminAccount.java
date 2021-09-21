@@ -1,8 +1,8 @@
 package br.edu.ifce.app.env.utils;
 
-import br.edu.ifce.domain.entities.User;
-import br.edu.ifce.domain.entities.enums.UserRole;
-import br.edu.ifce.domain.ports.driven.UserRepository;
+import br.edu.ifce.domain.User;
+import br.edu.ifce.domain.enums.UserRole;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

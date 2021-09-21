@@ -1,6 +1,6 @@
 package br.edu.ifce.security.user;
 
-import br.edu.ifce.domain.ports.driven.UserRepository;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

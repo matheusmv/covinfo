@@ -1,6 +1,6 @@
 package br.edu.ifce.db.jpa;
 
-import br.edu.ifce.domain.entities.PasswordToken;
+import br.edu.ifce.domain.PasswordToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

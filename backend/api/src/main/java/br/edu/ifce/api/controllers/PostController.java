@@ -1,10 +1,10 @@
 package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.PostControllerDocs;
-import br.edu.ifce.domain.ports.driver.GetAPostById;
-import br.edu.ifce.domain.ports.driver.GetAllPosts;
-import br.edu.ifce.domain.ports.dto.postdtos.PostDTO;
-import br.edu.ifce.domain.ports.dto.postdtos.PostWithContentDTO;
+import br.edu.ifce.usecase.ports.driver.GetAPostById;
+import br.edu.ifce.usecase.ports.driver.GetAllPosts;
+import br.edu.ifce.usecase.ports.dto.postdtos.PostDTO;
+import br.edu.ifce.usecase.ports.dto.postdtos.PostWithContentDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

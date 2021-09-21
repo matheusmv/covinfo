@@ -1,6 +1,6 @@
 package br.edu.ifce.db.jpa;
 
-import br.edu.ifce.domain.entities.City;
+import br.edu.ifce.domain.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

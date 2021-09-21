@@ -1,7 +1,7 @@
 package br.edu.ifce.db.jpa;
 
-import br.edu.ifce.domain.entities.Message;
-import br.edu.ifce.domain.entities.User;
+import br.edu.ifce.domain.Message;
+import br.edu.ifce.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -23,8 +23,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-import static br.edu.ifce.domain.entities.enums.UserRole.ADMIN;
-import static br.edu.ifce.domain.entities.enums.UserRole.CONTENT_MANAGER;
+import static br.edu.ifce.domain.enums.UserRole.ADMIN;
+import static br.edu.ifce.domain.enums.UserRole.CONTENT_MANAGER;
 
 @Configuration
 @EnableWebSecurity

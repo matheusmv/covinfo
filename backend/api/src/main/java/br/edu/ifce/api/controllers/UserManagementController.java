@@ -1,11 +1,11 @@
 package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.UserManagementControllerDocs;
-import br.edu.ifce.domain.entities.User;
-import br.edu.ifce.domain.ports.driver.DeleteAUserById;
-import br.edu.ifce.domain.ports.driver.GetAUserById;
-import br.edu.ifce.domain.ports.driver.ListAllAccountsRegisteredInTheSystem;
-import br.edu.ifce.domain.ports.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.domain.User;
+import br.edu.ifce.usecase.ports.driver.DeleteAUserById;
+import br.edu.ifce.usecase.ports.driver.GetAUserById;
+import br.edu.ifce.usecase.ports.driver.ListAllAccountsRegisteredInTheSystem;
+import br.edu.ifce.usecase.ports.dto.userdtos.SimpleUserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

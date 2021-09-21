@@ -1,6 +1,6 @@
 package br.edu.ifce.usecase.utils;
 
-import br.edu.ifce.domain.entities.Address;
+import br.edu.ifce.domain.Address;
 
 import java.util.Optional;
 import java.util.function.Function;

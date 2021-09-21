@@ -1,6 +1,6 @@
 package br.edu.ifce.security.jwt;
 
-import br.edu.ifce.domain.ports.dto.userdtos.UserCredentialsDTO;
+import br.edu.ifce.usecase.ports.dto.userdtos.UserCredentialsDTO;
 import br.edu.ifce.security.user.UserSecurityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
