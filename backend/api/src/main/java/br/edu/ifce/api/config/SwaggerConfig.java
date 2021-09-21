@@ -16,7 +16,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String BASE_PACKAGE = "br.edu.ifce.backend.adpters.api.controllers";
+    private static final String BASE_PACKAGE = "br.edu.ifce.api.controllers";
     private static final String API_TITLE = "COVINFO";
     private static final String API_DESCRIPTION = "REST API of COVINFO project";
     private static final String API_VERSION = "0.0.1";

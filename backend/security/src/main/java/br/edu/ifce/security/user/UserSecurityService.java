@@ -1,6 +1,6 @@
 package br.edu.ifce.security.user;
 
-import br.edu.ifce.domain.entities.enums.UserRole;
+import br.edu.ifce.domain.enums.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

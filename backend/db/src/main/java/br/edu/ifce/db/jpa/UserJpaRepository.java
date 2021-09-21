@@ -1,6 +1,6 @@
 package br.edu.ifce.db.jpa;
 
-import br.edu.ifce.domain.entities.User;
+import br.edu.ifce.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

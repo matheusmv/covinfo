@@ -1,8 +1,8 @@
 package br.edu.ifce.security;
 
-import br.edu.ifce.domain.entities.User;
-import br.edu.ifce.domain.ports.driven.UserAuthenticationService;
-import br.edu.ifce.domain.ports.driven.UserRepository;
+import br.edu.ifce.domain.User;
+import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.security.jwt.JWTUtil;
 import br.edu.ifce.security.user.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;

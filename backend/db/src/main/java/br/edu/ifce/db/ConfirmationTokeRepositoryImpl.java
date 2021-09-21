@@ -1,10 +1,10 @@
 package br.edu.ifce.db;
 
-import br.edu.ifce.domain.exceptions.DataIntegrityException;
-import br.edu.ifce.domain.exceptions.ObjectNotFoundException;
+import br.edu.ifce.usecase.exceptions.DataIntegrityException;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.db.jpa.ConfirmationTokenJpaRepository;
-import br.edu.ifce.domain.entities.ConfirmationToken;
-import br.edu.ifce.domain.ports.driven.ConfirmationTokenRepository;
+import br.edu.ifce.domain.ConfirmationToken;
+import br.edu.ifce.usecase.ports.driven.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

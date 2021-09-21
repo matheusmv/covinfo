@@ -1,14 +1,14 @@
 package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.UserControllerDocs;
-import br.edu.ifce.domain.ports.driver.ConfirmNewUserAccount;
-import br.edu.ifce.domain.ports.driver.RegisterAUser;
-import br.edu.ifce.domain.ports.driver.ResendAccountConfirmationEmail;
-import br.edu.ifce.domain.ports.driver.ResetUserPassword;
-import br.edu.ifce.domain.ports.driver.SendLinkToChangePassword;
-import br.edu.ifce.domain.ports.dto.userdtos.EmailDTO;
-import br.edu.ifce.domain.ports.dto.userdtos.PasswordDTO;
-import br.edu.ifce.domain.ports.dto.userdtos.UserRegistrationDTO;
+import br.edu.ifce.usecase.ports.driver.ConfirmNewUserAccount;
+import br.edu.ifce.usecase.ports.driver.RegisterAUser;
+import br.edu.ifce.usecase.ports.driver.ResendAccountConfirmationEmail;
+import br.edu.ifce.usecase.ports.driver.ResetUserPassword;
+import br.edu.ifce.usecase.ports.driver.SendLinkToChangePassword;
+import br.edu.ifce.usecase.ports.dto.userdtos.EmailDTO;
+import br.edu.ifce.usecase.ports.dto.userdtos.PasswordDTO;
+import br.edu.ifce.usecase.ports.dto.userdtos.UserRegistrationDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
