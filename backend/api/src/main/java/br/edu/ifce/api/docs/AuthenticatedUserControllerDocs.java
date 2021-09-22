@@ -1,12 +1,11 @@
 package br.edu.ifce.api.docs;
 
-import br.edu.ifce.usecase.ports.dto.MedicalCareUnityInfo;
-import br.edu.ifce.usecase.ports.dto.VaccinationData;
-import br.edu.ifce.usecase.ports.dto.addressdtos.FullAddressDTO;
-import br.edu.ifce.usecase.ports.dto.addressdtos.UpdateAddressDTO;
-import br.edu.ifce.usecase.ports.dto.messagedtos.NewMessageDTO;
-import br.edu.ifce.usecase.ports.dto.userdtos.UpdateUserDTO;
-import br.edu.ifce.usecase.ports.dto.userdtos.UserDTO;
+import br.edu.ifce.usecase.ports.requests.UpdateAddressDTO;
+import br.edu.ifce.usecase.ports.requests.UpdateUserDTO;
+import br.edu.ifce.usecase.ports.responses.FullAddressDTO;
+import br.edu.ifce.usecase.ports.responses.MedicalCareUnityInfo;
+import br.edu.ifce.usecase.ports.responses.UserDTO;
+import br.edu.ifce.usecase.ports.responses.VaccinationData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,15 +32,6 @@ public interface AuthenticatedUserControllerDocs {
     })
     ResponseEntity<Void> refreshUserAuthToken(
             @ApiParam(value = "Authorization header", required = true) HttpServletResponse response);
-
-    @ApiOperation(value = "Create a message")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success, message created"),
-            @ApiResponse(code = 401, message = "Unauthorized, only authenticated users can access this feature"),
-            @ApiResponse(code = 422, message = "Failure, missing required fields or wrong field range value")
-    })
-    ResponseEntity<Void> createAMessage(
-            @ApiParam(value = "message content", required = true) NewMessageDTO request);
 
     @ApiOperation(value = "Update user profile")
     @ApiResponses(value = {

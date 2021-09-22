@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.addressdtos;
+package br.edu.ifce.usecase.ports.requests;
 
 import br.edu.ifce.domain.Address;
 import lombok.Getter;

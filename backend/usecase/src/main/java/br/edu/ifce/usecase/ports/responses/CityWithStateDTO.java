@@ -1,8 +1,7 @@
-package br.edu.ifce.usecase.ports.dto.citydtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.City;
 import br.edu.ifce.domain.State;
-import br.edu.ifce.usecase.ports.dto.statedtos.StateWithCountryDTO;
 import lombok.Getter;
 import lombok.Setter;
 

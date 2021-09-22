@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.countrydtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.Country;
 import lombok.Getter;

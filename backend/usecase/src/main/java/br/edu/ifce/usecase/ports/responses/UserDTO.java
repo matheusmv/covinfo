@@ -1,7 +1,7 @@
-package br.edu.ifce.usecase.ports.dto.userdtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.User;
-import br.edu.ifce.usecase.ports.dto.addressdtos.FullAddressDTO;
+import br.edu.ifce.usecase.ports.responses.FullAddressDTO;
 import lombok.Getter;
 import lombok.Setter;
 

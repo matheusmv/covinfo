@@ -1,7 +1,7 @@
 package br.edu.ifce.api.docs;
 
-import br.edu.ifce.domain.User;
-import br.edu.ifce.usecase.ports.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.usecase.ports.responses.SimpleUserDTO;
+import br.edu.ifce.usecase.ports.responses.UserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +19,7 @@ public interface UserManagementControllerDocs {
             @ApiResponse(code = 403, message = "Forbidden, only admins can access this feature"),
             @ApiResponse(code = 404, message = "Failure, we didn't find information about this user id")
     })
-    ResponseEntity<User> getAUserById(
+    ResponseEntity<UserDTO> getAUserById(
             @ApiParam(value = "user id", required = true) Long id);
 
     @ApiOperation(value = "Remove accounts from the system")

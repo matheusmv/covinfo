@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto;
+package br.edu.ifce.usecase.ports.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
