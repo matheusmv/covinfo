@@ -25,7 +25,7 @@ public interface AuthenticatedUserControllerDocs {
     })
     ResponseEntity<UserDTO> getTheAuthenticatedUser();
 
-    @ApiOperation(value = "Update token expiration time")
+    @ApiOperation(value = "Refresh token")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Success, token updated"),
             @ApiResponse(code = 401, message = "Unauthorized, only authenticated users can access this feature")

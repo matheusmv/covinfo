@@ -1,9 +1,11 @@
 package br.edu.ifce.usecase.impl.opendatasus;
 
+import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.AuthorizationException;
-import br.edu.ifce.usecase.ports.driven.AddressRepository;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.ports.driven.OpendatasusVacinaConsumer;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.GetDataFromTheVaccinationCampaign;
 import br.edu.ifce.usecase.ports.responses.VaccinationData;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ import java.util.Objects;
 public class GetDataFromTheVaccinationCampaignUseCase implements GetDataFromTheVaccinationCampaign {
 
     private final UserAuthenticationService userAuthenticationService;
-    private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
     private final OpendatasusVacinaConsumer opendatasusVacinaConsumer;
 
     @Override
@@ -28,7 +30,9 @@ public class GetDataFromTheVaccinationCampaignUseCase implements GetDataFromTheV
             throw new AuthorizationException("Access denied.");
         }
 
-        var userAddress = addressRepository.findByUserId(authUser.getId());
+        var userAddress = userRepository.findByEmail(authUser.getEmail())
+                .map(User::getAddress)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
 
         var countryName = userAddress.getCity().getState().getCountry().getName();
         var stateName = userAddress.getCity().getState().getName();

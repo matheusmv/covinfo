@@ -2,6 +2,7 @@ package br.edu.ifce.usecase.impl.user;
 
 import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.AuthorizationException;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.exceptions.ValidationException;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
@@ -33,7 +34,8 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
             throw new AuthorizationException("Access denied.");
         }
 
-        var user = userRepository.findById(authUser.getId());
+        var user = userRepository.findByEmail(authUser.getEmail())
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
 
         updateUser(user, newUser);
 

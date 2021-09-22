@@ -1,13 +1,16 @@
 package br.edu.ifce.security;
 
-import br.edu.ifce.domain.User;
-import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
-import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.security.jwt.JWTUtil;
 import br.edu.ifce.security.user.UserSecurityService;
+import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
@@ -18,19 +21,30 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User getAuthenticatedUser() {
-        try {
-            var userSecurityService = (UserSecurityService) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-            return userRepository.findById(userSecurityService.getId());
+    @Override
+    public AuthenticatedUser getAuthenticatedUser() {
+        try {
+            var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            var email = authentication.getPrincipal().toString();
+            var isAuthenticated = authentication.isAuthenticated();
+            var roles = authentication.getAuthorities().stream()
+                    .map(Objects::toString)
+                    .collect(Collectors.toSet());
+
+            return new AuthenticatedUser(email, isAuthenticated, roles);
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public String refreshAuthToken(String email) {
-        return jwtUtil.generateToken(email);
+        var userDetails = userDetailsService.loadUserByUsername(email);
+
+        return jwtUtil.getAccessToken((UserSecurityService) userDetails);
     }
 }
