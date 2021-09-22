@@ -2,6 +2,7 @@ package br.edu.ifce.usecase.impl.user;
 
 import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.AuthorizationException;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.GetTheAuthenticatedUser;
@@ -26,6 +27,7 @@ public class GetTheAuthenticatedUserUseCase implements GetTheAuthenticatedUser {
             throw new AuthorizationException("Access denied.");
         }
 
-        return userRepository.findById(authUser.getId());
+        return userRepository.findByEmail(authUser.getEmail())
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
     }
 }

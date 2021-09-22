@@ -26,7 +26,7 @@ public class ListAllAccountsRegisteredInTheSystemUseCase implements ListAllAccou
     public Page<User> execute(Integer page, Integer linesPerPage, String direction, String orderBy) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
-        if (Objects.isNull(authUser) || !authUser.getRole().getRole().equals(UserRole.ADMIN.getRole())) {
+        if (Objects.isNull(authUser) || !authUser.getRoles().contains(UserRole.ADMIN.getRole())) {
             throw new AuthorizationException("Access denied.");
         }
 

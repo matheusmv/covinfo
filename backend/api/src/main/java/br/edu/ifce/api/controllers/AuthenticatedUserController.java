@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,8 @@ public class AuthenticatedUserController implements AuthenticatedUserControllerD
         return ResponseEntity.ok().body(new UserDTO(user));
     }
 
-    @PostMapping("/refresh-token")
+    // TODO: use refresh token to validate the operation
+    @GetMapping("/refresh-token")
     public ResponseEntity<Void> refreshUserAuthToken(HttpServletResponse response) {
         var token = refreshUserAuthToken.execute();
 

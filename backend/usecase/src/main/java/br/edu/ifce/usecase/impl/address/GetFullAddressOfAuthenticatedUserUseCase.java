@@ -1,9 +1,11 @@
 package br.edu.ifce.usecase.impl.address;
 
 import br.edu.ifce.domain.Address;
+import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.AuthorizationException;
-import br.edu.ifce.usecase.ports.driven.AddressRepository;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
+import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.GetFullAddressOfAuthenticatedUser;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.Objects;
 public class GetFullAddressOfAuthenticatedUserUseCase implements GetFullAddressOfAuthenticatedUser {
 
     private final UserAuthenticationService userAuthenticationService;
-    private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Address execute() {
@@ -26,6 +28,8 @@ public class GetFullAddressOfAuthenticatedUserUseCase implements GetFullAddressO
             throw new AuthorizationException("Access denied.");
         }
 
-        return addressRepository.findByUserId(authUser.getId());
+        return userRepository.findByEmail(authUser.getEmail())
+                .map(User::getAddress)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-
 public class UserSecurityService implements UserDetails {
 
     private final Long id;
@@ -18,12 +17,14 @@ public class UserSecurityService implements UserDetails {
     private final Boolean enabled;
     private final Set<? extends GrantedAuthority> authorities;
 
-    public UserSecurityService(Long id,
-                               String email,
-                               String password,
-                               Boolean locked,
-                               Boolean enabled,
-                               Set<? extends GrantedAuthority> authorities) {
+    public UserSecurityService(
+            Long id,
+            String email,
+            String password,
+            Boolean locked,
+            Boolean enabled,
+            Set<? extends GrantedAuthority> authorities
+    ) {
         this.id = id;
         this.email = email;
         this.password = password;
