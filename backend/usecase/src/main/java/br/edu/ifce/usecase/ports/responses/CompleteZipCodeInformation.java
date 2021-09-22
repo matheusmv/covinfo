@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.City;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.ZipControllerDocs;
 import br.edu.ifce.usecase.ports.driver.GetInformationAboutZipCode;
-import br.edu.ifce.usecase.ports.dto.CompleteZipCodeInformation;
+import br.edu.ifce.usecase.ports.responses.CompleteZipCodeInformation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

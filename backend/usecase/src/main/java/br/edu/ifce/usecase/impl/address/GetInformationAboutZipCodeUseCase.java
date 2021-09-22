@@ -4,7 +4,7 @@ import br.edu.ifce.usecase.exceptions.ValidationException;
 import br.edu.ifce.usecase.ports.driven.CityRepository;
 import br.edu.ifce.usecase.ports.driven.PostmonConsumer;
 import br.edu.ifce.usecase.ports.driver.GetInformationAboutZipCode;
-import br.edu.ifce.usecase.ports.dto.CompleteZipCodeInformation;
+import br.edu.ifce.usecase.ports.responses.CompleteZipCodeInformation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.messagedtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.Message;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,22 +9,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class MessageWithContentDTO {
+public class MessageDTO {
 
     private Long id;
     private String title;
-    private String author;
-    private String content;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime createdAt;
     private Long userId;
 
-    public MessageWithContentDTO(Message message) {
+    public MessageDTO(Message message) {
         this.id = message.getId();
         this.title = message.getTitle();
-        this.author = message.getUser().getFullName();
-        this.content = message.getContent();
         this.createdAt = message.getCreatedAt();
         this.userId = message.getUser().getId();
     }

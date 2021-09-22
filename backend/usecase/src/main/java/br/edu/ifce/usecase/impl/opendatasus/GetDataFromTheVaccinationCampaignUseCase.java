@@ -5,7 +5,7 @@ import br.edu.ifce.usecase.ports.driven.AddressRepository;
 import br.edu.ifce.usecase.ports.driven.OpendatasusVacinaConsumer;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
 import br.edu.ifce.usecase.ports.driver.GetDataFromTheVaccinationCampaign;
-import br.edu.ifce.usecase.ports.dto.VaccinationData;
+import br.edu.ifce.usecase.ports.responses.VaccinationData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

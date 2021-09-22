@@ -5,7 +5,7 @@ import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.ports.driver.DeleteAUserById;
 import br.edu.ifce.usecase.ports.driver.GetAUserById;
 import br.edu.ifce.usecase.ports.driver.ListAllAccountsRegisteredInTheSystem;
-import br.edu.ifce.usecase.ports.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.usecase.ports.responses.SimpleUserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

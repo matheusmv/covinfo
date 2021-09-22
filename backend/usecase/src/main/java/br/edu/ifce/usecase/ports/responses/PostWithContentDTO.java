@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.postdtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.Post;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,19 +9,21 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class PostDTO {
+public class PostWithContentDTO {
 
     private Long id;
     private String title;
     private String description;
+    private String content;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime createdAt;
 
-    public PostDTO(Post post) {
+    public PostWithContentDTO (Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.description = post.getDescription();
+        this.content = post.getContent();
         this.createdAt = post.getCreatedAt();
     }
 }

@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.userdtos;
+package br.edu.ifce.usecase.ports.responses;
 
 import br.edu.ifce.domain.User;
 import lombok.Getter;

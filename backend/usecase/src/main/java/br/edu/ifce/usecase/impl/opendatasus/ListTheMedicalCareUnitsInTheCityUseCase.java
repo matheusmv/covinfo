@@ -5,7 +5,7 @@ import br.edu.ifce.usecase.ports.driven.AddressRepository;
 import br.edu.ifce.usecase.ports.driven.OpendatasusLeitosConsumer;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
 import br.edu.ifce.usecase.ports.driver.ListTheMedicalCareUnitsInTheCity;
-import br.edu.ifce.usecase.ports.dto.MedicalCareUnityInfo;
+import br.edu.ifce.usecase.ports.responses.MedicalCareUnityInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package br.edu.ifce.usecase.ports.dto.userdtos;
+package br.edu.ifce.usecase.ports.requests;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

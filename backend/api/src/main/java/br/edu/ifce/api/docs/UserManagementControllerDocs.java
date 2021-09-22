@@ -1,7 +1,7 @@
 package br.edu.ifce.api.docs;
 
 import br.edu.ifce.domain.User;
-import br.edu.ifce.usecase.ports.dto.userdtos.SimpleUserDTO;
+import br.edu.ifce.usecase.ports.responses.SimpleUserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
