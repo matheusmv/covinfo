@@ -80,31 +80,6 @@ CREATE TABLE IF NOT EXISTS `password_token` (
 
 ALTER TABLE `password_token` ADD CONSTRAINT `fk_password_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
-CREATE TABLE IF NOT EXISTS `message` (
-	`id` BIGINT NOT NULL AUTO_INCREMENT,
-    `title` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `created_at` TIMESTAMP NOT NULL,
-    `user_id` BIGINT NOT NULL,
-    
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1;
-
-ALTER TABLE `message` ADD CONSTRAINT `fk_message_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
-CREATE TABLE IF NOT EXISTS `post` (
-	`id` BIGINT NOT NULL AUTO_INCREMENT,
-    `title` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `content` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `created_at` TIMESTAMP NOT NULL,
-    `user_id` BIGINT NOT NULL,
-    
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1;
-
-ALTER TABLE `post` ADD CONSTRAINT `fk_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
 INSERT INTO `country` (`id`, `name`, `initials`) VALUES (1, 'Brasil', 'BR');
 
 INSERT INTO `state` (`id`, `name`, `initials`, `country_id`) VALUES

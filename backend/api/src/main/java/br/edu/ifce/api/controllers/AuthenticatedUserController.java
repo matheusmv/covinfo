@@ -1,7 +1,6 @@
 package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.AuthenticatedUserControllerDocs;
-import br.edu.ifce.usecase.ports.driver.CreateAMessage;
 import br.edu.ifce.usecase.ports.driver.GetDataFromTheVaccinationCampaign;
 import br.edu.ifce.usecase.ports.driver.GetFullAddressOfAuthenticatedUser;
 import br.edu.ifce.usecase.ports.driver.GetTheAuthenticatedUser;
@@ -9,13 +8,12 @@ import br.edu.ifce.usecase.ports.driver.ListTheMedicalCareUnitsInTheCity;
 import br.edu.ifce.usecase.ports.driver.RefreshUserAuthToken;
 import br.edu.ifce.usecase.ports.driver.UpdateAuthenticatedUserAddress;
 import br.edu.ifce.usecase.ports.driver.UpdateAuthenticatedUserProfile;
-import br.edu.ifce.usecase.ports.responses.MedicalCareUnityInfo;
-import br.edu.ifce.usecase.ports.responses.VaccinationData;
-import br.edu.ifce.usecase.ports.responses.FullAddressDTO;
 import br.edu.ifce.usecase.ports.requests.UpdateAddressDTO;
-import br.edu.ifce.usecase.ports.requests.NewMessageDTO;
 import br.edu.ifce.usecase.ports.requests.UpdateUserDTO;
+import br.edu.ifce.usecase.ports.responses.FullAddressDTO;
+import br.edu.ifce.usecase.ports.responses.MedicalCareUnityInfo;
 import br.edu.ifce.usecase.ports.responses.UserDTO;
+import br.edu.ifce.usecase.ports.responses.VaccinationData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +33,6 @@ public class AuthenticatedUserController implements AuthenticatedUserControllerD
 
     private final GetTheAuthenticatedUser getTheAuthenticatedUser;
     private final RefreshUserAuthToken refreshUserAuthToken;
-    private final CreateAMessage createAMessage;
     private final UpdateAuthenticatedUserProfile updateAuthenticatedUserProfile;
     private final UpdateAuthenticatedUserAddress updateAuthenticatedUserAddress;
     private final GetDataFromTheVaccinationCampaign getDataFromTheVaccinationCampaign;
@@ -55,13 +52,6 @@ public class AuthenticatedUserController implements AuthenticatedUserControllerD
 
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/messages")
-    public ResponseEntity<Void> createAMessage(@RequestBody NewMessageDTO request) {
-        createAMessage.execute(request.toMessage());
 
         return ResponseEntity.noContent().build();
     }

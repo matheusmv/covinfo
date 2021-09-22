@@ -1,11 +1,11 @@
 package br.edu.ifce.api.controllers;
 
 import br.edu.ifce.api.docs.UserManagementControllerDocs;
-import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.ports.driver.DeleteAUserById;
 import br.edu.ifce.usecase.ports.driver.GetAUserById;
 import br.edu.ifce.usecase.ports.driver.ListAllAccountsRegisteredInTheSystem;
 import br.edu.ifce.usecase.ports.responses.SimpleUserDTO;
+import br.edu.ifce.usecase.ports.responses.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,10 +27,10 @@ public class UserManagementController implements UserManagementControllerDocs {
     private final ListAllAccountsRegisteredInTheSystem listAllAccountsRegisteredInTheSystem;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getAUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getAUserById(@PathVariable Long id) {
         var user = getAUserById.execute(id);
 
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(new UserDTO(user));
     }
 
     @DeleteMapping("/{id}")
