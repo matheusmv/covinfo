@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,27 +22,31 @@ public class OpendatasusLeitosConsumerImpl implements OpendatasusLeitosConsumer 
     public List<MedicalCareUnits> listMedicalCareUnits(String stateName, String cityName) {
         var medicalCareUnitsQuery = new QueryObjects().medicalCareUnitsQuery(stateName, cityName);
 
-        return findMedicalCareUnits(medicalCareUnitsQuery)
-                .map(hits -> hits.getHitsArray().getSources().stream()
-                        .map(Source::getMedicalCareUnity)
-                        .map(this::toMedicalCareUnits)
-                        .collect(Collectors.toList()))
-                .block();
+        return findMedicalCareUnits(medicalCareUnitsQuery);
     }
 
-    private Mono<Hits> findMedicalCareUnits(String query) {
+    private List<MedicalCareUnits> findMedicalCareUnits(String query) {
+        Function<MedicalCareUnity, MedicalCareUnits> convertToMedicalCareUnits = medicalCareUnity -> {
+            var cnes = Optional.ofNullable(medicalCareUnity.getCnes()).orElse("CNES NOT INFORMED");
+            var name = Optional.ofNullable(medicalCareUnity.getNomeCnes()).orElse("NAME NOT INFORMED");
+
+            return new MedicalCareUnits(cnes, name);
+        };
+
+        Function<Hits, List<MedicalCareUnits>> extractMedicalCareUnitsFromResponse = hits -> hits.getHitsArray()
+                .getSources()
+                .stream()
+                .map(Source::getMedicalCareUnity)
+                .map(convertToMedicalCareUnits)
+                .collect(Collectors.toList());
+
         return webClientOpendatasusLeitos.post()
                 .uri("/_search")
                 .bodyValue(query)
                 .retrieve()
-                .bodyToMono(Hits.class);
-    }
-
-    private MedicalCareUnits toMedicalCareUnits(MedicalCareUnity medicalCareUnity) {
-        var cnes = Optional.ofNullable(medicalCareUnity.getCnes()).orElse("CNES NOT INFORMED");
-        var name = Optional.ofNullable(medicalCareUnity.getNomeCnes()).orElse("NAME NOT INFORMED");
-
-        return new MedicalCareUnits(cnes, name);
+                .bodyToMono(Hits.class)
+                .map(extractMedicalCareUnitsFromResponse)
+                .block();
     }
 
     @Getter

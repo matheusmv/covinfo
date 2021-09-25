@@ -37,9 +37,9 @@ public class OpendatasusVacinaConsumerImpl implements OpendatasusVacinaConsumer 
 
     private Function<Tuple3<CountryTotal, StateTotal, CityTotal>, VaccinationRates> getVaccinationRates() {
         return results -> new VaccinationRates(
-                results.getT1().countryTotal,
-                results.getT2().stateTotal,
-                results.getT3().cityTotal
+                results.getT1().getCountryTotal(),
+                results.getT2().getStateTotal(),
+                results.getT3().getCityTotal()
         );
     }
 
