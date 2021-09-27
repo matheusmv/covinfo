@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Optional;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -31,29 +31,28 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
 
-        var authorizationHeader = request.getHeader(AUTHORIZATION);
-
-        if (Objects.nonNull(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
-            var token = authorizationHeader.substring("Bearer ".length());
-
-            var authenticationToken = getAuthenticationToken(token);
-
-            if (Objects.nonNull(authenticationToken)) {
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
-        }
+        Optional.ofNullable(request.getHeader(AUTHORIZATION))
+                .filter(header -> header.startsWith("Bearer "))
+                .map(header -> header.substring("Bearer ".length()))
+                .map(this::getAuthenticationToken)
+                .ifPresent(usernamePasswordAuthenticationToken -> {
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                });
 
         filterChain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
-        if (jwtUtil.tokenIsValid(token)) {
-            var username = jwtUtil.getUsername(token);
-            var authorities = jwtUtil.getAuthorities(token);
+        return Optional.ofNullable(token)
+                .filter(jwtUtil::tokenIsValid)
+                .map(this::getAuthenticationDetails)
+                .orElse(null);
+    }
 
-            return new UsernamePasswordAuthenticationToken(username, null, authorities);
-        }
+    private UsernamePasswordAuthenticationToken getAuthenticationDetails(String jwt) {
+        var username = jwtUtil.getUsername(jwt);
+        var authorities = jwtUtil.getAuthorities(jwt);
 
-        return null;
+        return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
 }
