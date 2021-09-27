@@ -4,7 +4,9 @@ import br.edu.ifce.security.user.UserSecurityService;
 import br.edu.ifce.usecase.ports.requests.UserCredentialsDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,13 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    private final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
@@ -35,55 +40,58 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.jwtUtil = jwtUtil;
     }
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
-
-        var userCredentials = getUsernameAndPasswordFromRequest(request);
-
-        var authenticationToken = new UsernamePasswordAuthenticationToken(
-                userCredentials.getEmail(),
-                userCredentials.getPassword()
-        );
-
-        return authenticationManager.authenticate(authenticationToken);
-    }
-
     private UserCredentialsDTO getUsernameAndPasswordFromRequest(HttpServletRequest request) {
         try {
             return new ObjectMapper().readValue(request.getInputStream(), UserCredentialsDTO.class);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            logger.error(e.getMessage());
+            return null;
         }
+    }
+
+    private final Function<UserCredentialsDTO, UsernamePasswordAuthenticationToken> getAuthenticationToken = credentials ->
+            new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword());
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request,
+                                                HttpServletResponse response) throws AuthenticationException {
+
+        return Optional.ofNullable(getUsernameAndPasswordFromRequest(request))
+                .map(getAuthenticationToken)
+                .map(authenticationManager::authenticate)
+                .orElse(null);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authentication) throws IOException {
+                                            Authentication authentication) {
 
-        var userDetails = (UserSecurityService) authentication.getPrincipal();
+        Optional.ofNullable((UserSecurityService) authentication.getPrincipal())
+                .ifPresent(userSecurityService -> {
+                    var access_token = jwtUtil.getAccessToken(userSecurityService);
+                    var refresh_token = jwtUtil.getRefreshToken(userSecurityService);
 
-        var access_token = jwtUtil.getAccessToken(userDetails);
-        var refresh_token = jwtUtil.getRefreshToken(userDetails);
-
-        sendAccessTokenAndRefreshTokenInResponseBody(access_token, refresh_token, response);
+                    sendAccessTokenAndRefreshTokenInResponseBody(access_token, refresh_token, response);
+                });
     }
 
     private void sendAccessTokenAndRefreshTokenInResponseBody(String accessToken,
                                                               String refreshToken,
-                                                              HttpServletResponse response) throws IOException {
+                                                              HttpServletResponse response) {
+        try {
+            var tokens = Map.of(
+                    "access_token", accessToken,
+                    "refresh_token", refreshToken);
 
-        Map<String, String> tokens = new HashMap<>();
+            var jsonMessage = new Gson().toJson(tokens);
 
-        tokens.put("access_token", accessToken);
-        tokens.put("refresh_token", refreshToken);
-
-        var jsonMessage = new Gson().toJson(tokens);
-
-        response.setContentType(APPLICATION_JSON_VALUE);
-        response.getWriter().append(jsonMessage);
+            response.setContentType(APPLICATION_JSON_VALUE);
+            response.getWriter().append(jsonMessage);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @Override
@@ -93,27 +101,31 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setStatus(UNAUTHORIZED.value());
         response.setContentType(APPLICATION_JSON_VALUE);
-        response.getWriter().append(getErrorMessage(request.getRequestURI()));
+        response.getWriter().append(getErrorMessage(failed.getMessage(), request.getRequestURI()));
     }
 
-    private String getErrorMessage(String path) {
-        var message = new ErrorMessage(
+    private String getErrorMessage(String message, String path) {
+        var errorMessage = ErrorMessage.of(
                 Instant.now().toString(),
                 UNAUTHORIZED.value(),
                 UNAUTHORIZED.getReasonPhrase(),
-                "Invalid credentials",
+                message,
                 path
         );
 
-        return new Gson().toJson(message);
+        return new Gson().toJson(errorMessage);
     }
 
-    @AllArgsConstructor
+    @RequiredArgsConstructor
     private static final class ErrorMessage {
         private final String timestamp;
         private final Integer status;
         private final String error;
         private final String message;
         private final String path;
+
+        public static ErrorMessage of(String timestamp, Integer status, String error, String message, String path) {
+            return new ErrorMessage(timestamp, status, error, message, path);
+        }
     }
 }
