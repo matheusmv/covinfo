@@ -1,7 +1,11 @@
 package br.edu.ifce.domain;
 
 import br.edu.ifce.domain.enums.UserRole;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,10 +17,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-@Data
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -52,5 +60,18 @@ public class User {
         this.locked = true;
         this.enabled = false;
         this.role = UserRole.USER;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }
