@@ -46,7 +46,6 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
     @Override
     public ConfirmationToken update(ConfirmationToken confirmationToken) {
         var updateStatement = "UPDATE confirmation_token SET " +
-                "id = ?, " +
                 "token = ?, " +
                 "created_at = ?, " +
                 "expires_at = ? " +
@@ -54,11 +53,11 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
                 "WHERE confirmation_token.id = ?";
 
         jdbcTemplate.update(updateStatement,
-                confirmationToken.getId(),
                 confirmationToken.getToken(),
                 confirmationToken.getCreatedAt(),
                 confirmationToken.getExpiresAt(),
-                confirmationToken.getConfirmedAt()
+                confirmationToken.getConfirmedAt(),
+                confirmationToken.getId()
         );
 
         return find(confirmationToken.getId()).orElse(null);

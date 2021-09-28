@@ -45,17 +45,16 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
     @Override
     public PasswordToken update(PasswordToken passwordToken) {
         var updateStatement = "UPDATE password_token SET " +
-                "id = ?, " +
                 "token = ?, " +
                 "created_at = ?, " +
                 "expires_at = ? " +
                 "WHERE password_token.id = ?";
 
         jdbcTemplate.update(updateStatement,
-                passwordToken.getId(),
                 passwordToken.getToken(),
                 passwordToken.getCreatedAt(),
-                passwordToken.getExpiresAt()
+                passwordToken.getExpiresAt(),
+                passwordToken.getId()
         );
 
         return find(passwordToken.getId()).orElse(null);
