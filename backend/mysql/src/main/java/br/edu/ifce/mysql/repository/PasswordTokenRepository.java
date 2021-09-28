@@ -14,6 +14,8 @@ public interface PasswordTokenRepository {
 
     Optional<PasswordToken> find(Long id);
 
+    Optional<PasswordToken> find(String token);
+
     Page<PasswordToken> find(PageRequest page);
 
     void delete(PasswordToken passwordToken);

@@ -68,6 +68,13 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
     }
 
     @Override
+    public Optional<PasswordToken> find(String token) {
+        var selectStatement = BASE_QUERY + " WHERE password_token.token = ?";
+
+        return Objects.requireNonNull(jdbcTemplate.query(selectStatement, passwordTokenExtractor, token)).stream().findFirst();
+    }
+
+    @Override
     // TODO: improve paging implementation
     public Page<PasswordToken> find(PageRequest page) {
         var selectStatement = BASE_QUERY + " LIMIT ?" + " OFFSET ?";
