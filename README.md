@@ -36,7 +36,7 @@ API Rest desenvolvida durante a disciplina de Engenharia de Software que tem com
        
        docker-compose build
        
-       docker-compose up
+       docker-compose up -d
        
 ### Documentação
 
