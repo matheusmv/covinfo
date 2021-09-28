@@ -80,6 +80,13 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
+    public Optional<User> find(String email) {
+        var selectStatement = BASE_QUERY + " WHERE user.email = ?";
+
+        return Objects.requireNonNull(jdbcTemplate.query(selectStatement, userExtractor, email)).stream().findFirst();
+    }
+
+    @Override
     public Page<User> find(PageRequest page) {
         var selectStatement = BASE_QUERY + " LIMIT ?" + " OFFSET ?";
         var queryArguments = Arrays.asList(page.getSize(), page.offset()).toArray();

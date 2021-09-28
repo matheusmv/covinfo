@@ -14,6 +14,8 @@ public interface UserRepository {
 
     Optional<User> find(Long id);
 
+    Optional<User> find(String email);
+
     Page<User> find(PageRequest page);
 
     void delete(User user);
