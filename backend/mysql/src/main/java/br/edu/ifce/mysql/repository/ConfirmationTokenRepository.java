@@ -14,6 +14,8 @@ public interface ConfirmationTokenRepository {
 
     Optional<ConfirmationToken> find(Long id);
 
+    Optional<ConfirmationToken> find(String token);
+
     Page<ConfirmationToken> find(PageRequest page);
 
     void delete(ConfirmationToken confirmationToken);

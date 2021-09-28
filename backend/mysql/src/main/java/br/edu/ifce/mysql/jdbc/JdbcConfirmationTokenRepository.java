@@ -71,6 +71,13 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
     }
 
     @Override
+    public Optional<ConfirmationToken> find(String token) {
+        var selectStatement = BASE_QUERY + " WHERE confirmation_token.token = ?";
+
+        return Objects.requireNonNull(jdbcTemplate.query(selectStatement, confirmationTokenExtractor, token)).stream().findFirst();
+    }
+
+    @Override
     // TODO: improve paging implementation
     public Page<ConfirmationToken> find(PageRequest page) {
         var selectStatement = BASE_QUERY + " LIMIT ?" + " OFFSET ?";
