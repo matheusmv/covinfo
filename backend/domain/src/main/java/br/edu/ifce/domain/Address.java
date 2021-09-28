@@ -41,7 +41,7 @@ public class Address {
     @MapsId
     @OneToOne
     @JoinColumn(
-            name = "user_id",
+            name = "id",
             foreignKey = @ForeignKey(name = "fk_address_user"))
     private User user;
 

@@ -36,7 +36,7 @@ public class ConfirmationToken {
     @MapsId
     @OneToOne
     @JoinColumn(
-            name = "user_id",
+            name = "id",
             foreignKey = @ForeignKey(name = "fk_confirmation_token_user"))
     private User user;
 
