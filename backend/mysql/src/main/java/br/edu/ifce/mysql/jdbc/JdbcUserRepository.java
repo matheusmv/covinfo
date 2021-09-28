@@ -120,4 +120,9 @@ public class JdbcUserRepository implements UserRepository {
 
         jdbcTemplate.update(deleteStatement, id);
     }
+
+    @Override
+    public boolean emailIsAlreadyInUse(String email) {
+        return find(email).isPresent();
+    }
 }

@@ -21,4 +21,6 @@ public interface UserRepository {
     void delete(User user);
 
     void delete(Long id);
+
+    boolean emailIsAlreadyInUse(String email);
 }
