@@ -41,40 +41,40 @@ CREATE TABLE IF NOT EXISTS `user` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `address` (
+    `id` BIGINT NOT NULL,
+    `city_id` BIGINT NOT NULL,
     `zip` VARCHAR(10) NOT NULL,
     `neighborhood` VARCHAR(50) NOT NULL,
     `street` VARCHAR(50) NOT NULL,
-    `user_id` BIGINT NOT NULL,
-    `city_id` BIGINT NOT NULL,
-    
-    PRIMARY KEY (`user_id`)
+
+    PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
-ALTER TABLE `address` ADD CONSTRAINT `fk_address_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `address` ADD CONSTRAINT `fk_address_user` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
 ALTER TABLE `address` ADD CONSTRAINT `fk_address_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`);
 
 CREATE TABLE IF NOT EXISTS `confirmation_token` (
+    `id` BIGINT NOT NULL,
     `token` CHAR(50) NOT NULL UNIQUE,
     `created_at` TIMESTAMP NOT NULL,
     `expires_at` TIMESTAMP NOT NULL,
     `confirmed_at` TIMESTAMP,
-    `user_id` BIGINT NOT NULL,
-    
-    PRIMARY KEY (`user_id`)
+
+    PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
-ALTER TABLE `confirmation_token` ADD CONSTRAINT `fk_confirmation_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `confirmation_token` ADD CONSTRAINT `fk_confirmation_token_user` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
 
 CREATE TABLE IF NOT EXISTS `password_token` (
+    `id` BIGINT NOT NULL,
     `token` CHAR(50) NOT NULL UNIQUE,
     `created_at` TIMESTAMP NOT NULL,
     `expires_at` TIMESTAMP NOT NULL,
-    `user_id` BIGINT NOT NULL,
 
-    PRIMARY KEY (`user_id`)
+    PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
-ALTER TABLE `password_token` ADD CONSTRAINT `fk_password_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `password_token` ADD CONSTRAINT `fk_password_token_user` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
 
 INSERT INTO `country` (`id`, `name`, `initials`) VALUES (1, 'Brasil', 'BR');
 

@@ -35,7 +35,7 @@ public class PasswordToken {
     @MapsId
     @OneToOne
     @JoinColumn(
-            name = "user_id",
+            name = "id",
             foreignKey = @ForeignKey(name = "fk_password_token_user"))
     private User user;
 
