@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/includes/20210929000001_create_table_country.sql
+  - include:
+      file: db.changelog/includes/20210929000002_create_table_state.sql
+  - include:
+      file: db.changelog/includes/20210929000003_create_table_city.sql
+  - include:
+      file: db.changelog/includes/20210929000004_create_table_user.sql
+  - include:
+      file: db.changelog/includes/20210929000005_create_table_address.sql
+  - include:
+      file: db.changelog/includes/20210929000006_create_table_confirmation_token.sql
+  - include:
+      file: db.changelog/includes/20210929000007_create_table_password_token.sql
+  - include:
+      file: db.changelog/includes/20210929000008_populate_table_country.sql
+  - include:
+      file: db.changelog/includes/20210929000009_populate_table_state.sql
+  - include:
+      file: db.changelog/includes/20210929000010_populate_table_city.sql

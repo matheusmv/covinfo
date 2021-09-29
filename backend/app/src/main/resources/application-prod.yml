@@ -6,10 +6,11 @@ spring:
       hibernate:
         format_sql: false
     show-sql: false
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   datasource:
-    url: ${DATABASE_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: ${DATABASE_URL}
+    pool-size: 30
 
   mail:
     host: smtp.gmail.com
