@@ -28,7 +28,7 @@ services:
       - "8080:8080"
     environment: 
       - SPRING_PROFILES_ACTIVE=dev
-      - spring.datasource.url=jdbc:mysql://covinfodb:3306/covinfo?serverTimezone=UTC
+      - spring.datasource.jdbc-url=jdbc:mysql://covinfodb:3306/covinfo?serverTimezone=UTC
       - spring.datasource.username=root
       - spring.datasource.password=admin
       - spring.mail.host=mail-dev

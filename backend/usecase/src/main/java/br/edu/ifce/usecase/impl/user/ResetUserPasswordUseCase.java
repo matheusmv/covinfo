@@ -33,7 +33,8 @@ public class ResetUserPasswordUseCase implements ResetUserPassword {
             throw new InvalidConfirmationTokenException("token expired");
         }
 
-        var user = passwordToken.getUser();
+        var user = userRepository.find(passwordToken.getId())
+                .orElseThrow(() -> new ObjectNotFoundException("User not found"));
 
         user.setPassword(newPassword);
 
