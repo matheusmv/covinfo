@@ -23,5 +23,10 @@
             <artifactId>usecase</artifactId>
             <version>0.0.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

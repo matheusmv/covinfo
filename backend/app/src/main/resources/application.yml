@@ -1,9 +1,13 @@
 spring:
   profiles:
-    active: dev
+    active: test
 
   jpa:
     open-in-view: false
+
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.yml
+    enabled: true
 
 logging:
   level:

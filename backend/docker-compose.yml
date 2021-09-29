@@ -39,10 +39,7 @@ services:
       - covinfodb
 
   mail-dev:
-    build:
-      dockerfile: ./docker/maildev.dockerfile
-      context: .
-    image: matheusmv/mail-dev:0.0.1
+    image: maildev/maildev
     container_name: mail-dev
     ports:
       - "80:80"
