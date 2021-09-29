@@ -1,19 +1,24 @@
 package br.edu.ifce.usecase.ports.driven;
 
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 import br.edu.ifce.domain.PasswordToken;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface PasswordTokenRepository {
-    void save(PasswordToken passwordToken);
 
-    List<PasswordToken> listAll();
+    PasswordToken create(PasswordToken passwordToken);
 
-    PasswordToken findById(Long id);
+    PasswordToken update(PasswordToken passwordToken);
 
-    PasswordToken findByToken(String token);
+    Optional<PasswordToken> find(Long id);
 
-    void update(Long id, PasswordToken passwordToken);
+    Optional<PasswordToken> find(String token);
+
+    Page<PasswordToken> find(PageRequest page);
+
+    void delete(PasswordToken passwordToken);
 
     void delete(Long id);
 }

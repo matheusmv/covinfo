@@ -1,19 +1,24 @@
 package br.edu.ifce.usecase.ports.driven;
 
 import br.edu.ifce.domain.ConfirmationToken;
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ConfirmationTokenRepository {
-    void save(ConfirmationToken confirmationToken);
 
-    List<ConfirmationToken> listAll();
+    ConfirmationToken create(ConfirmationToken confirmationToken);
 
-    ConfirmationToken findById(Long id);
+    ConfirmationToken update(ConfirmationToken confirmationToken);
 
-    ConfirmationToken findByToken(String token);
+    Optional<ConfirmationToken> find(Long id);
 
-    void update(Long id, ConfirmationToken confirmationToken);
+    Optional<ConfirmationToken> find(String token);
+
+    Page<ConfirmationToken> find(PageRequest page);
+
+    void delete(ConfirmationToken confirmationToken);
 
     void delete(Long id);
 }

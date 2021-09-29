@@ -13,8 +13,8 @@ public class DeleteAUserByIdUseCase implements DeleteAUserById {
 
     private final UserRepository userRepository;
 
-    @Transactional
     @Override
+    @Transactional
     public void execute(Long id) {
         userRepository.delete(id);
     }

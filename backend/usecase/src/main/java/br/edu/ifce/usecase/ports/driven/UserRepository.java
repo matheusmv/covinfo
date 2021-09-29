@@ -1,23 +1,26 @@
 package br.edu.ifce.usecase.ports.driven;
 
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 import br.edu.ifce.domain.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
 public interface UserRepository {
-    void save(User user);
 
-    Page<User> listAll(Pageable pageable);
+    User create(User user);
 
-    User findById(Long id);
+    User update(User user);
 
-    Optional<User> findByEmail(String email);
+    Optional<User> find(Long id);
 
-    Boolean emailIsAlreadyInUse(String email);
+    Optional<User> find(String email);
 
-    void update(Long id, User user);
+    Page<User> find(PageRequest page);
+
+    void delete(User user);
 
     void delete(Long id);
+
+    boolean emailIsAlreadyInUse(String email);
 }

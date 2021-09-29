@@ -1,14 +1,15 @@
 package br.edu.ifce.mysql.jdbc;
 
 import br.edu.ifce.domain.Address;
-import br.edu.ifce.mysql.Page;
-import br.edu.ifce.mysql.PageRequest;
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 import br.edu.ifce.mysql.extractors.AddressExtractor;
-import br.edu.ifce.mysql.repository.AddressRepository;
+import br.edu.ifce.usecase.ports.driven.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,15 +29,18 @@ public class JdbcAddressRepository implements AddressRepository {
             "address.id, address.zip, address.neighborhood, address.street, " +
             "city.id AS city_id, city.name AS city_name, " +
             "state.id AS state_id, state.name AS state_name, state.initials AS state_initials, " +
-            "country.id AS country_id, country.name AS country_name, country.initials AS country_initials, " +
+            "country.id AS country_id, country.name AS country_name, country.initials AS country_initials " +
             "FROM address " +
             "INNER JOIN city ON city.id = address.city_id " +
             "INNER JOIN state ON state.id = city.state_id " +
             "INNER JOIN country ON country.id = state.country_id";
 
     @Override
+    @Transactional
     public Address create(Address address) {
-        var insertStatement = "INSERT INTO address VALUES (? ? ? ? ?)";
+        var insertStatement = "INSERT INTO address " +
+                "(id, city_id, zip, neighborhood, street) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(insertStatement,
                 address.getId(),
@@ -50,6 +54,7 @@ public class JdbcAddressRepository implements AddressRepository {
     }
 
     @Override
+    @Transactional
     public Address update(Address address) {
         var updateStatement = "UPDATE address " +
                 "SET city_id = ?, " +
@@ -99,6 +104,7 @@ public class JdbcAddressRepository implements AddressRepository {
     }
 
     @Override
+    @Transactional
     public void delete(Address address) {
         var deleteStatement = "DELETE FROM address WHERE address.id = ?";
 
@@ -106,6 +112,7 @@ public class JdbcAddressRepository implements AddressRepository {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         var deleteStatement = "DELETE FROM address WHERE address.id = ?";
 

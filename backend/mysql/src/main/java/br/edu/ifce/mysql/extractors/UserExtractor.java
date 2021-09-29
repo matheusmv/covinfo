@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,10 +32,10 @@ public class UserExtractor implements ResultSetExtractor<Set<User>> {
                 resultSet.getLong("id"),
                 resultSet.getString("full_name"),
                 resultSet.getString("email"),
-                "",
+                resultSet.getString("password"),
                 resultSet.getBoolean("locked"),
                 resultSet.getBoolean("enabled"),
-                resultSet.getTimestamp("created_at").toLocalDateTime(),
+                resultSet.getObject("created_at", LocalDateTime.class),
                 UserRole.valueOf(resultSet.getString("role")),
                 null,
                 null

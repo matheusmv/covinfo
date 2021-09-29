@@ -1,5 +1,6 @@
 package br.edu.ifce.api.docs;
 
+import br.edu.ifce.domain.Page;
 import br.edu.ifce.usecase.ports.responses.SimpleUserDTO;
 import br.edu.ifce.usecase.ports.responses.UserDTO;
 import io.swagger.annotations.Api;
@@ -7,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 @Api("Endpoints for administrators to obtain information about users")
@@ -39,7 +39,5 @@ public interface UserManagementControllerDocs {
     })
     ResponseEntity<Page<SimpleUserDTO>> listAllAccountsRegisteredInTheSystem(
             @ApiParam(value = "page: page number") Integer page,
-            @ApiParam(value = "linesPerPage: number of lines per page") Integer linesPerPage,
-            @ApiParam(value = "direction: ascending = ASC, descending = DESC") String direction,
-            @ApiParam(value = "orderBy: User entity attributes") String orderBy);
+            @ApiParam(value = "linesPerPage: number of lines per page") Integer linesPerPage);
 }

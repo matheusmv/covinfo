@@ -1,19 +1,22 @@
 package br.edu.ifce.usecase.ports.driven;
 
 import br.edu.ifce.domain.Address;
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface AddressRepository {
-    void create(Address address);
 
-    List<Address> listAll();
+    Address create(Address address);
 
-    Address findById(Long id);
+    Address update(Address address);
 
-    Address findByUserId(Long id);
+    Optional<Address> find(Long id);
 
-    void update(Long id, Address address);
+    Page<Address> find(PageRequest page);
+
+    void delete(Address address);
 
     void delete(Long id);
 }

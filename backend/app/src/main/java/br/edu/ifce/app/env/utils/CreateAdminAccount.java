@@ -19,17 +19,17 @@ public class CreateAdminAccount {
 
     @Transactional
     public void createAdminAccount(String email, String password) {
-        boolean adminExists = userRepository.findByEmail(email).isPresent();
+        boolean adminExists = userRepository.find(email).isPresent();
 
         if (!adminExists) {
-            User admin = new User(null, "Admin", email, passwordEncoder.encode(password));
+            User admin = new User(null, "admin", email, passwordEncoder.encode(password));
 
             admin.setRole(UserRole.ADMIN);
             admin.setEnabled(true);
             admin.setLocked(false);
             admin.setCreatedAt(LocalDateTime.now());
 
-            userRepository.save(admin);
+            userRepository.create(admin);
         }
     }
 }

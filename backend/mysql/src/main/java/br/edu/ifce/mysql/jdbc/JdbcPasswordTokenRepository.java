@@ -1,14 +1,15 @@
 package br.edu.ifce.mysql.jdbc;
 
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 import br.edu.ifce.domain.PasswordToken;
-import br.edu.ifce.mysql.Page;
-import br.edu.ifce.mysql.PageRequest;
 import br.edu.ifce.mysql.extractors.PasswordTokenExtractor;
-import br.edu.ifce.mysql.repository.PasswordTokenRepository;
+import br.edu.ifce.usecase.ports.driven.PasswordTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,8 +30,11 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
             "FROM password_token";
 
     @Override
+    @Transactional
     public PasswordToken create(PasswordToken passwordToken) {
-        var insertStatement = "INSERT INTO password_token VALUES (? ? ? ?)";
+        var insertStatement = "INSERT INTO password_token " +
+                "(id, token, created_at, expires_at ) " +
+                "VALUES (?, ?, ?, ?)";
 
         jdbcTemplate.update(insertStatement,
                 passwordToken.getId(),
@@ -43,6 +47,7 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
     }
 
     @Override
+    @Transactional
     public PasswordToken update(PasswordToken passwordToken) {
         var updateStatement = "UPDATE password_token SET " +
                 "token = ?, " +
@@ -97,6 +102,7 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
     }
 
     @Override
+    @Transactional
     public void delete(PasswordToken passwordToken) {
         var deleteStatement = "DELETE FROM password_token WHERE password_token.id = ?";
 
@@ -104,6 +110,7 @@ public class JdbcPasswordTokenRepository implements PasswordTokenRepository {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         var deleteStatement = "DELETE FROM password_token WHERE password_token.id = ?";
 

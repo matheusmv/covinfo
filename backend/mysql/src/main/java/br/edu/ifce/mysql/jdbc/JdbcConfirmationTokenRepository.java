@@ -1,14 +1,15 @@
 package br.edu.ifce.mysql.jdbc;
 
 import br.edu.ifce.domain.ConfirmationToken;
-import br.edu.ifce.mysql.Page;
-import br.edu.ifce.mysql.PageRequest;
+import br.edu.ifce.domain.Page;
+import br.edu.ifce.domain.PageRequest;
 import br.edu.ifce.mysql.extractors.ConfirmationTokenExtractor;
-import br.edu.ifce.mysql.repository.ConfirmationTokenRepository;
+import br.edu.ifce.usecase.ports.driven.ConfirmationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,8 +30,11 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
             "FROM confirmation_token";
 
     @Override
+    @Transactional
     public ConfirmationToken create(ConfirmationToken confirmationToken) {
-        var insertStatement = "INSERT INTO confirmation_token VALUES (? ? ? ? ?)";
+        var insertStatement = "INSERT INTO confirmation_token " +
+                "(id, token, created_at, expires_at, confirmed_at) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(insertStatement,
                 confirmationToken.getId(),
@@ -44,11 +48,12 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
     }
 
     @Override
+    @Transactional
     public ConfirmationToken update(ConfirmationToken confirmationToken) {
         var updateStatement = "UPDATE confirmation_token SET " +
                 "token = ?, " +
                 "created_at = ?, " +
-                "expires_at = ? " +
+                "expires_at = ?, " +
                 "confirmed_at = ? " +
                 "WHERE confirmation_token.id = ?";
 
@@ -100,6 +105,7 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
     }
 
     @Override
+    @Transactional
     public void delete(ConfirmationToken confirmationToken) {
         var deleteStatement = "DELETE FROM confirmation_token WHERE confirmation_token.id = ?";
 
@@ -107,6 +113,7 @@ public class JdbcConfirmationTokenRepository implements ConfirmationTokenReposit
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         var deleteStatement = "DELETE FROM confirmation_token WHERE confirmation_token.id = ?";
 

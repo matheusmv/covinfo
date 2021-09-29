@@ -38,7 +38,7 @@
 
         <dependency>
             <groupId>br.edu.ifce</groupId>
-            <artifactId>db</artifactId>
+            <artifactId>mysql</artifactId>
             <version>0.0.1</version>
         </dependency>
 
