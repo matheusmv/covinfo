@@ -1,9 +1,11 @@
 package br.edu.ifce.usecase.impl.address;
 
 import br.edu.ifce.domain.Address;
+import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.AuthorizationException;
 import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.exceptions.ValidationException;
+import br.edu.ifce.usecase.ports.driven.AddressRepository;
 import br.edu.ifce.usecase.ports.driven.UserAuthenticationService;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.GetInformationAboutZipCode;
@@ -13,6 +15,7 @@ import br.edu.ifce.usecase.utils.AddressValidationResult;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -22,9 +25,11 @@ public class UpdateAuthenticatedUserAddressUseCase implements UpdateAuthenticate
 
     private final UserAuthenticationService userAuthenticationService;
     private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
     private final GetInformationAboutZipCode getInformationAboutZipCode;
 
     @Override
+    @Transactional
     public void execute(Address newAddress) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
@@ -32,16 +37,16 @@ public class UpdateAuthenticatedUserAddressUseCase implements UpdateAuthenticate
             throw new AuthorizationException("Access denied.");
         }
 
-        var user = userRepository.findByEmail(authUser.getEmail())
+        var userAddress = userRepository.find(authUser.getEmail())
+                .map(User::getId)
+                .map(addressRepository::find).orElseThrow(() -> new ObjectNotFoundException("Address not found"))
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
-
-        var userAddress = user.getAddress();
 
         updateAddress(userAddress, newAddress);
 
         validateUserAddressData(userAddress);
 
-        userRepository.save(user);
+        addressRepository.update(userAddress);
     }
 
     private void updateAddress(Address address, Address newAddress) {

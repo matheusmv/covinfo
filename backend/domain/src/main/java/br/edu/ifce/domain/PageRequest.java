@@ -1,4 +1,4 @@
-package br.edu.ifce.mysql;
+package br.edu.ifce.domain;
 
 public class PageRequest {
 

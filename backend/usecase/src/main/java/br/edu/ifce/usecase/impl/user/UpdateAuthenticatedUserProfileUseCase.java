@@ -25,8 +25,8 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Transactional
     @Override
+    @Transactional
     public void execute(User newUser) {
         var authUser = userAuthenticationService.getAuthenticatedUser();
 
@@ -34,14 +34,14 @@ public class UpdateAuthenticatedUserProfileUseCase implements UpdateAuthenticate
             throw new AuthorizationException("Access denied.");
         }
 
-        var user = userRepository.findByEmail(authUser.getEmail())
+        var user = userRepository.find(authUser.getEmail())
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("User with email %s not found", authUser.getEmail())));
 
         updateUser(user, newUser);
 
         validateUserData(user);
 
-        userRepository.save(user);
+        userRepository.update(user);
     }
 
     private void updateUser(User user, User newUser) {

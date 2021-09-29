@@ -3,6 +3,7 @@ package br.edu.ifce.usecase.impl.user;
 import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.InvalidEmailException;
 import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
+import br.edu.ifce.usecase.ports.driven.ConfirmationTokenRepository;
 import br.edu.ifce.usecase.ports.driven.EmailService;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.ResendAccountConfirmationEmail;
@@ -18,12 +19,13 @@ import java.time.LocalDateTime;
 public class ResendAccountConfirmationEmailUseCase implements ResendAccountConfirmationEmail {
 
     private final UserRepository userRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailService emailService;
 
-    @Transactional
     @Override
+    @Transactional
     public String execute(String email) {
-        var user = userRepository.findByEmail(email)
+        var user = userRepository.find(email)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("%s with email %s not found.", User.class.getSimpleName(), email)));
 
@@ -31,11 +33,12 @@ public class ResendAccountConfirmationEmailUseCase implements ResendAccountConfi
             throw new InvalidEmailException("email already confirmed");
         }
 
-        var token = user.getConfirmationToken();
+        var token = confirmationTokenRepository.find(user.getId())
+                .orElseThrow(() -> new ObjectNotFoundException("Token not found"));
 
         if (token.hasExpired()) {
             token.setExpiresAt(LocalDateTime.now().plusMinutes(15));
-            userRepository.save(user);
+            confirmationTokenRepository.update(token);
         }
 
         emailService.sendUserAccountConfirmationEmail(user, token.getToken());

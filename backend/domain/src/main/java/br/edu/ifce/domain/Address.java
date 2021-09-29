@@ -1,60 +1,87 @@
 package br.edu.ifce.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
-
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity
-@Table(name = "address")
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class Address {
 
-    @Id
     private Long id;
     private String zip;
     private String neighborhood;
     private String street;
-
-    @ManyToOne
-    @JoinColumn(
-            name = "city_id",
-            foreignKey = @ForeignKey(name = "fk_address_city"))
     private City city;
-
-    @MapsId
-    @OneToOne
-    @JoinColumn(
-            name = "id",
-            foreignKey = @ForeignKey(name = "fk_address_user"))
     private User user;
+
+    public Address() {
+
+    }
+
+    public Address(Long id, String zip, String neighborhood, String street, City city, User user) {
+        this.id = id;
+        this.zip = zip;
+        this.neighborhood = neighborhood;
+        this.street = street;
+        this.city = city;
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(id, address.id);
+        return id.equals(address.id);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(id);
     }
 }

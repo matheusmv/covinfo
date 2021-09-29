@@ -1,4 +1,4 @@
-package br.edu.ifce.mysql;
+package br.edu.ifce.domain;
 
 import java.util.List;
 
@@ -14,6 +14,10 @@ public class Page<T> {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
         this.total = total;
+    }
+
+    public Page() {
+
     }
 
     public List<T> getContent() {

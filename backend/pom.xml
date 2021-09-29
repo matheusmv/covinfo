@@ -20,7 +20,6 @@
     <modules>
         <module>app</module>
         <module>domain</module>
-        <module>db</module>
         <module>usecase</module>
         <module>email</module>
         <module>consumer</module>

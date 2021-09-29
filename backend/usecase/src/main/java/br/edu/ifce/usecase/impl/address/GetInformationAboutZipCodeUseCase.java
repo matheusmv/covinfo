@@ -1,5 +1,6 @@
 package br.edu.ifce.usecase.impl.address;
 
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.exceptions.ValidationException;
 import br.edu.ifce.usecase.ports.driven.CityRepository;
 import br.edu.ifce.usecase.ports.driven.PostmonConsumer;
@@ -27,7 +28,8 @@ public class GetInformationAboutZipCodeUseCase implements GetInformationAboutZip
         var cityName = zipInformation.getCidade();
         var stateInitials = zipInformation.getEstado();
 
-        var cityInformation = cityRepository.findByNameAndStateInitials(cityName, stateInitials);
+        var cityInformation = cityRepository.findByNameAndStateInitials(cityName, stateInitials)
+                .orElseThrow(() -> new ObjectNotFoundException("City Not Found"));
 
         return new CompleteZipCodeInformation(
                 zipInformation.getCep(),

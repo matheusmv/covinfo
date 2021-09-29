@@ -6,6 +6,8 @@ import br.edu.ifce.domain.ConfirmationToken;
 import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.InvalidEmailException;
 import br.edu.ifce.usecase.exceptions.ValidationException;
+import br.edu.ifce.usecase.ports.driven.AddressRepository;
+import br.edu.ifce.usecase.ports.driven.ConfirmationTokenRepository;
 import br.edu.ifce.usecase.ports.driven.EmailService;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
 import br.edu.ifce.usecase.ports.driver.GetInformationAboutZipCode;
@@ -28,12 +30,14 @@ import java.util.UUID;
 public class RegisterAUserUseCase implements RegisterAUser {
 
     private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final GetInformationAboutZipCode getInformationAboutZipCode;
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    @Transactional
     @Override
+    @Transactional
     public void execute(User user) {
         validateUserData(user);
 
@@ -42,13 +46,31 @@ public class RegisterAUserUseCase implements RegisterAUser {
         checkIfTheEmailIsAlreadyInUse(user.getEmail());
 
         var token = UUID.randomUUID().toString();
+        var confirmationToken = createConfirmationToken(token, user);
+        var address = user.getAddress();
 
-        user.setConfirmationToken(createConfirmationToken(token, user));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(LocalDateTime.now());
 
-        userRepository.save(user);
+        user = saveUserInDatabase(user);
+        saveAddressInDatabase(user.getId(), address);
+        saveConfirmationTokenInDatabase(user.getId(), confirmationToken);
+
         emailService.sendUserAccountConfirmationEmail(user, token);
+    }
+
+    private User saveUserInDatabase(User user) {
+        user.setCreatedAt(LocalDateTime.now());
+        return userRepository.create(user);
+    }
+
+    private void saveAddressInDatabase(Long id, Address address) {
+        address.setId(id);
+        addressRepository.create(address);
+    }
+
+    private void saveConfirmationTokenInDatabase(Long id, ConfirmationToken confirmationToken) {
+        confirmationToken.setId(id);
+        confirmationTokenRepository.create(confirmationToken);
     }
 
     private void validateUserData(User user) {

@@ -2,6 +2,7 @@ package br.edu.ifce.usecase.impl.user;
 
 import br.edu.ifce.domain.User;
 import br.edu.ifce.usecase.exceptions.InvalidConfirmationTokenException;
+import br.edu.ifce.usecase.exceptions.ObjectNotFoundException;
 import br.edu.ifce.usecase.exceptions.ValidationException;
 import br.edu.ifce.usecase.ports.driven.PasswordTokenRepository;
 import br.edu.ifce.usecase.ports.driven.UserRepository;
@@ -22,10 +23,11 @@ public class ResetUserPasswordUseCase implements ResetUserPassword {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Transactional
     @Override
+    @Transactional
     public void execute(String token, String newPassword) {
-        var passwordToken = passwordTokenRepository.findByToken(token);
+        var passwordToken = passwordTokenRepository.find(token)
+                .orElseThrow(() -> new ObjectNotFoundException("Invalid token"));
 
         if (passwordToken.hasExpired()) {
             throw new InvalidConfirmationTokenException("token expired");
@@ -39,7 +41,7 @@ public class ResetUserPasswordUseCase implements ResetUserPassword {
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        userRepository.save(user);
+        userRepository.update(user);
         passwordTokenRepository.delete(passwordToken.getId());
     }
 

@@ -2,7 +2,7 @@ package br.edu.ifce.mysql.jdbc;
 
 import br.edu.ifce.domain.City;
 import br.edu.ifce.mysql.extractors.CityExtractor;
-import br.edu.ifce.mysql.repository.CityRepository;
+import br.edu.ifce.usecase.ports.driven.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,7 +32,7 @@ public class JdbcCityRepository implements CityRepository {
         var selectStatement = BASE_QUERY + " WHERE city.name = ? AND state.initials = ?";
         var queryArguments = Arrays.asList(name, stateInitials).toArray();
 
-        return Objects.requireNonNull(jdbcTemplate.query(selectStatement, cityExtractor, name, queryArguments))
+        return Objects.requireNonNull(jdbcTemplate.query(selectStatement, cityExtractor, queryArguments))
                 .stream()
                 .findFirst();
     }

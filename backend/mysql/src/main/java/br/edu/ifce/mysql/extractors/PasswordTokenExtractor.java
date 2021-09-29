@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class PasswordTokenExtractor implements ResultSetExtractor<Set<PasswordTo
         return new PasswordToken(
                 resultSet.getLong("id"),
                 resultSet.getString("token"),
-                resultSet.getTimestamp("created_at").toLocalDateTime(),
-                resultSet.getTimestamp("expires_at").toLocalDateTime(),
+                resultSet.getObject("created_at", LocalDateTime.class),
+                resultSet.getObject("expires_at", LocalDateTime.class),
                 null
         );
     }
