@@ -9,7 +9,6 @@ API Rest desenvolvida durante a disciplina de Engenharia de Software que tem com
 ### Principais tecnologias
 
  - Spring Web
- - Spring Data JPA
  - Spring Security (autenticação e autorização com JWT)
  - MySQL
  - Consumo de APIs externas:
