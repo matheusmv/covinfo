@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset Liquibase:7
+-- changeset Liquibase:10
 -- comment populate table city
 INSERT INTO `city` (`id`, `name`, `state_id`) VALUES
 (1, 'Afonso Cláudio', 8),
