@@ -6,6 +6,8 @@ Projeto desenvolvido durante a disciplina de engenharia de software
 
 API Rest desenvolvida durante a disciplina de Engenharia de Software que tem como objetivo fornecer dados relacionados ao COVID-19
 
+ <img src="arch.png" alt="arquitetura" height="50%" width="50%">
+
 ### Principais tecnologias
 
  - Spring Web
